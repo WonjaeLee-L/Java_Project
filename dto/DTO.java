@@ -1,6 +1,6 @@
 package dto;
 
-public class WordDTO {
+public class DTO {
 	private String kor = null;
 	private String eng = null;
 

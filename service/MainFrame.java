@@ -17,10 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import dao_inf.DBdao;
-import dto.WordDTO;
+import dto.DTO;
 
 // JFrame으로부터 상속 받고, DBdao라는 인터페이스변수를 가지고 있다
-public class WordMainFrame extends JFrame implements ActionListener, ItemListener {
+public class MainFrame extends JFrame implements ActionListener, ItemListener {
 	private JPanel title_p = new JPanel(); // 컴포넌트&컨테이너.
 	// 기본 레이아웃이 flow 레이아웃.. 가운데부터하나씩 정렬
 	private JLabel t = new JLabel("회원 정보");
@@ -74,9 +74,9 @@ public class WordMainFrame extends JFrame implements ActionListener, ItemListene
 	JTextField j5 = new JTextField();
 	JTextField j6 = new JTextField();
 
-	ArrayList<WordDTO> w = null;
+	ArrayList<DTO> w = null;
 
-	public WordMainFrame(DBdao d) {
+	public MainFrame(DBdao d) {
 		this.dbdao = d; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
 		this.setBounds(100, 100, 500, 300);
 		title_p.add(t);
@@ -172,7 +172,7 @@ public class WordMainFrame extends JFrame implements ActionListener, ItemListene
 	// 리스트 목록 보기
 	private void init() {
 		w = dbdao.selectAll();
-		for (WordDTO t : w) {
+		for (DTO t : w) {
 			main_e_b_list.add(t.getEng() + " : " + t.getKor());
 		}
 	}
@@ -187,14 +187,14 @@ public class WordMainFrame extends JFrame implements ActionListener, ItemListene
 			// 이벤트르발생한소스가 c1btn이라면, j1, j2를 각 변수에 저장
 
 			// DTO에 저장하고 DAO를 통해서 DB에 저장
-			WordDTO wdto = new WordDTO();
+			DTO wdto = new DTO();
 			wdto.setEng(eng);
 			wdto.setKor(kor);
 			dbdao.add(wdto);
 		} else if (e.getSource() == c5btn) {
 			String eng = j5.getText();
 			String kor = j6.getText();
-			WordDTO wdto = new WordDTO();
+			DTO wdto = new DTO();
 			wdto.setEng(eng);
 			wdto.setKor(kor);
 			dbdao.mod(wdto);
@@ -202,7 +202,7 @@ public class WordMainFrame extends JFrame implements ActionListener, ItemListene
 			// dao에게 넘겨서 수정합니다. 단, 영어단어는 수정 불가
 		} else if (e.getSource() == main_e_btn) {
 			String eng = j5.getText();
-			WordDTO wdto = new WordDTO();
+			DTO wdto = new DTO();
 			wdto.setEng(eng);
 			// dao에게 넘겨서 삭제를 합니다.
 			dbdao.delect(wdto);
@@ -215,7 +215,7 @@ public class WordMainFrame extends JFrame implements ActionListener, ItemListene
 		System.out.println(selectNum + "번이 선택 됨");
 
 		// 1. 리스트에서 가져오기, 2. DB에서 가져오기 중에 1로 진행
-		WordDTO tempdto = w.get(selectNum);
+		DTO tempdto = w.get(selectNum);
 		j5.setText(tempdto.getEng());
 		j6.setText(tempdto.getKor());
 

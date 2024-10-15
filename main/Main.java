@@ -1,8 +1,8 @@
 package main;
 
 import dao_inf.DBdao;
-import dao_inf.WordDAO;
-import service.WordMainFrame;
+import dao_inf.DAO;
+import service.MainFrame;
 
 // WordMainFrame, Main, DBdao, WordDAO_mysql, WordDAO Class만 사용
 public class Main {
@@ -15,8 +15,8 @@ public class Main {
 //		WordService ws = new WordService(dao);
 //		ws.menu();
 
-		DBdao dao = new WordDAO();
-		WordMainFrame ws = new WordMainFrame(dao);
+		DBdao dao = new DAO();
+		MainFrame ws = new MainFrame(dao);
 	}
 
 }

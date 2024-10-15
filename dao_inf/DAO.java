@@ -2,55 +2,55 @@ package dao_inf;
 
 import java.util.ArrayList;
 
-import dto.WordDTO;
+import dto.DTO;
 
 // DBdao를 implements 받고, override
-public class WordDAO implements DBdao {
+public class DAO implements DBdao {
 
 	// Dao 작업 필요
 
-	public WordDAO() {
+	public DAO() {
 	}
 
 	@Override
-	public void add(WordDTO wdto) {
+	public void add(DTO wdto) {
 		System.out.println("insert : " + wdto.getEng());
 	}
 
 	@Override
-	public ArrayList<WordDTO> selectAll() {
+	public ArrayList<DTO> selectAll() {
 
 		// sample 코드 >> 실제 코드는 DB에서 가져오기
-		ArrayList<WordDTO> w = new ArrayList<WordDTO>();
-		WordDTO temp = new WordDTO();
+		ArrayList<DTO> w = new ArrayList<DTO>();
+		DTO temp = new DTO();
 		temp.setEng("apple");
 		temp.setKor("사과");
 		w.add(temp);
-		temp = new WordDTO();
+		temp = new DTO();
 		temp.setEng("banana");
 		temp.setKor("바나나");
 		w.add(temp);
-		temp = new WordDTO();
-		temp.setEng("banana");
-		temp.setKor("바나나");
-		w.add(temp);
-
-		temp = new WordDTO();
+		temp = new DTO();
 		temp.setEng("banana");
 		temp.setKor("바나나");
 		w.add(temp);
 
-		temp = new WordDTO();
+		temp = new DTO();
 		temp.setEng("banana");
 		temp.setKor("바나나");
 		w.add(temp);
 
-		temp = new WordDTO();
+		temp = new DTO();
 		temp.setEng("banana");
 		temp.setKor("바나나");
 		w.add(temp);
 
-		temp = new WordDTO();
+		temp = new DTO();
+		temp.setEng("banana");
+		temp.setKor("바나나");
+		w.add(temp);
+
+		temp = new DTO();
 		temp.setEng("banana");
 		temp.setKor("바나나");
 		w.add(temp);
@@ -60,13 +60,13 @@ public class WordDAO implements DBdao {
 	}
 
 	@Override
-	public void mod(WordDTO wdto) {
+	public void mod(DTO wdto) {
 		// TODO Auto-generated method stub
 		System.out.println("수정 : " + wdto.getEng() + "/" + wdto.getKor());
 	}
 
 	@Override
-	public void delect(WordDTO wdto) {
+	public void delect(DTO wdto) {
 		// TODO Auto-generated method stub
 		System.out.println("삭제 : " + wdto.getEng());
 	}
