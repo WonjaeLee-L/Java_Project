@@ -2,6 +2,7 @@ package service;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.List;
 import java.awt.event.ActionEvent;
@@ -9,105 +10,129 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import dao_inf.DBdao;
 import dto.DTO;
 
 // JFrame으로부터 상속 받고, DBdao라는 인터페이스변수를 가지고 있다
 public class MainFrame extends JFrame implements ActionListener, ItemListener {
-	private JPanel title_p = new JPanel(); // 컴포넌트&컨테이너.
-	// 기본 레이아웃이 flow 레이아웃.. 가운데부터하나씩 정렬
+	
+	DBdao dbdao = null;
+	
+	// 폰트 설정
+	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
+	private Font borderFont = new Font(Font.DIALOG, Font.ITALIC, 10);
+
+	// 가장 상위 변수
+	private JPanel mainF = new JPanel(); // 컴포넌트&컨테이너.
 	private JLabel t = new JLabel("회원 정보");
 	private JPanel main = new JPanel();
 	private JPanel main_center = new JPanel();
 	private JPanel main_east = new JPanel();
-	private JPanel center_3 = new JPanel();
 
-
-	DBdao dbdao = null;
 	// main_center 변수
-	JLabel main_c_title = new JLabel("개인 정보");
-	JButton main_c_btn = new JButton("저장");
-	JPanel main_c_main = new JPanel();
-	JLabel main_c_1 = new JLabel("이름");
-	JLabel main_c_2 = new JLabel("아이디");
-	JLabel main_c_3 = new JLabel("비밀번호 수정");
-	JLabel main_c_4 = new JLabel("주민등록번호");
-	JLabel main_c_5 = new JLabel("시험 점수");
-	JLabel main_c_6 = new JLabel("태도 점수");
-	JLabel main_c_1_t = new JLabel();
-	JLabel main_c_2_t = new JLabel();
-	JPanel main_c_3_t = new JPanel();
-	JTextField main_c_3_t1 = new JTextField();
-	JTextField main_c_3_t2 = new JTextField();
-	JLabel main_c_4_t = new JLabel();
-	JLabel main_c_5_t = new JLabel();
-	JLabel main_c_6_t = new JLabel();
-	
+	private TitledBorder centerBorder = new TitledBorder("개인 정보");
+	private JButton main_c_btn = new JButton("저장");
+	private JPanel main_c_main = new JPanel();
+	private JLabel main_c_1 = new JLabel("이름");
+	private JLabel main_c_2 = new JLabel("아이디");
+	private JLabel main_c_3 = new JLabel("비밀번호 수정");
+	private JLabel main_c_4 = new JLabel("주민등록번호");
+	private JLabel main_c_5 = new JLabel("시험 점수");
+	private JLabel main_c_6 = new JLabel("태도 점수");
+	private JLabel main_c_1_t = new JLabel();
+	private JLabel main_c_2_t = new JLabel();
+	private JPanel main_c_3_t = new JPanel();
+	private JTextField main_c_3_t1 = new JTextField();
+	private JTextField main_c_3_t2 = new JTextField();
+	private JLabel main_c_4_t = new JLabel();
+	private JLabel main_c_5_t = new JLabel();
+	private JLabel main_c_6_t = new JLabel();
+
 	// main_east 변수
-	JPanel main_e_main = new JPanel();
-	JPanel main_e_t = new JPanel();
-	JPanel main_e_b = new JPanel();
-	JPanel main_e_t_in = new JPanel();
-	
+	private JPanel main_e_t = new JPanel();
+	private JPanel main_e_b = new JPanel();
 	// main_e_t의 내부, 우측 위
-	JLabel main_e_t_t = new JLabel("상담 신청");
-	JLabel main_e_t_b = new JLabel();
-	
-	// main_e_b의 내부, 우측 아래
-	JLabel main_e_b_t = new JLabel("상담 이력");
-	List main_e_b_list = new List();
-	JButton main_e_btn = new JButton("신청");
-	
-	// center_3 변수
-	JLabel c5 = new JLabel("단어수정");
-	JButton c5btn = new JButton("수정");
-	JPanel c5c = new JPanel();
-	JLabel c6 = new JLabel("영어");
-	JLabel c7 = new JLabel("한글");
-	JTextField j5 = new JTextField();
-	JTextField j6 = new JTextField();
+	private TitledBorder eastBorder = new TitledBorder("상담 신청");
+	private JPanel main_e_t_b = new JPanel();
+	// main_e_t_b
+	private JLabel main_e_t_b_1 = new JLabel("날짜 입력");
+	private JLabel main_e_t_b_2 = new JLabel("관심 직무 입력");
+	private JTextField main_e_t_b_t1 = new JTextField();
+	private JTextField main_e_t_b_t2 = new JTextField();
+	private JLabel main_e_t_b_3 = new JLabel();
+	private JButton main_e_t_b_btn = new JButton("신청");
+	// main_east의 내부, 우측 아래
+	private TitledBorder eastBorder2 = new TitledBorder("상담 이력");
+	private List main_e_b_list = new List();
 
 	ArrayList<DTO> w = null;
 
 	public MainFrame(DBdao d) {
+		// 테두리 폰트, 색상 변경
+		centerBorder.setTitleFont(borderFont);
+		centerBorder.setTitleColor(Color.darkGray);
+		centerBorder.setBorder(new LineBorder(Color.darkGray));
+		eastBorder.setTitleFont(borderFont);
+		eastBorder.setTitleColor(Color.darkGray);
+		eastBorder.setBorder(new LineBorder(Color.darkGray));
+		eastBorder2.setTitleFont(borderFont);
+		eastBorder2.setTitleColor(Color.darkGray);
+		eastBorder2.setBorder(new LineBorder(Color.darkGray));
+
 		this.dbdao = d; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
 		this.setBounds(100, 100, 500, 300);
-		title_p.add(t);
-		
-		// 라인 설정
-		main_center.setBorder(new LineBorder(Color.white, 3));
-		main_east.setBorder(new LineBorder(Color.DARK_GRAY, 3));
-//		main_c_s.setBorder(new LineBorder(Color.yellow, 3)); 필요 xx
-		
-		
-		main.setBackground(Color.yellow);
-//		this.setLayout(new BorderLayout());
-		this.add(title_p, "North");
+		t.setFont(titleFont);
+		mainF.add(t);
+
+		// 테두리 설정
+		main_center.setBorder(new LineBorder(Color.white, 2));
+		main_east.setBorder(new LineBorder(Color.white, 2));
+		main_e_t.setBorder(new LineBorder(Color.white, 2));
+		main_e_b.setBorder(new LineBorder(Color.white, 2));
+
+//		main_c_1.setBorder(new LineBorder(Color.BLACK));
+//		main_c_1_t.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_2.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_2_t.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_3.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_3_t.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_4.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_4_t.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_5.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_5_t.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_6.setBorder(new LineBorder(Color.BLACK, 1));
+//		main_c_6_t.setBorder(new LineBorder(Color.BLACK, 1));
+
+		this.add(mainF, "North");
 		this.add(main, "Center");
-		main_center.setBackground(Color.red);
-		main_east.setBackground(Color.cyan);
-		center_3.setBackground(Color.green);
-		// 위 3개의 패널을 center_p 에 추가시키는데
+
+		// main에 main_center, main_east 추가. (가장 상위)
 		main.setLayout(new BorderLayout());
 		main.add(main_center, "Center");
 		main.add(main_east, "East");
-//		main.add(center_3);
-//		main_c_1.setBackground(Color.red);
-		// 비밀번호 수정
+
+		// 비밀번호 수정 칸
 		main_c_3_t.setLayout(new GridLayout());
 		main_c_3_t.add(main_c_3_t1);
 		main_c_3_t.add(main_c_3_t2);
 
-		// center_1 작업
-		main_c_main.setBackground(Color.gray);
-		main_c_main.setLayout(new GridLayout(6, 6,10,10));
+		// main에 추가한 main_center에 추가
+		main_center.setLayout(new BorderLayout());
+		main_center.add(main_c_main, "Center");
+		main_center.add(main_c_btn, "South");
+
+		// main_c_main(중앙) 추가.
+		main_c_main.setLayout(new GridLayout(6, 6, 10, 10));
+		main_c_main.setBorder(centerBorder);
 		main_c_main.add(main_c_1);
 		main_c_main.add(main_c_1_t);
 		main_c_main.add(main_c_2);
@@ -120,48 +145,35 @@ public class MainFrame extends JFrame implements ActionListener, ItemListener {
 		main_c_main.add(main_c_5_t);
 		main_c_main.add(main_c_6);
 		main_c_main.add(main_c_6_t);
-		
-		
-		main_center.setLayout(new BorderLayout());
-		main_center.add(main_c_title, "North");
-		main_center.add(main_c_btn, "South");
-		main_center.add(main_c_main, "Center");
 
-		// center_2작업
-		main_e_t.setLayout(new BorderLayout());
-		main_e_t.add(main_e_t_t, "North");
-		main_e_t.add(main_e_t_in, "Center");
-		
-		main_e_t_in.setLayout(new GridLayout());
-//		main_e_t_in.add(c1btn)
-		main_e_b.setLayout(new BorderLayout());
-		
-		
-		main_e_main.setLayout(new BorderLayout());
-		main_e_main.add(main_e_t, "North");
-		main_e_main.add( main_e_b, "Center");
-//		main_e_main.add(c22btn, "South");
+		// main_east에 추가
 		main_east.setLayout(new BorderLayout());
-		main_east.add(main_e_main, "Center");
+		main_east.add(main_e_t, "North");
+		main_east.add(main_e_b, "Center");
 
-		// center_3 작업
-		j5.setEnabled(false); // j5(영어) 수정 불가 설정
-		c5c.setBackground(Color.gray);
-		c5c.setLayout(new GridLayout(2, 2));
-		c5c.add(c6);
-		c5c.add(j5);
-		c5c.add(c7);
-		c5c.add(j6);
-		center_3.setLayout(new BorderLayout());
-		center_3.add(c5, "North");
-		center_3.add(c5btn, "South");
-		center_3.add(c5c, "Center");
+		// main_east 상단부 main_e_t 작업
+		main_e_t.setBorder(eastBorder);
+		main_e_t.setLayout(new BorderLayout());
+		main_e_t.add(main_e_t_b, "Center");
+
+		// main_e_t_b 내부 작업
+		main_e_t_b.setLayout(new GridLayout(3, 3, 10, 10));
+		main_e_t_b.add(main_e_t_b_1);
+		main_e_t_b.add(main_e_t_b_t1);
+		main_e_t_b.add(main_e_t_b_2);
+		main_e_t_b.add(main_e_t_b_t2);
+		main_e_t_b.add(main_e_t_b_3);
+		main_e_t_b.add(main_e_t_b_btn);
+
+		// main_east 하단부 main_e_b 작업
+		main_e_b.setBorder(eastBorder2);
+		main_e_b.setLayout(new BorderLayout());
+		main_e_b.add(main_e_b_list, "Center");
 
 		// 이벤트 감지를 위한 이벤트 등록
 		main_c_btn.addActionListener(this);
 		main_e_b_list.addItemListener(this);
-		main_e_btn.addActionListener(this);
-		c5btn.addActionListener(this);
+		main_e_t_b_btn.addActionListener(this);
 
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -191,22 +203,23 @@ public class MainFrame extends JFrame implements ActionListener, ItemListener {
 			wdto.setEng(eng);
 			wdto.setKor(kor);
 			dbdao.add(wdto);
-		} else if (e.getSource() == c5btn) {
-			String eng = j5.getText();
-			String kor = j6.getText();
-			DTO wdto = new DTO();
-			wdto.setEng(eng);
-			wdto.setKor(kor);
-			dbdao.mod(wdto);
-
-			// dao에게 넘겨서 수정합니다. 단, 영어단어는 수정 불가
-		} else if (e.getSource() == main_e_btn) {
-			String eng = j5.getText();
-			DTO wdto = new DTO();
-			wdto.setEng(eng);
-			// dao에게 넘겨서 삭제를 합니다.
-			dbdao.delect(wdto);
 		}
+//		} else if (e.getSource() == c5btn) {
+//			String eng = j5.getText();
+//			String kor = j6.getText();
+//			DTO wdto = new DTO();
+//			wdto.setEng(eng);
+//			wdto.setKor(kor);
+//			dbdao.mod(wdto);
+//
+//			// dao에게 넘겨서 수정합니다. 단, 영어단어는 수정 불가
+//		} else if (e.getSource() == main_e_t_b_btn) {
+//			String eng = j5.getText();
+//			DTO wdto = new DTO();
+//			wdto.setEng(eng);
+//			// dao에게 넘겨서 삭제를 합니다.
+//			dbdao.delect(wdto);
+//		}
 	}
 
 	@Override
@@ -216,8 +229,8 @@ public class MainFrame extends JFrame implements ActionListener, ItemListener {
 
 		// 1. 리스트에서 가져오기, 2. DB에서 가져오기 중에 1로 진행
 		DTO tempdto = w.get(selectNum);
-		j5.setText(tempdto.getEng());
-		j6.setText(tempdto.getKor());
+//		j5.setText(tempdto.getEng());
+//		j6.setText(tempdto.getKor());
 
 	}
 

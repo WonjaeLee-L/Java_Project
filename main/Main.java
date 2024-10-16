@@ -1,8 +1,9 @@
 package main;
 
-import dao_inf.DBdao;
 import dao_inf.DAO;
+import dao_inf.DBdao;
 import service.MainFrame;
+import service.ManageFrame;
 
 // WordMainFrame, Main, DBdao, WordDAO_mysql, WordDAO Class만 사용
 public class Main {
@@ -17,6 +18,7 @@ public class Main {
 
 		DBdao dao = new DAO();
 		MainFrame ws = new MainFrame(dao);
+		new ManageFrame();
 	}
 
 }
