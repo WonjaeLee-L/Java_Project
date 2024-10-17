@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import __0__project_dto.memberDTO;
 
-public interface _DAO_interface{
+public interface memberDAO_interface{
 
 	void add();
 

@@ -19,16 +19,16 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import __0__project_dao._DAO_interface;
+import __0__project_dao.memberDAO_interface;
 import __0__project_dto.memberDTO;
 
 public class MemberFrame extends JFrame implements ActionListener, ItemListener {
-
-	_DAO_interface dbdao = null;
+	border b = new border();
+	memberDAO_interface memberInterface = null;
 
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
-	private Font borderFont = new Font(Font.DIALOG, Font.ITALIC, 10);
+//	private Font borderFont = new Font(Font.DIALOG, Font.ITALIC, 10);
 
 	// 가장 상위 변수
 	private JPanel mainF = new JPanel(); // 컴포넌트&컨테이너.
@@ -38,7 +38,9 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JPanel main_east = new JPanel();
 
 	// main_center 변수
-	private TitledBorder centerBorder = new TitledBorder("개인 정보");
+//	private TitledBorder centerBorder = null;
+	
+	
 	private JButton main_c_btn = new JButton("저장");
 	private JPanel main_c_main = new JPanel();
 	private JLabel main_c_1 = new JLabel("이름");
@@ -60,7 +62,9 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JPanel main_e_t = new JPanel();
 	private JPanel main_e_b = new JPanel();
 	// main_e_t의 내부, 우측 위
-	private TitledBorder eastBorder = new TitledBorder("상담 신청");
+	
+//	private TitledBorder eastBorder = new TitledBorder("상담 신청");
+	
 	private JPanel main_e_t_b = new JPanel();
 	// main_e_t_b
 	private JLabel main_e_t_b_1 = new JLabel("날짜 입력");
@@ -70,24 +74,23 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JLabel main_e_t_b_3 = new JLabel();
 	private JButton main_e_t_b_btn = new JButton("신청");
 	// main_east의 내부, 우측 아래
-	private TitledBorder eastBorder2 = new TitledBorder("상담 이력");
+	
+//	private TitledBorder eastBorder2 = new TitledBorder("상담 이력");
+	
 	private List main_e_b_list = new List();
 
 	ArrayList<memberDTO> w = null;
 
-	public MemberFrame(_DAO_interface inter) {
+	public MemberFrame(memberDAO_interface inter) {
 		// 테두리 폰트, 색상 변경
-		centerBorder.setTitleFont(borderFont);
-		centerBorder.setTitleColor(Color.darkGray);
-		centerBorder.setBorder(new LineBorder(Color.darkGray));
-		eastBorder.setTitleFont(borderFont);
-		eastBorder.setTitleColor(Color.darkGray);
-		eastBorder.setBorder(new LineBorder(Color.darkGray));
-		eastBorder2.setTitleFont(borderFont);
-		eastBorder2.setTitleColor(Color.darkGray);
-		eastBorder2.setBorder(new LineBorder(Color.darkGray));
+		
+//		centerBorder = new TitledBorder("개인 정보");
+//		centerBorder.setTitleFont(borderFont);
+//		centerBorder.setTitleColor(Color.darkGray);
+//		centerBorder.setBorder(new LineBorder(Color.darkGray));
+		
 
-		this.dbdao = inter; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
+		this.memberInterface = inter; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
 		this.setBounds(100, 100, 500, 300);
 		t.setFont(titleFont);
 		mainF.add(t);
@@ -97,19 +100,6 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_east.setBorder(new LineBorder(Color.white, 2));
 		main_e_t.setBorder(new LineBorder(Color.white, 2));
 		main_e_b.setBorder(new LineBorder(Color.white, 2));
-
-//		main_c_1.setBorder(new LineBorder(Color.BLACK));
-//		main_c_1_t.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_2.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_2_t.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_3.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_3_t.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_4.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_4_t.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_5.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_5_t.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_6.setBorder(new LineBorder(Color.BLACK, 1));
-//		main_c_6_t.setBorder(new LineBorder(Color.BLACK, 1));
 
 		this.add(mainF, "North");
 		this.add(main, "Center");
@@ -131,7 +121,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 		// main_c_main(중앙) 추가.
 		main_c_main.setLayout(new GridLayout(6, 6, 10, 10));
-		main_c_main.setBorder(centerBorder);
+		main_c_main.setBorder(b.mainborder("개인 정보"));
 		main_c_main.add(main_c_1);
 		main_c_main.add(main_c_1_t);
 		main_c_main.add(main_c_2);
@@ -151,7 +141,9 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_east.add(main_e_b, "Center");
 
 		// main_east 상단부 main_e_t 작업
-		main_e_t.setBorder(eastBorder);
+		
+//		centerBorder = new TitledBorder("상담 신청");
+		main_e_t.setBorder(b.mainborder("상담 신청"));
 		main_e_t.setLayout(new BorderLayout());
 		main_e_t.add(main_e_t_b, "Center");
 
@@ -165,7 +157,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_e_t_b.add(main_e_t_b_btn);
 
 		// main_east 하단부 main_e_b 작업
-		main_e_b.setBorder(eastBorder2);
+//		centerBorder = new TitledBorder("상담 이력");
+		main_e_b.setBorder(b.mainborder("상담 이력"));
 		main_e_b.setLayout(new BorderLayout());
 		main_e_b.add(main_e_b_list, "Center");
 
@@ -177,12 +170,12 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		init();
+		listin();
 	}
 
 	// 리스트 목록 보기
-	private void init() {
-		w = dbdao.allList();
+	private void listin() {
+		w = memberInterface.allList();
 		for (memberDTO t : w) {
 			main_e_b_list.add(t.getName() + " : " + t.getId_num());
 		}
@@ -193,7 +186,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		// 인터페이스를 구현할 메서드
 		if (e.getSource() == main_c_btn) {
 			String modId_num = main_c_1_t.getText() + main_c_2_t.getText();
-			dbdao.add();
+			memberInterface.add();
 
 		}
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import __0__project_dto.memberDTO;
 
-public class memberDAO extends _connection implements _DAO_interface {
+public class memberDAO extends _connection implements memberDAO_interface {
 
 	memberDTO mdto = new memberDTO();
 

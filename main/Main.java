@@ -20,7 +20,6 @@ public class Main {
 		DBdao dao = new DAO();
 		MainFrame ws = new MainFrame(dao);
 		new ManageFrame();
-		MainFrame2 ww = new MainFrame2(dao);
 	}
 
 }
