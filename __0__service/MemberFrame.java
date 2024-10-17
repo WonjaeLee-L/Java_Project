@@ -1,4 +1,4 @@
-package service;
+package __0__service;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,14 +19,13 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import dao_inf.DBdao;
-import dto.DTO;
+import __0__project_dao._DAO_interface;
+import __0__project_dto.memberDTO;
 
-// JFrame으로부터 상속 받고, DBdao라는 인터페이스변수를 가지고 있다
-public class MainFrame extends JFrame implements ActionListener, ItemListener {
-	
-	DBdao dbdao = null;
-	
+public class MemberFrame extends JFrame implements ActionListener, ItemListener {
+
+	_DAO_interface dbdao = null;
+
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
 	private Font borderFont = new Font(Font.DIALOG, Font.ITALIC, 10);
@@ -74,9 +73,9 @@ public class MainFrame extends JFrame implements ActionListener, ItemListener {
 	private TitledBorder eastBorder2 = new TitledBorder("상담 이력");
 	private List main_e_b_list = new List();
 
-	ArrayList<DTO> w = null;
+	ArrayList<memberDTO> w = null;
 
-	public MainFrame(DBdao d) {
+	public MemberFrame(_DAO_interface inter) {
 		// 테두리 폰트, 색상 변경
 		centerBorder.setTitleFont(borderFont);
 		centerBorder.setTitleColor(Color.darkGray);
@@ -88,7 +87,7 @@ public class MainFrame extends JFrame implements ActionListener, ItemListener {
 		eastBorder2.setTitleColor(Color.darkGray);
 		eastBorder2.setBorder(new LineBorder(Color.darkGray));
 
-		this.dbdao = d; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
+		this.dbdao = inter; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
 		this.setBounds(100, 100, 500, 300);
 		t.setFont(titleFont);
 		mainF.add(t);
@@ -183,9 +182,9 @@ public class MainFrame extends JFrame implements ActionListener, ItemListener {
 
 	// 리스트 목록 보기
 	private void init() {
-		w = dbdao.selectAll();
-		for (DTO t : w) {
-			main_e_b_list.add(t.getEng() + " : " + t.getKor());
+		w = dbdao.allList();
+		for (memberDTO t : w) {
+			main_e_b_list.add(t.getName() + " : " + t.getId_num());
 		}
 	}
 
@@ -194,31 +193,10 @@ public class MainFrame extends JFrame implements ActionListener, ItemListener {
 		// 인터페이스를 구현할 메서드
 		if (e.getSource() == main_c_btn) {
 			String modId_num = main_c_1_t.getText() + main_c_2_t.getText();
-//			System.out.println(eng + "/" + kor);
-			// 이벤트르발생한소스가 c1btn이라면, j1, j2를 각 변수에 저장
+			dbdao.add();
 
-			// DTO에 저장하고 DAO를 통해서 DB에 저장
-//			DTO wdto = new DTO();
-//			wdto.setEng(eng);
-//			wdto.setKor(kor);
-//			dbdao.add(wdto);
 		}
-//		} else if (e.getSource() == c5btn) {
-//			String eng = j5.getText();
-//			String kor = j6.getText();
-//			DTO wdto = new DTO();
-//			wdto.setEng(eng);
-//			wdto.setKor(kor);
-//			dbdao.mod(wdto);
-//
-//			// dao에게 넘겨서 수정합니다. 단, 영어단어는 수정 불가
-//		} else if (e.getSource() == main_e_t_b_btn) {
-//			String eng = j5.getText();
-//			DTO wdto = new DTO();
-//			wdto.setEng(eng);
-//			// dao에게 넘겨서 삭제를 합니다.
-//			dbdao.delect(wdto);
-//		}
+
 	}
 
 	@Override
@@ -227,7 +205,7 @@ public class MainFrame extends JFrame implements ActionListener, ItemListener {
 		System.out.println(selectNum + "번이 선택 됨");
 
 		// 1. 리스트에서 가져오기, 2. DB에서 가져오기 중에 1로 진행
-		DTO tempdto = w.get(selectNum);
+		memberDTO mdto = w.get(selectNum);
 //		j5.setText(tempdto.getEng());
 //		j6.setText(tempdto.getKor());
 
