@@ -14,18 +14,25 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
+import __0__project_dao.counselDAO_interface;
 import __0__project_dao.memberDAO_interface;
+import __0__project_dto.certificateDTO;
+import __0__project_dto.counselDTO;
 import __0__project_dto.memberDTO;
 
 public class MemberFrame extends JFrame implements ActionListener, ItemListener {
 	border type = new border();
 	memberDAO_interface memberInterface = null;
-
+	counselDAO_interface counselInterface = null;
+	ArrayList<memberDTO> arrayMember = null;
+	ArrayList<counselDTO> arrayCounsel = null;
+	
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
 //	private Font borderFont = new Font(Font.DIALOG, Font.ITALIC, 10);
@@ -48,15 +55,31 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JLabel main_c_3_l = new JLabel("비밀번호 수정");
 	private JButton main_c_3_btn = type.buttontype("저장");
 	private JLabel main_c_4 = new JLabel("주민등록번호");
-	private JLabel main_c_5 = new JLabel("시험 점수");
-	private JLabel main_c_6 = new JLabel("태도 점수");
+	private JLabel main_c_5 = new JLabel("자격증 1");
+	private JLabel main_c_6 = new JLabel("자격증 2");
 	private JLabel main_c_1_t = new JLabel();
 	private JLabel main_c_2_t = new JLabel();
 	private JPanel main_c_3_t = new JPanel();
 	private JTextField main_c_3_t1 = new JTextField();
 //	private JTextField main_c_3_t2 = new JTextField();
 	private JLabel main_c_4_t = new JLabel();
-	private JLabel main_c_5_t = new JLabel();
+//	private JLabel main_c_5_t = new JLabel();
+	
+	
+	
+	///// 수정
+//	ArrayList<certificateDTO> arraycertificate = new ArrayList<>();
+	private JList main_c_6_list = new JList();
+//	main_c_6_list = new list(arraycertificate);
+//	private JScrollPane main_c_t_t = new JScrollPane(main_c_6_list);
+	private String ccList[] = {"test1","test2","test3","test4"};
+	
+	
+//	main_c_6_list = new JList(ccList);
+	private JScrollPane main_c_5_t = new JScrollPane();
+	
+	
+	
 	private JLabel main_c_6_t = new JLabel();
 	private JPanel main_c_7 = new JPanel();
 	private JButton main_c_7_btn = type.buttontype("종료");
@@ -76,24 +99,28 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JLabel main_e_t_b_3 = new JLabel();
 //	private JButton main_e_t_b_btn = new JButton("신청");
 	private JButton main_e_t_b_btn = type.buttontype("신청");
+	private List main_e_b_list = new List();
 
 	// main_east의 내부, 우측 아래
 
 //	private TitledBorder eastBorder2 = new TitledBorder("상담 이력");
 
-	private List main_e_b_list = new List();
+	
 
-	ArrayList<memberDTO> w = null;
-
-	public MemberFrame(memberDAO_interface inter) {
+	public MemberFrame(memberDAO_interface m_inter, counselDAO_interface cou_inter) {
 		// 테두리 폰트, 색상 변경
 
 //		centerBorder = new TitledBorder("개인 정보");
 //		centerBorder.setTitleFont(borderFont);
 //		centerBorder.setTitleColor(Color.darkGray);
 //		centerBorder.setBorder(new LineBorder(Color.darkGray));
-
-		this.memberInterface = inter; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
+		
+		// 객체 주소 주입
+		this.memberInterface = m_inter; 
+		this.counselInterface = cou_inter;
+		
+		
+		// 창 크기 설정
 		this.setBounds(100, 100, 700, 400);
 		title.setFont(titleFont);
 		mainF.add(title);
@@ -124,6 +151,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_7.add(main_c_7_btn);
 
 		// main_c_main(중앙) 추가.
+		
+		
 		main_c_main.setLayout(new GridLayout(6, 2, 10, 10));
 		main_c_main.setBorder(type.mainborder("개인 정보"));
 		main_c_main.add(main_c_1);
@@ -168,18 +197,19 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_3_btn.addActionListener(this);
 		main_e_b_list.addItemListener(this);
 		main_e_t_b_btn.addActionListener(this);
-		this.pack();
+//		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		listin();
+		
 	}
 
 	// 리스트 목록 보기
 	private void listin() {
-		w = memberInterface.allList();
-		for (memberDTO t : w) {
-			main_e_b_list.add(t.getName() + " : " + t.getId_num());
+			arrayCounsel = counselInterface.allList();
+			for (counselDTO c : arrayCounsel) {
+				main_e_b_list.add(c.getName() + " : " + c.getInterest());
 		}
 	}
 
@@ -198,12 +228,17 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		System.out.println(selectNum + "번이 선택 됨");
 
 		// 1. 리스트에서 가져오기, 2. DB에서 가져오기 중에 1로 진행
-		memberDTO mdto = w.get(selectNum);
+		counselDTO cudto = arrayCounsel.get(selectNum);
+		
+		// 출력하게 하기
+		
+		NotiFrame n = new NotiFrame(memberInterface);
+		System.out.println(cudto.getName()+":"+cudto.getCs_date());
 //		j5.setText(tempdto.getEng());
 //		j6.setText(tempdto.getKor());
 
 	}
 	
-//	public void 
+	
 
 }

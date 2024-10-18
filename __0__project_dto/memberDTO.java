@@ -5,8 +5,8 @@ public class memberDTO {
 	private String id = null;
 	private String password = null;
 	private String id_num = null;
-	private int score = 0;
-	private int attitude = 0;
+	private String cer_name_1 = null;
+	private String cer_name_2 = null;
 
 	public String getName() {
 		return name;
@@ -40,26 +40,28 @@ public class memberDTO {
 		this.id_num = id_num;
 	}
 
-	public int getScore() {
-		return score;
+	public String getCer_name_1() {
+		return cer_name_1;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setCer_name_1(String cer_name_1) {
+		this.cer_name_1 = cer_name_1;
 	}
 
-	public int getAttitude() {
-		return attitude;
+	public String getCer_name_2() {
+		return cer_name_2;
 	}
 
-	public void setAttitude(int attitude) {
-		this.attitude = attitude;
+	public void setCer_name_2(String cer_name_2) {
+		this.cer_name_2 = cer_name_2;
 	}
 
 	@Override
 	public String toString() {
-		return "memberDTO [name=" + name + ", id=" + id + ", password=" + password + ", id_num=" + id_num + ", score="
-				+ score + ", attitude=" + attitude + "]";
+		return "memberDTO [name=" + name + ", id=" + id + ", password=" + password + ", id_num=" + id_num
+				+ ", cer_name_1=" + cer_name_1 + ", cre_name_2=" + cer_name_2 + "]";
 	}
+
+	
 
 }

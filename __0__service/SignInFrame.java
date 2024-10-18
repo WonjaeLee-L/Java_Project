@@ -50,15 +50,9 @@ public class SignInFrame extends JFrame {
 		this.setBounds(100, 100, 500, 150);
 		this.add(mainPanel, "Center");
 
-//		Border = new TitledBorder("회원 로그인");
-//		Border.setTitleFont(borderFont);
-//		Border.setTitleColor(Color.darkGray);
-//		Border.setBorder(new LineBorder(Color.darkGray));
+
 		centerPanel.setBorder(type.mainborder("회원 로그인"));
-//		Border = new TitledBorder("가입");
-//		signup.setBorder(Border);
-	
-		 
+	 
 		mainPanel.setLayout(new GridLayout());
 		mainPanel.add(left);
 		mainPanel.add(centerPanel);

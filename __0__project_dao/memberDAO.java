@@ -26,8 +26,8 @@ public class memberDAO extends _connection implements memberDAO_interface {
 			ps.setString(2, mdto.getId());
 			ps.setString(3, mdto.getPassword());
 			ps.setString(4, mdto.getId_num());
-			ps.setInt(5, mdto.getScore());
-			ps.setInt(6, mdto.getAttitude());
+			ps.setString(5, mdto.getCer_name_1());
+			ps.setString(6, mdto.getCer_name_2());
 			result();
 		} catch (Exception e) {
 		} finally {
@@ -80,8 +80,8 @@ public class memberDAO extends _connection implements memberDAO_interface {
 				mtemp.setId(rs.getString("id"));
 				mtemp.setPassword(rs.getString("password"));
 				mtemp.setId_num(rs.getString("id_num"));
-				mtemp.setScore(rs.getInt("score"));
-				mtemp.setAttitude(rs.getInt("attitude"));
+				mtemp.setCer_name_1(rs.getString("cer_name_1"));
+				mtemp.setCer_name_2(rs.getString("cer_name_2"));
 
 				mlist.add(mtemp);
 			}
@@ -112,8 +112,8 @@ public class memberDAO extends _connection implements memberDAO_interface {
 				mtemp.setId(rs.getString("id"));
 				mtemp.setPassword(rs.getString("password"));
 				mtemp.setId_num(rs.getString("id_num"));
-				mtemp.setScore(rs.getInt("score"));
-				mtemp.setAttitude(rs.getInt("attitude"));
+				mtemp.setCer_name_1(rs.getString("cer_name_1"));
+				mtemp.setCer_name_2(rs.getString("cer_name_2"));
 
 				mlist.add(mtemp);
 			}

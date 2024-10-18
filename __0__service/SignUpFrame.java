@@ -99,7 +99,7 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 		// 이벤트 감지를 위한 이벤트 등록
 		main_c_3_t2.addActionListener(this);
 		main_e_b_list.addItemListener(this);
-		this.pack();
+//		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
