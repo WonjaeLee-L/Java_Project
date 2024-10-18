@@ -2,6 +2,7 @@ package __0__service;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
@@ -18,28 +19,30 @@ import __0__project_dao.memberDAO_interface;
 public class SignInFrame extends JFrame {
 
 	memberDAO_interface m_in = null;
-	border b = new border();
+	border type = new border();
 	
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
-	private Font borderFont = new Font(Font.DIALOG, Font.ITALIC, 10);
+//	private Font borderFont = new Font(Font.DIALOG, Font.ITALIC, 10);
 
+	// 메인
 	private JPanel mainPanel = new JPanel();
+	
+	// mainPanel 내부
 	private JLabel left = new JLabel();
 	private JPanel centerPanel = new JPanel();
 	private JLabel right = new JLabel();
-
 	private JLabel top = new JLabel();
 //	private TitledBorder Border = null;
-	private JPanel center = new JPanel();
+	
+
+	// centerPanel 내부
 	private JLabel id = new JLabel("ID");
 	private JTextField id_t = new JTextField();
-	
 	private JLabel password = new JLabel("PASSWORD");
 	private JTextField password_t = new JTextField();
-	
-	private JButton signup = new JButton("SIGNUP");
-	private JButton signin = new JButton("SIGNIN");
+	private JButton signup = type.buttontype("SIGNUP");
+	private JButton signin = type.buttontype("SIGNIN");
 	
 	
 	public SignInFrame(memberDAO_interface inter) {
@@ -51,30 +54,25 @@ public class SignInFrame extends JFrame {
 //		Border.setTitleFont(borderFont);
 //		Border.setTitleColor(Color.darkGray);
 //		Border.setBorder(new LineBorder(Color.darkGray));
-		centerPanel.setBorder(b.mainborder("회원 로그인"));
-		
+		centerPanel.setBorder(type.mainborder("회원 로그인"));
 //		Border = new TitledBorder("가입");
 //		signup.setBorder(Border);
-		
-		
+	
+		 
 		mainPanel.setLayout(new GridLayout());
 		mainPanel.add(left);
 		mainPanel.add(centerPanel);
 		mainPanel.add(right);
 
-		centerPanel.setLayout(new BorderLayout());
-		centerPanel.add(top, "North");
-		centerPanel.add(center, "Center");
+		centerPanel.setLayout(new GridLayout(3,3));
+		centerPanel.add(id);
+		centerPanel.add(id_t);
+		centerPanel.add(password);
+		centerPanel.add(password_t);
+		centerPanel.add(signup);
+		centerPanel.add(signin);
 		
-		center.setLayout(new GridLayout(3,3));
-		center.add(id);
-		center.add(id_t);
-		center.add(password);
-		center.add(password_t);
-		center.add(signup);
-		center.add(signin);
-		
-
+		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}

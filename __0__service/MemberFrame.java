@@ -23,7 +23,7 @@ import __0__project_dao.memberDAO_interface;
 import __0__project_dto.memberDTO;
 
 public class MemberFrame extends JFrame implements ActionListener, ItemListener {
-	border b = new border();
+	border type = new border();
 	memberDAO_interface memberInterface = null;
 
 	// 폰트 설정
@@ -32,20 +32,21 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 	// 가장 상위 변수
 	private JPanel mainF = new JPanel(); // 컴포넌트&컨테이너.
-	private JLabel t = new JLabel("회원 정보");
+	private JLabel title = new JLabel("회원 정보");
 	private JPanel main = new JPanel();
 	private JPanel main_center = new JPanel();
 	private JPanel main_east = new JPanel();
 
 	// main_center 변수
 //	private TitledBorder centerBorder = null;
-	
-	
-	private JButton main_c_btn = new JButton("저장");
+
+//	private JButton main_c_btn = new JButton("저장");
 	private JPanel main_c_main = new JPanel();
 	private JLabel main_c_1 = new JLabel("이름");
 	private JLabel main_c_2 = new JLabel("아이디");
-	private JLabel main_c_3 = new JLabel("비밀번호 수정");
+//	private JPanel main_c_3 = new JPanel();
+	private JLabel main_c_3_l = new JLabel("비밀번호 수정");
+	private JButton main_c_3_btn = type.buttontype("저장");
 	private JLabel main_c_4 = new JLabel("주민등록번호");
 	private JLabel main_c_5 = new JLabel("시험 점수");
 	private JLabel main_c_6 = new JLabel("태도 점수");
@@ -53,18 +54,19 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JLabel main_c_2_t = new JLabel();
 	private JPanel main_c_3_t = new JPanel();
 	private JTextField main_c_3_t1 = new JTextField();
-	private JTextField main_c_3_t2 = new JTextField();
+//	private JTextField main_c_3_t2 = new JTextField();
 	private JLabel main_c_4_t = new JLabel();
 	private JLabel main_c_5_t = new JLabel();
 	private JLabel main_c_6_t = new JLabel();
-
+	private JPanel main_c_7 = new JPanel();
+	private JButton main_c_7_btn = type.buttontype("종료");
 	// main_east 변수
 	private JPanel main_e_t = new JPanel();
 	private JPanel main_e_b = new JPanel();
 	// main_e_t의 내부, 우측 위
-	
+
 //	private TitledBorder eastBorder = new TitledBorder("상담 신청");
-	
+
 	private JPanel main_e_t_b = new JPanel();
 	// main_e_t_b
 	private JLabel main_e_t_b_1 = new JLabel("날짜 입력");
@@ -72,28 +74,29 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JTextField main_e_t_b_t1 = new JTextField();
 	private JTextField main_e_t_b_t2 = new JTextField();
 	private JLabel main_e_t_b_3 = new JLabel();
-	private JButton main_e_t_b_btn = new JButton("신청");
+//	private JButton main_e_t_b_btn = new JButton("신청");
+	private JButton main_e_t_b_btn = type.buttontype("신청");
+
 	// main_east의 내부, 우측 아래
-	
+
 //	private TitledBorder eastBorder2 = new TitledBorder("상담 이력");
-	
+
 	private List main_e_b_list = new List();
 
 	ArrayList<memberDTO> w = null;
 
 	public MemberFrame(memberDAO_interface inter) {
 		// 테두리 폰트, 색상 변경
-		
+
 //		centerBorder = new TitledBorder("개인 정보");
 //		centerBorder.setTitleFont(borderFont);
 //		centerBorder.setTitleColor(Color.darkGray);
 //		centerBorder.setBorder(new LineBorder(Color.darkGray));
-		
 
 		this.memberInterface = inter; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
-		this.setBounds(100, 100, 500, 300);
-		t.setFont(titleFont);
-		mainF.add(t);
+		this.setBounds(100, 100, 700, 400);
+		title.setFont(titleFont);
+		mainF.add(title);
 
 		// 테두리 설정
 		main_center.setBorder(new LineBorder(Color.white, 2));
@@ -112,21 +115,22 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		// 비밀번호 수정 칸
 		main_c_3_t.setLayout(new GridLayout());
 		main_c_3_t.add(main_c_3_t1);
-		main_c_3_t.add(main_c_3_t2);
+		main_c_3_t.add(main_c_3_btn);
 
 		// main에 추가한 main_center에 추가
 		main_center.setLayout(new BorderLayout());
 		main_center.add(main_c_main, "Center");
-		main_center.add(main_c_btn, "South");
+		main_center.add(main_c_7, "South");
+		main_c_7.add(main_c_7_btn);
 
 		// main_c_main(중앙) 추가.
-		main_c_main.setLayout(new GridLayout(6, 6, 10, 10));
-		main_c_main.setBorder(b.mainborder("개인 정보"));
+		main_c_main.setLayout(new GridLayout(6, 2, 10, 10));
+		main_c_main.setBorder(type.mainborder("개인 정보"));
 		main_c_main.add(main_c_1);
 		main_c_main.add(main_c_1_t);
 		main_c_main.add(main_c_2);
 		main_c_main.add(main_c_2_t);
-		main_c_main.add(main_c_3);
+		main_c_main.add(main_c_3_l);
 		main_c_main.add(main_c_3_t);
 		main_c_main.add(main_c_4);
 		main_c_main.add(main_c_4_t);
@@ -134,16 +138,14 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_main.add(main_c_5_t);
 		main_c_main.add(main_c_6);
 		main_c_main.add(main_c_6_t);
-
 		// main_east에 추가
 		main_east.setLayout(new BorderLayout());
 		main_east.add(main_e_t, "North");
 		main_east.add(main_e_b, "Center");
 
 		// main_east 상단부 main_e_t 작업
-		
 //		centerBorder = new TitledBorder("상담 신청");
-		main_e_t.setBorder(b.mainborder("상담 신청"));
+		main_e_t.setBorder(type.mainborder("상담 신청"));
 		main_e_t.setLayout(new BorderLayout());
 		main_e_t.add(main_e_t_b, "Center");
 
@@ -158,15 +160,15 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 		// main_east 하단부 main_e_b 작업
 //		centerBorder = new TitledBorder("상담 이력");
-		main_e_b.setBorder(b.mainborder("상담 이력"));
+		main_e_b.setBorder(type.mainborder("상담 이력"));
 		main_e_b.setLayout(new BorderLayout());
 		main_e_b.add(main_e_b_list, "Center");
 
 		// 이벤트 감지를 위한 이벤트 등록
-		main_c_btn.addActionListener(this);
+		main_c_3_btn.addActionListener(this);
 		main_e_b_list.addItemListener(this);
 		main_e_t_b_btn.addActionListener(this);
-
+		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -184,12 +186,10 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// 인터페이스를 구현할 메서드
-		if (e.getSource() == main_c_btn) {
+		if (e.getSource() == main_c_3_btn) {
 			String modId_num = main_c_1_t.getText() + main_c_2_t.getText();
 			memberInterface.add();
-
 		}
-
 	}
 
 	@Override
@@ -203,5 +203,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 //		j6.setText(tempdto.getKor());
 
 	}
+	
+//	public void 
 
 }
