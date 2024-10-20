@@ -53,9 +53,9 @@ public class memberDAO extends _connection implements memberDAO_interface {
 	}
 
 	@Override
-	public void mod() {
+	public void mod(memberDTO mdto) {
 		conn();
-		query = "update member set password = ? where name = ?";
+		query = "update member set cer_name_1 where name = ?";
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, mdto.getPassword());

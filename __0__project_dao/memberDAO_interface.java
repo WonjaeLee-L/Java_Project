@@ -10,7 +10,7 @@ public interface memberDAO_interface{
 
 	void del();
 
-	void mod();
+	void mod(memberDTO mdto);
 
 	ArrayList<memberDTO> list(String searchN);
 

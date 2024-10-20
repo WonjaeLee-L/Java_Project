@@ -1,24 +1,22 @@
 package __0__service;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import __0__project_dao.memberDAO_interface;
 
-public class SignInFrame extends JFrame {
-
-	memberDAO_interface m_in = null;
+public class SignInFrame extends JFrame implements ActionListener{
+	
+	memberDAO_interface memberInterface = null;
+	
 	border type = new border();
 	
 	// 폰트 설정
@@ -45,7 +43,7 @@ public class SignInFrame extends JFrame {
 	private JButton signin = type.buttontype("SIGNIN");
 	
 	
-	public SignInFrame(memberDAO_interface inter) {
+	public SignInFrame(memberDAO_interface m_inter) {
 
 		this.setBounds(100, 100, 500, 150);
 		this.add(mainPanel, "Center");
@@ -66,8 +64,30 @@ public class SignInFrame extends JFrame {
 		centerPanel.add(signup);
 		centerPanel.add(signin);
 		
+		this.memberInterface = m_inter;
+		
+		
+		
 		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		
+		
+		
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// 로그인 버튼 클릭시
+		if(e.getSource() ==signin) {
+			
+		}
+		//  가입버튼 클릭시
+		if(e.getSource() == signup) { 
+			
+		}
+		
 	}
 }
