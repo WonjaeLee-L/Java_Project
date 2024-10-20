@@ -2,6 +2,7 @@ package __0__project_dao;
 
 import java.util.ArrayList;
 
+import __0__project_dto.certificateDTO;
 import __0__project_dto.memberDTO;
 
 public interface memberDAO_interface{
@@ -10,7 +11,7 @@ public interface memberDAO_interface{
 
 	void del();
 
-	void mod(memberDTO mdto);
+	void mod(memberDTO mdto, certificateDTO cerdto);
 
 	ArrayList<memberDTO> list(String searchN);
 

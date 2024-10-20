@@ -3,6 +3,7 @@ package __0__project_dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import __0__project_dto.certificateDTO;
 import __0__project_dto.memberDTO;
 
 public class memberDAO extends _connection implements memberDAO_interface {
@@ -53,12 +54,12 @@ public class memberDAO extends _connection implements memberDAO_interface {
 	}
 
 	@Override
-	public void mod(memberDTO mdto) {
+	public void mod(memberDTO mdto, certificateDTO cerdto) {
 		conn();
-		query = "update member set cer_name_1 where name = ?";
+		query = "update member set cer_name_1 = ? where name = ?";
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setString(1, mdto.getPassword());
+			ps.setString(1, cerdto.getCer_name());
 			ps.setString(2, mdto.getName());
 		} catch (Exception e) {
 		} finally {

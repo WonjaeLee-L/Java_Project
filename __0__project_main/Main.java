@@ -20,10 +20,10 @@ public class Main {
 
 
 		MemberFrame mf = new MemberFrame(mdao, cudao, cerdao);
-		SignInFrame sf = new SignInFrame(mdao);
-		NotiFrame nf = new NotiFrame(mdao);
-		SignUpFrame uf = new SignUpFrame(mdao);
-		ManageFrame maf = new ManageFrame(mdao);
+//		SignInFrame sf = new SignInFrame(mdao);
+//		NotiFrame nf = new NotiFrame(mdao);
+//		SignUpFrame uf = new SignUpFrame(mdao);
+//		ManageFrame maf = new ManageFrame(mdao);
 	}
 
 }

@@ -69,8 +69,14 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JPanel main_c_main_s_c = new JPanel();
 
 	private JLabel main_c_5 = new JLabel("보유 자격증 정보");
+	private JLabel main_c_5_1 = new JLabel("ddddddddd");
+	private JLabel main_c_5_2 = new JLabel("ddddddddddd");
+	private JPanel main_c_5_select = new JPanel();
 	private JTextField main_c_5_select_1 = new JTextField();
 	private JTextField main_c_5_select_2 = new JTextField();
+	private JPanel main_c_5_3 = new JPanel();
+	private JLabel main_c_5_4 = new JLabel();
+	private JButton main_c_5_select_btn = type.buttontype("저장");
 //	private String ccList[] = { "test1", "test2", "test3", "test4" };
 	private List main_c_5_list = new List();
 	private List main_c_6_list = new List();
@@ -180,19 +186,30 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_main_s.add(main_c_main_s_c, "Center");
 
 		// 중앙 하단, 왼쪽 아래, 좌
-		main_c_main_s_w.setLayout(new BorderLayout());
-		main_c_main_s_w.add(main_c_5, "North");
-		main_c_main_s_w.add(main_c_5_select_1, "Center");
-		main_c_main_s_w.add(main_c_5_select_2, "South");
+		main_c_main_s_w.setLayout(new GridLayout(3, 1));
+		main_c_main_s_w.add(main_c_5);
+		main_c_main_s_w.add(main_c_5_1);
+		main_c_main_s_w.add(main_c_5_2);
+
 		// 중앙 하단, 왼쪽 아래, 우
-		main_c_main_s_c.setLayout(new BorderLayout());
-		main_c_main_s_c.add(main_c_5_t, "Center");
-		main_c_main_s_c.add(main_c_6_t, "East");
-		
+		main_c_main_s_c.setLayout(new GridLayout(1, 3));
+		// 패널 추가 패널에 select 두개 넣기
+		main_c_main_s_c.add(main_c_5_select);
+		main_c_main_s_c.add(main_c_5_t);
+		main_c_main_s_c.add(main_c_6_t);
+
+		main_c_5_select.setLayout(new GridLayout(3, 1));
+		main_c_5_select.add(main_c_5_select_1);
+		main_c_5_select.add(main_c_5_select_2);
+		main_c_5_select.add(main_c_5_3);
 		main_c_5_t.add(main_c_5_list);
 		main_c_6_t.add(main_c_6_list);
 		
+		main_c_5_3.setLayout(new GridLayout(1,2));
+		main_c_5_3.add(main_c_5_4);
+		main_c_5_3.add(main_c_5_select_btn);
 		
+
 		// main_east에 추가
 		main_east.setLayout(new BorderLayout());
 		main_east.add(main_e_t, "North");
@@ -226,6 +243,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_5_list.addItemListener(this);
 		main_c_6_list.addItemListener(this);
 		main_e_t_b_btn.addActionListener(this);
+		main_c_5_select_btn.addActionListener(this);
 
 //		this.pack();
 		this.setVisible(true);
@@ -260,13 +278,18 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			String modId_num = main_c_1_t.getText() + main_c_2_t.getText();
 			memberInterface.add();
 		}
-		
+
 		// 종료 버튼 >> 누르면 화면 안보이고, 로그인 창 띄우기
-		if(e.getSource() == main_c_7_btn) {
+		if (e.getSource() == main_c_7_btn) {
 			this.setVisible(false);
-			// 화면 안보일경우 종료되도록
+			// 화면 안보일경우 종료
 			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-			SignInFrame sign= new SignInFrame(memberInterface);
+			SignInFrame sign = new SignInFrame(memberInterface);
+		}
+		
+		if(e.getSource()==main_c_5_select_btn) {
+			//main_c_5_select_1
+			//main_c_5_select_2
 		}
 	}
 
@@ -280,29 +303,30 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			counselDTO cudto = arrayCounsel.get(selectNum);
 
 			// 출력하게 하기
-
 			NotiFrame n = new NotiFrame(memberInterface);
 			System.out.println(cudto.getName() + ":" + cudto.getCs_date());
 
 		}
-		
+
 		// 자격증 리스트에서 누르면 첫번째 text로 가게
 		if (e.getSource() == main_c_5_list) {
 			memberDTO mdto = new memberDTO();
 			int cerNum_1 = main_c_5_list.getSelectedIndex();
 			certificateDTO cerdto = arrayCerti.get(cerNum_1);
 			main_c_5_select_1.setText(cerdto.getCer_name());
-			// 누른 자격증 insert 하도록
-			memberInterface.mod(mdto);			
-			
-			
+			// 누른 자격증정보 update
+			memberInterface.mod(mdto, cerdto);
+
 		}
 		// 자격증 리스트에서 누르면 두번째 text로 가게
 		if (e.getSource() == main_c_6_list) {
-
 			int cerNum_2 = main_c_6_list.getSelectedIndex();
 			certificateDTO cerdto1 = arrayCerti.get(cerNum_2);
+			memberDTO mdto = arrayMember.get(cerNum_2);
 			main_c_5_select_2.setText(cerdto1.getCer_name());
+			// 누른 자격증정보 update
+			memberInterface.mod(mdto, cerdto1);
+
 		}
 
 	}
