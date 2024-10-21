@@ -6,11 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JTextField;
-
-import __0__project_dto.certificateDTO;
-import __0__project_dto.memberDTO;
-
 public class _connection {
 	protected String username = "system";
 	protected String password = "11111111";

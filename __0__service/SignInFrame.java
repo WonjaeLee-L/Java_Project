@@ -104,9 +104,14 @@ public class SignInFrame extends JFrame implements ActionListener {
 				// 로그인
 				MemberFrame mframe = new MemberFrame(memberInterface, counselInterface, certificateInterface, signinframe, id, pwd, arrayMember, memberdao);
 			}else if(loginID(id) != null && findID(id)!=findPwd(pwd)) {
+				// 공란 확인 추가
+				//
+				//
+				//
+				//
 				NotiFrame noti = new NotiFrame("비밀번호가 틀렸습니다");
-			}else if(findID(id)==-1) {
-				NotiFrame noti = new NotiFrame("등록되지 않은 아이디입니다.");
+			}else if(findID(id)==-1 && id != null) {
+				NotiFrame noti = new NotiFrame("등록되지 않은 아이디입니다. 입력한 아이디로 회원가입을 진행합니다.");
 				mdto.setId(id);
 				this.setVisible(false);
 				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -151,9 +156,36 @@ public class SignInFrame extends JFrame implements ActionListener {
 		return -1;
 	}
 	
-	private int findID(String a) {
+	public int findID(String a) {
 		for (int i = 0; i < arrayMember.size(); i++) {
 			if (arrayMember.get(i).getId().equals(a)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int findName(String a) {
+		for (int i = 0; i < arrayMember.size(); i++) {
+			if (arrayMember.get(i).getName().equals(a)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public String AutoID(String a) {
+		for(int i = 0; i<arrayMember.size(); i++) {
+			if(arrayMember.get(i).equals(a)) {
+				a=a+i;
+			}
+		}
+		return a;
+	}
+	
+	public int findId_num(String a) {
+		for (int i = 0; i < arrayMember.size(); i++) {
+			if (arrayMember.get(i).getId_num().equals(a)) {
 				return i;
 			}
 		}

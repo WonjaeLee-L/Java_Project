@@ -25,6 +25,7 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 	border type = new border();
 	memberDAO_interface memberInterface = null;
 	memberDTO mdto = null;
+	SignInFrame signin = null;
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
 
@@ -103,13 +104,11 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		////////// 여기 수정 ㄴ
+		////////// 여기 수정 
 		if(mdto != null) {
 			String want_id = mdto.getId();
 			main_c_2_t.setText(want_id);
-			mdto = new memberDTO();
-			
-			mdto.setId(want_id);
+			main_c_2_t.setEnabled(false);
 		}
 		
 	}
@@ -117,9 +116,42 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// 인터페이스를 구현할 메서드
-		if (e.getSource() == main_c_3_t2) {
-			String modId_num = main_c_1_t.getText() + main_c_2_t.getText();
-			memberInterface.add();
+		if (e.getSource() == main_c_7_btn) {
+			// 공란 확인 추가
+			//
+			//
+			//
+			//
+			
+			String name = main_c_1_t.getText();
+			String id = main_c_2_t.getText();
+			String id_num = main_c_4_t.getText();
+			if(signin.findName(name) != -1) {
+				NotiFrame noti = new NotiFrame("이름 중복! 자동으로 이름을 설정합니다.");
+				name = signin.AutoID(name);
+				main_c_1_t.setText(name);
+				main_c_1_t.setEnabled(false);
+			}
+			
+			if(main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
+				String pwd = main_c_3_t1.getText();
+				if(signin.findID(id) == -1) {
+					mdto.setName(name);
+					mdto.setId(id);
+					mdto.setPassword(pwd);
+					mdto.setId_num(id_num);
+					memberInterface.add(mdto);
+					NotiFrame noti = new NotiFrame("회원가입 완료!");
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					SignInFrame signin = new SignInFrame(memberInterface,null,null,null);
+//					, memberDAO mdao, counselDAO_interface cou_inter, certificateDAO_interface cer_inter					
+				}else {
+					NotiFrame noti = new NotiFrame("아이디 중복!");
+				}
+			}else {
+				NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
+			}
 
 		}
 

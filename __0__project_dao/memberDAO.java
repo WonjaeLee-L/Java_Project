@@ -16,11 +16,11 @@ public class memberDAO extends _connection implements memberDAO_interface {
 	}
 
 	@Override
-	public void add() {
+	public void add(memberDTO mdto) {
 		// 연결
 		conn();
 		// 입력 쿼리
-		query = "insert into member values (?,?,?,?,0,default)";
+		query = "insert into member values (?,?,?,?,null,null)";
 		try {
 			ps = conn.prepareStatement(query);
 			// 객체 생성(conn을 통해 쿼리문 입력 받고 실행)
@@ -28,8 +28,6 @@ public class memberDAO extends _connection implements memberDAO_interface {
 			ps.setString(2, mdto.getId());
 			ps.setString(3, mdto.getPassword());
 			ps.setString(4, mdto.getId_num());
-			ps.setString(5, mdto.getCer_name_1());
-			ps.setString(6, mdto.getCer_name_2());
 			result();
 		} catch (Exception e) {
 		} finally {
@@ -46,7 +44,6 @@ public class memberDAO extends _connection implements memberDAO_interface {
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, mdto.getName());
-
 			result();
 		} catch (Exception e) {
 		} finally {
@@ -78,12 +75,10 @@ public class memberDAO extends _connection implements memberDAO_interface {
 			ps.setString(1, pwd);
 			ps.setString(2, name);
 		} catch (Exception e) {
-			// TODO: handle exception
 		} finally {
 			result();
 			close();
 		}
-
 	}
 
 	@Override
@@ -102,18 +97,15 @@ public class memberDAO extends _connection implements memberDAO_interface {
 				mtemp.setId_num(rs.getString("id_num"));
 				mtemp.setCer_name_1(rs.getString("cer_name_1"));
 				mtemp.setCer_name_2(rs.getString("cer_name_2"));
-
 				mlist.add(mtemp);
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close();
 		}
 		return mlist;
-
 	}
 
 	@Override
@@ -124,7 +116,6 @@ public class memberDAO extends _connection implements memberDAO_interface {
 		try {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
-
 			while (rs.next()) {
 				memberDTO mtemp = new memberDTO();
 				mtemp.setName(rs.getString("name"));
@@ -133,12 +124,13 @@ public class memberDAO extends _connection implements memberDAO_interface {
 				mtemp.setId_num(rs.getString("id_num"));
 				mtemp.setCer_name_1(rs.getString("cer_name_1"));
 				mtemp.setCer_name_2(rs.getString("cer_name_2"));
-
 				mlist.add(mtemp);
 			}
 		} catch (Exception e) {
 		} finally {
-			result();
+			// 이거 추가해서 널포인터익셉션 생겼다
+//			result();
+
 			close();
 		}
 		return mlist;

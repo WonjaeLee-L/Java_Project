@@ -6,7 +6,7 @@ import __0__project_dto.memberDTO;
 
 public interface memberDAO_interface {
 
-	void add();
+	void add(memberDTO mdto);
 
 	void del();
 

@@ -265,7 +265,6 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	// 로그인 정보 불러오기
 	private void logInInfo() {
 		main_c_2_t.setText(id);
-
 		for (int i = 0; i < arrayMember.size(); i++) {
 			if (arrayMember.get(i).getId().equals(id)) {
 				main_c_1_t.setText(arrayMember.get(i).getName());
@@ -331,7 +330,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			String modpwd = main_c_3_text.getText();
 			String name = main_c_1_t.getText();
 			if (modpwd == pwd) {
-				NotiFrame n = new NotiFrame("비밀번호 중복");
+				NotiFrame n = new NotiFrame("동일한 비밀번호로 변경할 수 없습니다.");
 			} else {
 				memberdao.modPwd(name, modpwd);
 				new NotiFrame("비밀번호 변경 완료");
