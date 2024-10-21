@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import __0__project_dto.counselDTO;
 
-public interface counselDAO_interface {
+public interface counselDAO_interface 
+{
 	void add();
 
 	void del();

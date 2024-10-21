@@ -9,6 +9,7 @@ import __0__project_dto.memberDTO;
 public class memberDAO extends _connection implements memberDAO_interface {
 
 	memberDTO mdto = new memberDTO();
+//	private memberDAO_interface memberinterface;
 
 	public memberDAO() {
 
@@ -54,28 +55,46 @@ public class memberDAO extends _connection implements memberDAO_interface {
 	}
 
 	@Override
-	public void mod(memberDTO mdto, certificateDTO cerdto) {
+	public void updateCerti(String name, String text, int num) {
 		conn();
-		query = "update member set cer_name_1 = ? where name = ?";
+		query = "update member set cer_name_" + num + " = ? where name = ?";
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setString(1, cerdto.getCer_name());
-			ps.setString(2, mdto.getName());
+			ps.setString(1, text);
+			ps.setString(2, name);
 		} catch (Exception e) {
 		} finally {
+			result();
 			close();
 		}
 	}
 
 	@Override
+	public void modPwd(String name, String pwd) {
+		conn();
+		query = "update member set password = ? where name = ?";
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, pwd);
+			ps.setString(2, name);
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			result();
+			close();
+		}
+
+	}
+
+	@Override
 	public ArrayList<memberDTO> list(String searchN) {
 		conn();
-		query = "select * from member where id like '%"+searchN+"%'";
+		query = "select * from member where id like '%" + searchN + "%'";
 		ArrayList<memberDTO> mlist = new ArrayList<>();
 		try {
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				memberDTO mtemp = new memberDTO();
 				mtemp.setName(rs.getString("name"));
 				mtemp.setId(rs.getString("id"));
@@ -86,7 +105,7 @@ public class memberDAO extends _connection implements memberDAO_interface {
 
 				mlist.add(mtemp);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,8 +113,7 @@ public class memberDAO extends _connection implements memberDAO_interface {
 			close();
 		}
 		return mlist;
-		
-				
+
 	}
 
 	@Override
@@ -120,8 +138,10 @@ public class memberDAO extends _connection implements memberDAO_interface {
 			}
 		} catch (Exception e) {
 		} finally {
+			result();
 			close();
 		}
 		return mlist;
 	}
+
 }

@@ -24,7 +24,7 @@ import __0__project_dto.memberDTO;
 public class SignUpFrame extends JFrame implements ActionListener, ItemListener {
 	border type = new border();
 	memberDAO_interface memberInterface = null;
-
+	memberDTO mdto = null;
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
 
@@ -44,7 +44,7 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 	private JLabel main_c_3_l = new JLabel("비밀번호");
 	private JLabel main_c_4 = new JLabel("주민등록번호");
 	private JTextField main_c_1_t = new JTextField();
-	private JLabel main_c_2_t = new JLabel();
+	private JTextField main_c_2_t = new JTextField();
 	private JPanel main_c_3_t = new JPanel();
 	private JTextField main_c_3_t1 = new JTextField();
 	private JTextField main_c_3_t2 = new JTextField();
@@ -55,11 +55,11 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 
 	ArrayList<memberDTO> w = null;
 
-	public SignUpFrame(memberDAO_interface inter) {
+	public SignUpFrame(memberDTO mdto) {
 		// 테두리 폰트, 색상 변경
-
-		this.memberInterface = inter; // DB 작업을 위한 객체 주소를 외부(Main class)로부터 주입 받는다.
-		this.setBounds(100, 100, 700, 300);
+		this.mdto = mdto;
+//		this.memberInterface = inter;
+		this.setBounds(100, 200, 700, 300);
 		title.setFont(titleFont);
 		mainF.add(title);
 
@@ -102,7 +102,15 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 //		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
+		////////// 여기 수정 ㄴ
+		if(mdto != null) {
+			String want_id = mdto.getId();
+			main_c_2_t.setText(want_id);
+			mdto = new memberDTO();
+			
+			mdto.setId(want_id);
+		}
 		
 	}
 

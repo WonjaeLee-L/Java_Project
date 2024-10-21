@@ -6,6 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JTextField;
+
+import __0__project_dto.certificateDTO;
+import __0__project_dto.memberDTO;
+
 public class _connection {
 	protected String username = "system";
 	protected String password = "11111111";
@@ -25,7 +30,7 @@ public class _connection {
 	public void init() {
 		try {
 			Class.forName(driverName);
-			System.out.println("오라클 드라이버 로드 성공");
+//			System.out.println("오라클 드라이버 로드 성공");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -35,7 +40,7 @@ public class _connection {
 	public void conn() {
 		try {
 			conn = DriverManager.getConnection(url, username, password);
-			System.out.println("커넥션 자원 획득 성공");
+//			System.out.println("커넥션 자원 획득 성공");
 			
 		} catch (Exception e) {
 		}
@@ -63,10 +68,10 @@ public class _connection {
 			int result = ps.executeUpdate();
 			if(result > 0) {
 				conn.commit();
-				System.out.println("입력 성공");
+//				System.out.println("입력 성공");
 			}else {
 				conn.rollback();
-				System.out.println("입력 실패");
+//				System.out.println("입력 실패");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -74,5 +79,7 @@ public class _connection {
 		}
 		
 	}
+
+	
 
 }
