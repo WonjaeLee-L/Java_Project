@@ -46,7 +46,7 @@ public class ManageFrame extends JFrame implements ActionListener, ItemListener 
 	public ManageFrame(memberDAO_interface inter) {
 
 		this.memberInterface = inter;
-		this.setBounds(100, 100, 700, 400);
+		this.setBounds(200, 300, 700, 400);
 		title.setFont(titleFont);
 		mainF.add(title);
 		main_center.setBorder(new LineBorder(Color.white, 2));

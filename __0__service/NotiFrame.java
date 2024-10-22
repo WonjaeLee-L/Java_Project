@@ -16,7 +16,7 @@ public class NotiFrame extends JFrame {
 	private JLabel noti = new JLabel();
 
 	public NotiFrame(String text) {
-		this.setBounds(300, 100, 100, 100);
+		this.setBounds(400, 300, 100, 100);
 		this.add(mainPanel, "Center");
 		mainPanel.setBorder(type.noti("알림"));
 		noti.setText(text);

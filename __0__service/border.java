@@ -34,7 +34,7 @@ public class border {
 	}
 	public TitledBorder counsellistinfo(String name) {
 		Border = new TitledBorder(name);
-		Border.setTitlePosition(TitledBorder.BELOW_BOTTOM);
+		Border.setTitlePosition(TitledBorder.ABOVE_TOP);
 		Border.setTitleFont(borderFont);
 		Border.setTitleColor(Color.darkGray);
 		Border.setBorder(new LineBorder(Color.darkGray));
@@ -43,6 +43,14 @@ public class border {
 	public TitledBorder password(String name) {
 		Border = new TitledBorder(name);
 		Border.setTitlePosition(TitledBorder.ABOVE_TOP);
+		Border.setTitleFont(borderFont);
+		Border.setTitleColor(Color.red);
+		Border.setBorder(new LineBorder(Color.red));
+		return Border;
+	}
+	public TitledBorder counseller(String name) {
+		Border = new TitledBorder(name);
+		Border.setTitlePosition(TitledBorder.ABOVE_BOTTOM);
 		Border.setTitleFont(borderFont);
 		Border.setTitleColor(Color.red);
 		Border.setBorder(new LineBorder(Color.red));

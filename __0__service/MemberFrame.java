@@ -42,7 +42,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 	// 가장 상위 변수
 	private JPanel mainF = new JPanel(); // 컴포넌트&컨테이너.
-	private JLabel title = new JLabel("회원 정보");
+	private JLabel title = new JLabel();
 	private JPanel main = new JPanel();
 	private JPanel main_center = new JPanel();
 	private JPanel main_east = new JPanel();
@@ -65,10 +65,10 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JTextField main_c_3_text = new JTextField();
 	private JButton main_c_3_btn = type.buttontype("저장");
 	private JPanel main_c_4_p = new JPanel();
-	
+
 	private JButton main_c_4_btn = type.buttontype("보이기");
 //	private JButton main_c_4_btn = new JButton();
-	
+
 	private JLabel main_c_4_t = new JLabel();
 
 	private JPanel main_c_main_s = new JPanel();
@@ -149,7 +149,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		this.arrayMember = arrayMember;
 //		this.memberdao = memberdao;
 		// 창 크기 설정
-		this.setBounds(100, 100, 1000, 400);
+		this.setBounds(200, 300, 1000, 400);
+
 		title.setFont(titleFont);
 		mainF.add(title);
 
@@ -268,6 +269,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 //		memberInterface.allList();
 		logInInfo();
+
 		counsellistin();
 		cerlistin();
 		repaint();
@@ -282,39 +284,15 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		for (int i = 0; i < arrayMember.size(); i++) {
 			if (arrayMember.get(i).getId().equals(id)) {
 				main_c_1_t.setText(arrayMember.get(i).getName());
-//				memberdto.setName(arrayMember.get(i).getName());
 				id_num = arrayMember.get(i).getId_num();
 				id_num_star = id_num.substring(0, 7).concat("******");
 				main_c_4_t.setText(id_num_star);
 				main_c_5_1.setText(arrayMember.get(i).getCer_name_1());
 				main_c_5_2.setText(arrayMember.get(i).getCer_name_2());
+				title.setText(main_c_1_t.getText() + "님 환영합니다.");
 				index = i;
 			}
 		}
-
-//		arrayMember = memberInterface.allList();
-//		for (memberDTO memdto : arrayMember) {
-//			if (memdto.getId() == id) {
-//				String name1 = memdto.getName();
-//				String id_num1 = memdto.getId_num();
-//				main_c_1_t.setText(name1);
-//				main_c_4_t.setText(id_num1);
-//				
-////				main_c_1_t.setText(memdto.getName());
-////				main_c_4_t.setText(memdto.getId_num());
-//				if (memdto.getCer_name_1() == null) {
-//					main_c_5_1.setText("없음");
-//				} else {
-//					main_c_5_1.setText(memdto.getCer_name_1());
-//				}
-//				if (memdto.getCer_name_2() == null) {
-//					main_c_5_2.setText("없음");
-//				} else {
-//					main_c_5_2.setText(memdto.getCer_name_2());
-//				}
-//
-//			}
-//		}
 	}
 
 	// 리스트 목록 보기
@@ -323,12 +301,14 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		for (counselDTO c : arrayCounsel) {
 			// 로그인 회원의 상담정보 출력
 			if (c.getName().equals(arrayMember.get(index).getName())) {
-				main_e_b_list.add(c.getName() + ", 관심 분야: " + c.getInterest() + ", 추천 분야: " + c.getRecommend()
-						+ "상담 일자 : " + c.getCs_date());
+				String csdate = c.getCs_date();
+				if (csdate == null) {
+					main_e_b_list.add("미상담 건:" + c.getAy_date().substring(2, 10) + "일자로 신청 중");
+				} else {
+					main_e_b_list.add("상담 완료 :"+c.getName() +c.getCs_date().substring(2, 10) + "일자로 상담 완료");
+				}
 			}
-
 		}
-
 	}
 
 	// 자격증 정보 리스트 (선택)
@@ -349,9 +329,9 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			String name = main_c_1_t.getText();
 			if (modpwd.equals(pwd)) {
 				NotiFrame n = new NotiFrame("동일한 비밀번호로 변경할 수 없습니다.");
-			} else if(modpwd){
+			} else if (modpwd.isEmpty()) {
 				NotiFrame n = new NotiFrame("수정할 비밀번호를 입력하세요.");
-			}else{
+			} else {
 				memberdao.modPwd(name, modpwd);
 				new NotiFrame("비밀번호 변경 완료");
 			}
@@ -373,12 +353,17 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 			memberdao.updateCerti(name_1, select_1, 1);
 			memberdao.updateCerti(name_1, select_2, 2);
-			
-			repaint();
+
+//			repaint();
 
 		}
 
 //		 버튼 변경 수정*****************한번실행되고 끝/
+		//
+		//
+		//
+		//
+
 		if (e.getSource() == main_c_4_btn) {
 			String text = main_c_4_t.getText();
 			String star = "*";
@@ -386,23 +371,14 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 				main_c_4_btn = type.buttontype("숨기기");
 				main_c_4_t.setText(id_num);
 				System.out.println("출력");
-				repaint();
+//				repaint();
 			} else {
 				main_c_4_btn = type.buttontype("보이기");
 				main_c_4_t.setText(id_num_star);
 				System.out.println("nn");
-				repaint();
+//				repaint();
 			}
 		}
-
-//		if (e.getSource() == main_c_4_btn && main_c_4_t.getText().contains("*")) {
-//			main_c_4_btn = type.buttontype("숨기기");
-//			main_c_4_t.setText(id_num);
-//		} else if (e.getSource() == main_c_4_btn) {
-//			main_c_4_btn = type.buttontype("보이기");
-//			main_c_4_t.setText(id_num_star);
-//
-//		}
 
 		// 신청 정보 저장
 		if (e.getSource() == main_e_t_b_btn) {
@@ -422,17 +398,11 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		// 상담 리스트 클릭 이벤트 >> 상세 정보
+		// 로그인 한 사람의 상담 리스트 클릭 이벤트 >> 상세 정보(미상담건과 분리해서 표기)
 		if (e.getSource() == main_e_b_list) {
 			int selectNum = main_e_b_list.getSelectedIndex();
-			// 1. 리스트에서 가져오기, 2. DB에서 가져오기 중에 1로 진행
 			counselDTO cudto = arrayCounsel.get(selectNum);
-
-			// 출력하게 하기
-			CouncelListInfoFrame clistinfo = new CouncelListInfoFrame(cudto);
-//			NotiFrame n = new NotiFrame("d");
-			System.out.println(cudto.getName() + ":" + cudto.getCs_date());
-
+			CouncelInfoFrame clistinfo = new CouncelInfoFrame(cudto);
 		}
 
 		// 자격증 리스트에서 누르면 첫번째 text에 출력
@@ -442,7 +412,6 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			certificateDTO cerdto = arrayCerti.get(cerNum_1);
 			main_c_5_select_1.setText(cerdto.getCer_name());
 
-
 		}
 		// 자격증 리스트에서 누르면 두번째 text에 출력
 		if (e.getSource() == main_c_6_list) {
@@ -451,22 +420,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			certificateDTO cerdto = arrayCerti.get(cerNum_1);
 			main_c_5_select_2.setText(cerdto.getCer_name());
 
-
 		}
-		
-//		if (e.getSource() == main_c_4_btn) {
-//			String text = main_c_4_t.getText();
-//			String star = "*";
-//			if (text.contains(star)) {
-//				main_c_4_btn = type.buttontype("숨기기");
-//				main_c_4_t.setText(id_num);
-//				
-//			} else {
-//				main_c_4_btn = type.buttontype("보이기");
-//				main_c_4_t.setText(id_num_star);
-//				
-//			}
-//		}
 
 	}
 

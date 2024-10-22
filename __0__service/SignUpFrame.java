@@ -23,7 +23,8 @@ import __0__project_dto.memberDTO;
 
 public class SignUpFrame extends JFrame implements ActionListener, ItemListener {
 	border type = new border();
-	memberDAO_interface memberInterface = null;
+	memberDAO_interface meminter = null;
+	ArrayList<memberDTO> arrayMember = new ArrayList<memberDTO>();
 	memberDTO mdto = null;
 	SignInFrame signin = null;
 	// 폰트 설정
@@ -56,11 +57,13 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 
 	ArrayList<memberDTO> w = null;
 
-	public SignUpFrame(memberDTO mdto) {
+	public SignUpFrame(memberDTO mdto, SignInFrame signinframe, memberDAO_interface meminter) {
 		// 테두리 폰트, 색상 변경
 		this.mdto = mdto;
+		this.signin = signinframe;
+		this.meminter = meminter;
 //		this.memberInterface = inter;
-		this.setBounds(100, 200, 700, 300);
+		this.setBounds(200, 300, 700, 300);
 		title.setFont(titleFont);
 		mainF.add(title);
 
@@ -77,7 +80,6 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_3_t.add(main_c_3_t1);
 		main_c_3_t.add(main_c_3_t2);
 		// 비밀번호 입력 칸 테두리
-		
 
 		// main_center에 추가
 		main_center.setLayout(new BorderLayout());
@@ -100,17 +102,19 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 		// 이벤트 감지를 위한 이벤트 등록
 		main_c_3_t2.addActionListener(this);
 		main_e_b_list.addItemListener(this);
+		main_c_7_btn.addActionListener(this);
+
 //		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		////////// 여기 수정 
-		if(mdto != null) {
-			String want_id = mdto.getId();
-			main_c_2_t.setText(want_id);
+
+		// SignIngFrame에서 입력한 id 그대로 가져옴
+		String want_id = mdto.getId();
+		main_c_2_t.setText(want_id);
+		if (want_id.isEmpty()) {
+		} else {
 			main_c_2_t.setEnabled(false);
 		}
-		
 	}
 
 	@Override
@@ -122,50 +126,61 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 			//
 			//
 			//
-			
+
 			String name = main_c_1_t.getText();
 			String id = main_c_2_t.getText();
 			String id_num = main_c_4_t.getText();
-			if(signin.findName(name) != -1) {
-				NotiFrame noti = new NotiFrame("이름 중복! 자동으로 이름을 설정합니다.");
-				name = signin.AutoID(name);
-				main_c_1_t.setText(name);
-				main_c_1_t.setEnabled(false);
-			}
-			
-			if(main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
-				String pwd = main_c_3_t1.getText();
-				if(signin.findID(id) == -1) {
-					mdto.setName(name);
-					mdto.setId(id);
-					mdto.setPassword(pwd);
-					mdto.setId_num(id_num);
-					memberInterface.add(mdto);
-					NotiFrame noti = new NotiFrame("회원가입 완료!");
-					this.setVisible(false);
-					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-					SignInFrame signin = new SignInFrame(memberInterface,null,null,null);
-//					, memberDAO mdao, counselDAO_interface cou_inter, certificateDAO_interface cer_inter					
-				}else {
-					NotiFrame noti = new NotiFrame("아이디 중복!");
+			arrayMember = meminter.allList();
+
+			for (memberDTO d : arrayMember) {
+				if (d.getName().equals(name)) {
+					NotiFrame noti = new NotiFrame("이름 중복! 자동으로 이름을 설정합니다.");
+					String newname = name + 1;
+					main_c_1_t.setText(newname);
+					main_c_1_t.setEnabled(false);
 				}
-			}else {
+			}
+			// 비밀번호 중복 확인
+
+			if (main_c_3_t1.getText().isEmpty() || main_c_3_t2.getText().isEmpty()) {
+				NotiFrame noti = new NotiFrame("비밀번호를 입력하세요");
+			} else if (!main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
 				NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
+			}else if(id_num.length()!=13) {
+				NotiFrame noti = new NotiFrame("주민번호를 입력하세요.");
+			}else if (main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
+				String pwd = main_c_3_t1.getText();
+//				arrayMember = meminter.allList();
+				for (memberDTO d : arrayMember) {
+					if (d.getName().equals(name)) {
+						NotiFrame noti = new NotiFrame("이름 중복!");
+						main_c_1_t.setEnabled(true);
+					} else {
+						mdto.setName(main_c_1_t.getText());
+						mdto.setId(id);
+						mdto.setPassword(pwd);
+						mdto.setId_num(id_num);
+						meminter.add(mdto);
+						NotiFrame noti = new NotiFrame("회원가입 완료!");
+						this.setVisible(false);
+						this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+						SignInFrame signin = new SignInFrame(meminter, null, null, null);
+					}
+				}
 			}
 
 		}
 
-	}
+	}// 버튼
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		int selectNum = main_e_b_list.getSelectedIndex();
 		System.out.println(selectNum + "번이 선택 됨");
 
-		// 1. 리스트에서 가져오기, 2. DB에서 가져오기 중에 1로 진행
+
 		memberDTO mdto = w.get(selectNum);
-//		j5.setText(tempdto.getEng());
-//		j6.setText(tempdto.getKor());
+
 
 	}
 
