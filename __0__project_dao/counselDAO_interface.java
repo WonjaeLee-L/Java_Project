@@ -6,7 +6,7 @@ import __0__project_dto.counselDTO;
 
 public interface counselDAO_interface 
 {
-	void add();
+	void add(counselDTO coudto);
 
 	void del();
 

@@ -12,8 +12,21 @@ public class counselDAO extends _connection implements counselDAO_interface {
 	};
 
 	@Override
-	public void add() {
-		System.out.println("add");
+	public void add(counselDTO coudto) {
+		// 연결
+		conn();
+		// 입력 쿼리
+		query = "insert into counsel values (?,?,default,null,null,null,0,0)";
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, coudto.getName());
+			ps.setString(2, coudto.getInterest());
+			
+			result();
+		} catch (Exception e) {
+		} finally {
+			close();
+		}
 
 	}
 
