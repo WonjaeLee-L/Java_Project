@@ -9,8 +9,7 @@ import javax.swing.JPanel;
 import __0__project_dao.memberDAO_interface;
 
 public class NotiFrame extends JFrame {
-	
-	
+
 	border type = new border();
 	private JPanel mainPanel = new JPanel();
 	private JLabel noti = new JLabel();
@@ -21,11 +20,10 @@ public class NotiFrame extends JFrame {
 		mainPanel.setBorder(type.noti("알림"));
 		noti.setText(text);
 		mainPanel.add(noti);
-		
+
 		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 	}
-	
 
 }

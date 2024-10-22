@@ -32,6 +32,7 @@ public class border {
 		Border.setBorder(new LineBorder(Color.red));
 		return Border;
 	}
+
 	public TitledBorder counsellistinfo(String name) {
 		Border = new TitledBorder(name);
 		Border.setTitlePosition(TitledBorder.ABOVE_TOP);
@@ -40,6 +41,7 @@ public class border {
 		Border.setBorder(new LineBorder(Color.darkGray));
 		return Border;
 	}
+
 	public TitledBorder password(String name) {
 		Border = new TitledBorder(name);
 		Border.setTitlePosition(TitledBorder.ABOVE_TOP);
@@ -48,7 +50,8 @@ public class border {
 		Border.setBorder(new LineBorder(Color.red));
 		return Border;
 	}
-	public TitledBorder counseller(String name) {
+
+	public TitledBorder warning(String name) {
 		Border = new TitledBorder(name);
 		Border.setTitlePosition(TitledBorder.ABOVE_BOTTOM);
 		Border.setTitleFont(borderFont);

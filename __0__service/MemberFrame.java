@@ -58,7 +58,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JLabel main_c_2 = new JLabel("아이디");
 	private JLabel main_c_3 = new JLabel("비밀번호 수정");
 	private JLabel main_c_4 = new JLabel("주민등록번호");
-
+	private JPanel main_c_1_p = new JPanel();
+	private JButton main_c_1_btn = type.buttontype("회원 탈퇴");
 	private JLabel main_c_1_t = new JLabel();
 	private JLabel main_c_2_t = new JLabel();
 	private JPanel main_c_3_p = new JPanel();
@@ -182,14 +183,19 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_main_c.setLayout(new GridLayout(4, 2, 10, 10));
 		main_c_main_c.setBorder(type.mainborder("개인 정보"));
 		main_c_main_c.add(main_c_1);
-		main_c_main_c.add(main_c_1_t);
+		main_c_main_c.add(main_c_1_p);
 		main_c_main_c.add(main_c_2);
 		main_c_main_c.add(main_c_2_t);
 		main_c_main_c.add(main_c_3);
 		main_c_main_c.add(main_c_3_p);
 		main_c_main_c.add(main_c_4);
 		main_c_main_c.add(main_c_4_p);
-
+		
+		// 아이디 나오고, 탈퇴버튼
+		main_c_1_p.setLayout(new GridLayout(1,2));
+		main_c_1_p.add(main_c_1_t);
+		main_c_1_p.add(main_c_1_btn);
+		
 		main_c_4_p.setLayout(new GridLayout());
 		main_c_4_p.add(main_c_4_t);
 		main_c_4_p.add(main_c_4_btn);
@@ -255,6 +261,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_e_b.add(main_e_b_list, "Center");
 
 		// 이벤트 감지를 위한 이벤트 등록
+		main_c_1_btn.addActionListener(this);
 		main_c_3_btn.addActionListener(this);
 		main_c_5_select_btn.addActionListener(this);
 		main_c_7_btn.addActionListener(this);
@@ -305,7 +312,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 				if (csdate == null) {
 					main_e_b_list.add("미상담 건:" + c.getAy_date().substring(2, 10) + "일자로 신청 중");
 				} else {
-					main_e_b_list.add("상담 완료 :"+c.getName() +c.getCs_date().substring(2, 10) + "일자로 상담 완료");
+					main_e_b_list.add("상담 완료 :" + c.getName() + c.getCs_date().substring(2, 10) + "일자로 상담 완료");
 				}
 			}
 		}
@@ -394,6 +401,23 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			}
 
 		}
+		
+		// 회원 탈퇴
+		if(e.getSource() == main_c_1_btn) {
+			for(memberDTO memdto : arrayMember) {
+				if(memdto.getId().equals(main_c_2_t.getText())) {
+					memberInterface.del(memdto);
+					this.setVisible(false);
+					// 화면 안보일경우 종료
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					SignInFrame sign = new SignInFrame(memberInterface, memberdao, counselInterface, certificateInterface);
+				}
+			}
+		}
+		
+		
+		
+		
 	}
 
 	@Override

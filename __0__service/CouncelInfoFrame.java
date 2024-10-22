@@ -35,35 +35,35 @@ public class CouncelInfoFrame extends JFrame {
 		ay_date.setBorder(type.counsellistinfo("신청 일자"));
 		
 		if(cudto.getCs_date() == null) {
-			memo.setBorder(type.counseller("상담사 입력"));
+			memo.setBorder(type.warning("상담사 입력"));
 		}else if(cudto.getCs_date() != null) {
 			memo.setText(cudto.getMemo());
 			memo.setBorder(type.counsellistinfo("상담 내용"));
 		}
 		
 		if(cudto.getCs_date() == null) {
-			recommend.setBorder(type.counseller("상담사 입력"));
+			recommend.setBorder(type.warning("상담사 입력"));
 		}else if(cudto.getCs_date() != null) {
 			recommend.setText(cudto.getRecommend());
 			recommend.setBorder(type.counsellistinfo("추천 분야"));
 		}
 		
 		if(cudto.getCs_date() == null) {
-			cs_date.setBorder(type.counseller("상담사 입력"));
+			cs_date.setBorder(type.warning("상담사 입력"));
 		}else if(cudto.getCs_date() != null) {
 			cs_date.setText(cudto.getCs_date());
 			cs_date.setBorder(type.counsellistinfo("상담 일자"));
 		}
 		
 		if(cudto.getCs_date() == null) {
-			score.setBorder(type.counseller("상담사 입력"));
+			score.setBorder(type.warning("상담사 입력"));
 		}else if(cudto.getCs_date() != null) {
 			score.setText(Integer.toString(cudto.getScore()));
 			score.setBorder(type.counsellistinfo("시험 점수"));
 		}
 		
 		if(cudto.getCs_date() == null) {
-			attitude.setBorder(type.counseller("상담사 입력"));
+			attitude.setBorder(type.warning("상담사 입력"));
 		}else if(cudto.getCs_date() != null) {
 			attitude.setText(Integer.toString(cudto.getAttitude()));
 			attitude.setBorder(type.counsellistinfo("태도 점수"));

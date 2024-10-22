@@ -23,7 +23,6 @@ public class memberDAO extends _connection implements memberDAO_interface {
 		query = "insert into member values (?,?,?,?,null,null)";
 		try {
 			ps = conn.prepareStatement(query);
-			// 객체 생성(conn을 통해 쿼리문 입력 받고 실행)
 			ps.setString(1, mdto.getName());
 			ps.setString(2, mdto.getId());
 			ps.setString(3, mdto.getPassword());
@@ -36,14 +35,14 @@ public class memberDAO extends _connection implements memberDAO_interface {
 	}
 
 	@Override
-	public void del() {
+	public void del(memberDTO mdto) {
 		// 연결
 		conn();
 		// 삭제 쿼리
-		query = "delete from member where name = ?";
+		query = "delete from member where id = ?";
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setString(1, mdto.getName());
+			ps.setString(1, mdto.getId());
 			result();
 		} catch (Exception e) {
 		} finally {

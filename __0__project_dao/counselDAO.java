@@ -21,7 +21,7 @@ public class counselDAO extends _connection implements counselDAO_interface {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, coudto.getName());
 			ps.setString(2, coudto.getInterest());
-			
+
 			result();
 		} catch (Exception e) {
 		} finally {

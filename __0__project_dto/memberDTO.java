@@ -62,6 +62,4 @@ public class memberDTO {
 				+ ", cer_name_1=" + cer_name_1 + ", cre_name_2=" + cer_name_2 + "]";
 	}
 
-	
-
 }

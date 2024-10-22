@@ -22,7 +22,10 @@ public class Main {
 //		ManageFrame maf = new ManageFrame(mdao);
 		
 		
+//		 관리자 페이지
+//		>> 회원 탈퇴, 전체, 검색, 신청...
 		
+		 
 		
 	}
 

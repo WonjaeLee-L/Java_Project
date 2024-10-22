@@ -22,12 +22,12 @@ public class SignInFrame extends JFrame implements ActionListener {
 
 	private counselDAO_interface counselInterface = null;
 	private certificateDAO_interface certificateInterface = null;
-	memberDAO_interface memberInterface = null;
-	memberDAO memberdao = null;
-	public ArrayList<memberDTO> arrayMember = null;
-	border type = new border();
-	memberDTO mdto = new memberDTO();
-	SignInFrame signinframe = null;
+	private memberDAO_interface memberInterface = null;
+	private memberDAO member_dao = null;
+	private  ArrayList<memberDTO> arrayMember = null;
+	private border type = new border();
+	private memberDTO mdto = new memberDTO();
+	private SignInFrame signinframe = null;
 
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
@@ -39,7 +39,7 @@ public class SignInFrame extends JFrame implements ActionListener {
 	private JLabel left = new JLabel();
 	private JPanel centerPanel = new JPanel();
 	private JLabel right = new JLabel();
-	private JLabel top = new JLabel();
+//	private JLabel top = new JLabel();
 
 	// centerPanel 내부
 	private JLabel id = new JLabel("ID");
@@ -48,14 +48,14 @@ public class SignInFrame extends JFrame implements ActionListener {
 	private JTextField password_t = new JTextField();
 	private JButton signup = type.buttontype("SIGNUP");
 	private JButton signin = type.buttontype("SIGNIN");
-	private memberDAO_interface memberDAO_interface;
+//	private memberDAO_interface memberDAO_interface;
 
-	public SignInFrame(memberDAO_interface m_inter, memberDAO mdao, counselDAO_interface cou_inter,
-			certificateDAO_interface cer_inter) {
-		this.memberInterface = m_inter;
-		this.counselInterface = cou_inter;
-		this.certificateInterface = cer_inter;
-		this.memberdao = mdao;
+	public SignInFrame(memberDAO_interface memberInterface, memberDAO member_dao, counselDAO_interface counselInterface,
+			certificateDAO_interface certificatInterface) {
+		this.memberInterface = memberInterface;
+		this.counselInterface = counselInterface;
+		this.certificateInterface = certificatInterface;
+		this.member_dao = member_dao;
 
 		this.setBounds(400, 300, 500, 150);
 		this.add(mainPanel, "Center");
@@ -75,8 +75,6 @@ public class SignInFrame extends JFrame implements ActionListener {
 		centerPanel.add(signup);
 		centerPanel.add(signin);
 
-		this.memberInterface = m_inter;
-
 		// 이벤트 감지
 		signin.addActionListener(this);
 		signup.addActionListener(this);
@@ -91,67 +89,50 @@ public class SignInFrame extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// 로그인 버튼 클릭시 >> 로그인 되면서 MemberFrame으로 이동
+		// 로그인 버튼
 		if (e.getSource() == signin) {
 			String id = id_t.getText();
 			String pwd = password_t.getText();
-			if (loginID(id) != null && findPwd(pwd) != -1 && findID(id) == findPwd(pwd)) {
-				// 로그인 창 제거
 
-				this.setVisible(false);
-				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-
-				// 로그인
-				MemberFrame mframe = new MemberFrame(memberInterface, counselInterface, certificateInterface,
-						signinframe, id, pwd, arrayMember, memberdao);
-			} else if (loginID(id) != null && findID(id) != findPwd(pwd)) {
-				// 공란 확인 추가
-				//
-				//
-				//
-				//
-				NotiFrame noti = new NotiFrame("비밀번호가 틀렸습니다");
-			} else if (findID(id) == -1 && id != null) {
-				// null 인식 x
-				//
-				///
-
+			// 아이디 미입력
+			if (id_t.getText().isEmpty()) {
+				NotiFrame noti = new NotiFrame("아이디를 입력하세요");
+				id_t.setBorder(type.warning("!"));
+				// 입력한 아이디가 없는 경우
+			} else if (findID(id) == -1) {
 				mdto.setId(id);
 				SignUpFrame sign = new SignUpFrame(mdto, signinframe, memberInterface);
+				// , memberInterface
 				NotiFrame noti = new NotiFrame("등록되지 않은 아이디입니다. 입력한 아이디로 회원가입을 진행합니다.");
 				this.setVisible(false);
 				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-//				void schedule(new SignUpFrame(memberInterface), 1000);
+				// 로그인 성공
+			} else if (findID(id) == findPwd(pwd)) {
+				this.setVisible(false);
+				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+				MemberFrame mframe = new MemberFrame(memberInterface, counselInterface, certificateInterface,
+						signinframe, id, pwd, arrayMember, member_dao);
+				// 비밀번호 오류
+			} else if (findID(id) != findPwd(pwd)) {
+				NotiFrame noti = new NotiFrame("비밀번호가 틀렸습니다");
+				password_t.setBorder(type.warning("!"));
 			}
 
 		}
-		// 가입버튼 클릭시
+		// 가입 버튼
 		if (e.getSource() == signup) {
 			this.setVisible(false);
 			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 			SignUpFrame sign = new SignUpFrame(mdto, signinframe, memberInterface);
+//			, memberInterface
 		}
 
 	}
 
 	private void memberlistin() {
 		arrayMember = memberInterface.allList();
-//		for(memberDTO mem : arrayMember) {
-//			
-//		}
 	}
 
-//	private void loginProcess() {
-//
-//		nowUser = loginID(id);
-//		if (nowUser == null) {
-//			System.out.println("아이디 없음");
-//		} else {
-//			System.out.println("로그인 성공! 메뉴로 이동");
-//			nowUser.menu(partManager);
-//			// nowUser가 menu 메서드를 콜할때 partManager 주소를 넘긴 것
-//		}
-//	}
 	private int findPwd(String a) {
 		for (int i = 0; i < arrayMember.size(); i++) {
 			if (arrayMember.get(i).getPassword().equals(a)) {
@@ -188,22 +169,21 @@ public class SignInFrame extends JFrame implements ActionListener {
 		return a;
 	}
 
-	public int findId_num(String a) {
-		for (int i = 0; i < arrayMember.size(); i++) {
-			if (arrayMember.get(i).getId_num().equals(a)) {
-				return i;
-			}
-		}
-		return -1;
-	}
+//	public int findId_num(String a) {
+//		for (int i = 0; i < arrayMember.size(); i++) {
+//			if (arrayMember.get(i).getId_num().equals(a)) {
+//				return i;
+//			}
+//		}
+//		return -1;
+//	}
 
-	// 리턴타입 Stu 주소
-	public memberDTO loginID(String id) {
-		int idx = findID(id);
-		if (idx != -1) {
-			memberDTO m = arrayMember.get(idx);
-			return m;
-		}
-		return null;
-	}
+//	public memberDTO loginID(String id) {
+//		int idx = findID(id);
+//		if (idx != -1) {
+//			memberDTO m = arrayMember.get(idx);
+//			return m;
+//		}
+//		return null;
+//	}
 }

@@ -8,7 +8,7 @@ public interface memberDAO_interface {
 
 	void add(memberDTO mdto);
 
-	void del();
+	void del(memberDTO mdto);
 
 	ArrayList<memberDTO> list(String searchN);
 

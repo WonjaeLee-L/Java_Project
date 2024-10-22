@@ -55,19 +55,18 @@ public class ManageFrame extends JFrame implements ActionListener, ItemListener 
 		this.add(mainF, "North");
 		this.add(main, "Center");
 
-		main.add(main_west,"West");
-		main.add(main_center,"Center");
-		
-		
+		main.add(main_west, "West");
+		main.add(main_center, "Center");
+
 		// West에 목록만 목록 아래 페이지 종료
 		main_west.add(namelist, "Center");
 		cancel = type.buttontype("종료");
 		main_west.add(cancel, "South");
-		
+
 		// Center에 6,2
 		// 맨아래 왼쪽은 빈공간
-		main_center.add(oneperson,"Center");
-		
+		main_center.add(oneperson, "Center");
+
 		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

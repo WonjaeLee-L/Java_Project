@@ -4,11 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -21,12 +18,13 @@ import javax.swing.border.LineBorder;
 import __0__project_dao.memberDAO_interface;
 import __0__project_dto.memberDTO;
 
-public class SignUpFrame extends JFrame implements ActionListener, ItemListener {
+public class SignUpFrame extends JFrame implements ActionListener {
 	border type = new border();
-	memberDAO_interface meminter = null;
+	memberDAO_interface memberInterface = null;
 	ArrayList<memberDTO> arrayMember = new ArrayList<memberDTO>();
-	memberDTO mdto = null;
+	memberDTO member_dto = null;
 	SignInFrame signin = null;
+
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
 
@@ -38,7 +36,6 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 	private JPanel main_east = new JPanel();
 
 	// main_center 변수
-
 	private JPanel main_c_main = new JPanel();
 	private JLabel main_c_1 = new JLabel("이름");
 	private JLabel main_c_2 = new JLabel("아이디");
@@ -53,16 +50,13 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 	private JTextField main_c_4_t = new JTextField();
 	private JPanel main_c_7 = new JPanel();
 	private JButton main_c_7_btn = type.buttontype("가입");
-	private List main_e_b_list = new List();
 
-	ArrayList<memberDTO> w = null;
+	public SignUpFrame(memberDTO member_dto, SignInFrame signinframe, memberDAO_interface memberInterface) {
 
-	public SignUpFrame(memberDTO mdto, SignInFrame signinframe, memberDAO_interface meminter) {
 		// 테두리 폰트, 색상 변경
-		this.mdto = mdto;
+		this.member_dto = member_dto;
 		this.signin = signinframe;
-		this.meminter = meminter;
-//		this.memberInterface = inter;
+		this.memberInterface = memberInterface;
 		this.setBounds(200, 300, 700, 300);
 		title.setFont(titleFont);
 		mainF.add(title);
@@ -100,8 +94,6 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_main.add(main_c_4_t);
 
 		// 이벤트 감지를 위한 이벤트 등록
-		main_c_3_t2.addActionListener(this);
-		main_e_b_list.addItemListener(this);
 		main_c_7_btn.addActionListener(this);
 
 //		this.pack();
@@ -109,7 +101,7 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// SignIngFrame에서 입력한 id 그대로 가져옴
-		String want_id = mdto.getId();
+		String want_id = member_dto.getId();
 		main_c_2_t.setText(want_id);
 		if (want_id.isEmpty()) {
 		} else {
@@ -121,16 +113,10 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 	public void actionPerformed(ActionEvent e) {
 		// 인터페이스를 구현할 메서드
 		if (e.getSource() == main_c_7_btn) {
-			// 공란 확인 추가
-			//
-			//
-			//
-			//
-
 			String name = main_c_1_t.getText();
 			String id = main_c_2_t.getText();
 			String id_num = main_c_4_t.getText();
-			arrayMember = meminter.allList();
+			arrayMember = memberInterface.allList();
 
 			for (memberDTO d : arrayMember) {
 				if (d.getName().equals(name)) {
@@ -140,48 +126,42 @@ public class SignUpFrame extends JFrame implements ActionListener, ItemListener 
 					main_c_1_t.setEnabled(false);
 				}
 			}
-			// 비밀번호 중복 확인
 
+			// 비밀번호 중복 확인
 			if (main_c_3_t1.getText().isEmpty() || main_c_3_t2.getText().isEmpty()) {
 				NotiFrame noti = new NotiFrame("비밀번호를 입력하세요");
+				main_c_3_t1.setBorder(type.warning("!"));
+				
 			} else if (!main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
 				NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
-			}else if(id_num.length()!=13) {
+				main_c_3_t1.setBorder(type.warning("!"));
+				main_c_3_t2.setBorder(type.warning("!"));
+			} else if (id_num.length() != 13) {
 				NotiFrame noti = new NotiFrame("주민번호를 입력하세요.");
-			}else if (main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
+				main_c_4_t.setBorder(type.warning("!"));
+				main_c_3_t1.setBorder(new LineBorder(Color.white, 2));
+				main_c_3_t2.setBorder(new LineBorder(Color.white, 2));
+			} else if (main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
 				String pwd = main_c_3_t1.getText();
-//				arrayMember = meminter.allList();
 				for (memberDTO d : arrayMember) {
 					if (d.getName().equals(name)) {
-						NotiFrame noti = new NotiFrame("이름 중복!");
-						main_c_1_t.setEnabled(true);
+//						NotiFrame noti = new NotiFrame("이름 중복!");
+//						main_c_1_t.setEnabled(true);
 					} else {
-						mdto.setName(main_c_1_t.getText());
-						mdto.setId(id);
-						mdto.setPassword(pwd);
-						mdto.setId_num(id_num);
-						meminter.add(mdto);
+						member_dto.setName(main_c_1_t.getText());
+						member_dto.setId(id);
+						member_dto.setPassword(pwd);
+						member_dto.setId_num(id_num);
+						memberInterface.add(member_dto);
 						NotiFrame noti = new NotiFrame("회원가입 완료!");
 						this.setVisible(false);
 						this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-						SignInFrame signin = new SignInFrame(meminter, null, null, null);
+						SignInFrame signin = new SignInFrame(memberInterface, null, null, null);
 					}
 				}
 			}
 
 		}
-
-	}// 버튼
-
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		int selectNum = main_e_b_list.getSelectedIndex();
-		System.out.println(selectNum + "번이 선택 됨");
-
-
-		memberDTO mdto = w.get(selectNum);
-
-
 	}
 
 }

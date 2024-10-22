@@ -1,0 +1,71 @@
+1. member
+create table member(
+name varchar2(10) primary key,
+id varchar2(10) not null unique,
+password varchar2(16) not null,
+id_num varchar2(13) not null unique,
+cer_name_1 varchar2(10) default '미등록',
+cer_name_2 varchar2(10) default '미등록',
+constraint m_cer_name foreign key(cer_name_1) REFERENCES certificate(cer_name) on delete set null,
+constraint m_cer_name2 foreign key(cer_name_2) REFERENCES certificate(cer_name) on delete set null);
+// 인정되지 않는 자격증은 삭제되어 회원 정보에서도 삭제
+
+insert into member values ('이원재','dldnjswo','s','9101251010100',null,null);
+insert into member values ('문상혁','dong','s','8901251010100',null,null);
+insert into member values ('유노을','youno','s','9501251010100',null,null);
+
+// check로 해서, 자격증 정보를 입력해놓고 미등록 포함시긴다.
+
+
+2. counsel
+create table counsel(
+name varchar2(10),
+interest varchar2(10) not null,
+ay_date timestamp default sysdate not null,
+memo varchar2(50),
+recommend varchar2(10),
+cs_date timestamp default sysdate,
+score number(3),
+attitude number(3) default 100,
+constraint m_cs_name foreign key(name) REFERENCES member(name) on delete cascade);
+// 회원 삭제 >> 상담 정보 삭제
+
+insert into counsel values ('이원재','Java',default,null,null,null,0,default);
+insert into counsel values ('이원재','Oracle',default,null,null,null,0,default);
+insert into counsel values ('유노을','Java',default,null,null,null,0,default);
+
+
+3. company
+create table company(
+c_name varchar2(10) not null,
+department varchar2(10) not null,
+min_score number(3) not null);
+
+insert into company values ('A회사','Java',70);
+insert into company values ('B회사','Spring',60);
+
+4. blocked
+create table blocked(
+b_name varchar2(10),
+id_num varchar2(13) not null unique,
+constraint m_b_name foreign key(b_name) REFERENCES member(name) on delete set null);
+
+5. certificate
+create table certificate(
+cer_name varchar2(10) primary key);
+
+insert into certificate values ('정처기');
+insert into certificate values ('sqld');
+insert into certificate values ('TOEIC');
+insert into certificate values ('OPIC');
+insert into certificate values ('OPIC');
+
+##. apply
+create table apply(
+name varchar2(10) foreign key,
+a_date timestamp default sysdate,
+accept varchar2(1) not null check (accept in('Y','N')),
+ac_date timestamp default sysdate,
+constraint m_a_name foreign key(name) member(name) on delete cascade);
+
+## border >> 변수 여러개 >> 변수 하나로 >> 클래스로 분류
