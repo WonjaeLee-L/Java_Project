@@ -3,6 +3,7 @@ package __0__project_dto;
 public class counselDTO {
 	private String name = null;
 	private String interest = null;
+	private String ay_date = null;
 	private String memo = null;
 	private String recommend = null;
 	private String cs_date = null;
@@ -25,6 +26,14 @@ public class counselDTO {
 		this.interest = interest;
 	}
 
+	public String getAy_date() {
+		return ay_date;
+	}
+
+	public void setAy_date(String ay_date) {
+		this.ay_date = ay_date;
+	}
+
 	public String getMemo() {
 		return memo;
 	}
@@ -42,7 +51,7 @@ public class counselDTO {
 	}
 
 	public String getCs_date() {
-		return cs_date.substring(0, 16);
+		return cs_date;
 	}
 
 	public void setCs_date(String cs_date) {
@@ -67,10 +76,9 @@ public class counselDTO {
 
 	@Override
 	public String toString() {
-		return "counselDTO [name=" + name + ", interest=" + interest + ", memo=" + memo + ", recommend=" + recommend
-				+ ", cs_date=" + cs_date + ", score=" + score + ", attitude=" + attitude + "]";
+		return "counselDTO [name=" + name + ", interest=" + interest + ", ay_date=" + ay_date + ", memo=" + memo
+				+ ", recommend=" + recommend + ", cs_date=" + cs_date + ", score=" + score + ", attitude=" + attitude
+				+ "]";
 	}
-
-	
 
 }

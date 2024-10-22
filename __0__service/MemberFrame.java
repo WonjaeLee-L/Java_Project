@@ -65,6 +65,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JPanel main_c_3_p = new JPanel();
 	private JTextField main_c_3_text = new JTextField();
 	private JButton main_c_3_btn = type.buttontype("저장");
+	private JPanel main_c_4_p = new JPanel();
+	private JButton main_c_4_btn = type.buttontype("보이기");
 	private JLabel main_c_4_t = new JLabel();
 
 	private JPanel main_c_main_s = new JPanel();
@@ -108,6 +110,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private String id;
 	private String pwd;
 	private int index;
+	private String id_num;
+	private String id_num_star;
 	// main_east의 내부, 우측 아래
 
 //	private TitledBorder eastBorder2 = new TitledBorder("상담 이력");
@@ -161,10 +165,6 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main.add(main_center, "Center");
 		main.add(main_east, "East");
 
-		// 비밀번호 수정 칸
-		main_c_3_p.setLayout(new GridLayout());
-		main_c_3_p.add(main_c_3_text);
-		main_c_3_p.add(main_c_3_btn);
 
 		// main에 추가한 main_center에 추가
 		main_center.setLayout(new BorderLayout());
@@ -186,8 +186,18 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_main_c.add(main_c_3);
 		main_c_main_c.add(main_c_3_p);
 		main_c_main_c.add(main_c_4);
-		main_c_main_c.add(main_c_4_t);
+		main_c_main_c.add(main_c_4_p);
+		
+		main_c_4_p.setLayout(new GridLayout());
+		main_c_4_p.add(main_c_4_t);
+		main_c_4_p.add(main_c_4_btn);
 
+		// 비밀번호 수정 칸
+		main_c_3_p.setLayout(new GridLayout());
+		main_c_3_p.add(main_c_3_text);
+		main_c_3_p.add(main_c_3_btn);
+		
+		
 		// 중앙 하단 >> 왼쪽 아래를 좌, 우로 구분
 		main_c_main_s.setLayout(new BorderLayout());
 		main_c_main_s.add(main_c_main_s_w, "West");
@@ -251,6 +261,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_5_list.addItemListener(this);
 		main_c_6_list.addItemListener(this);
 		main_e_t_b_btn.addActionListener(this);
+		main_c_4_btn.addActionListener(this);
+		
 
 //		this.pack();
 		this.setVisible(true);
@@ -269,7 +281,9 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			if (arrayMember.get(i).getId().equals(id)) {
 				main_c_1_t.setText(arrayMember.get(i).getName());
 //				memberdto.setName(arrayMember.get(i).getName());
-				main_c_4_t.setText(arrayMember.get(i).getId_num());
+				id_num = arrayMember.get(i).getId_num();
+				id_num_star = id_num.substring(0,7).concat("******");
+				main_c_4_t.setText(id_num_star);
 				main_c_5_1.setText(arrayMember.get(i).getCer_name_1());
 				main_c_5_2.setText(arrayMember.get(i).getCer_name_2());
 				index = i;
@@ -356,6 +370,22 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			memberdao.updateCerti(name_1, select_1, 1);
 			memberdao.updateCerti(name_1, select_2, 2);
 
+		}
+		
+		if(e.getSource() == main_c_4_btn) {
+			String text = main_c_4_t.getText();
+			
+			if(text.contains("*")) {
+				main_c_4_btn = type.buttontype("숨기기");
+				main_c_4_t.setText(id_num);
+			}else {
+				main_c_4_btn = type.buttontype("보이기");
+				main_c_4_t.setText(id_num_star);
+			}
+		}
+		
+		if(e.getSource() == main_e_t_b_btn) {
+			
 		}
 	}
 

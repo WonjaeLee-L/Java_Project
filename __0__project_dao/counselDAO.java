@@ -48,6 +48,7 @@ public class counselDAO extends _connection implements counselDAO_interface {
 				counselDTO cutemp = new counselDTO();
 				cutemp.setName(rs.getString("name"));
 				cutemp.setInterest(rs.getString("interest"));
+				cutemp.setAy_date(rs.getString("ay_date"));
 				cutemp.setMemo(rs.getString("memo"));
 				cutemp.setRecommend(rs.getString("recommend"));
 				cutemp.setCs_date(rs.getString("cs_date"));
