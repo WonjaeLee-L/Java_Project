@@ -6,7 +6,19 @@ import __0__project_dto.certificateDTO;
 
 public class certificateDAO extends _connection implements certificateDAO_interface {
 
-	certificateDTO cerdto = new certificateDTO();
+//	certificateDTO cerdto = new certificateDTO();
+	private static certificateDAO certificatedao = null;
+
+	private certificateDAO() {
+		init();
+	}
+
+	public static certificateDAO getInstance() {
+		if (certificatedao == null) {
+			certificatedao = new certificateDAO();
+		}
+		return certificatedao;
+	}
 
 	@Override
 	public ArrayList<certificateDTO> allList() {
@@ -33,9 +45,9 @@ public class certificateDAO extends _connection implements certificateDAO_interf
 	@Override
 	public void add() {
 		conn();
-		
 		query = "insert into certificate values (?)";
 		try {
+			certificateDTO cerdto = new certificateDTO();
 			ps = conn.prepareStatement(query);
 			// 객체 생성(conn을 통해 쿼리문 입력 받고 실행)
 			ps.setString(1, cerdto.getCer_name());

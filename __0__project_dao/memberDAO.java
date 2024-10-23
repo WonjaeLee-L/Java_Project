@@ -3,16 +3,22 @@ package __0__project_dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import __0__project_dto.certificateDTO;
 import __0__project_dto.memberDTO;
 
 public class memberDAO extends _connection implements memberDAO_interface {
 
-	memberDTO mdto = new memberDTO();
-//	private memberDAO_interface memberinterface;
+//	memberDTO mdto = new memberDTO();
+	private static memberDAO memberdao = null;
 
-	public memberDAO() {
+	private memberDAO() {
+		init();
+	}
 
+	public static memberDAO getInstance() {
+		if (memberdao == null) {
+			memberdao = new memberDAO();
+		}
+		return memberdao;
 	}
 
 	@Override

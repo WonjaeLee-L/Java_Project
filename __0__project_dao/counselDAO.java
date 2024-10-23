@@ -6,10 +6,20 @@ import __0__project_dto.counselDTO;
 
 public class counselDAO extends _connection implements counselDAO_interface {
 
-	counselDTO counseldto = new counselDTO();
+//	counselDTO counseldto = new counselDTO();
+	private static counselDAO counseldao = null;
 
-	public counselDAO() {
-	};
+	private counselDAO() {
+		init();
+	}
+
+	public static counselDAO getInstance() {
+		if (counseldao == null) {
+			counseldao = new counselDAO();
+		}
+		return counseldao;
+	}
+
 
 	@Override
 	public void add(counselDTO coudto) {

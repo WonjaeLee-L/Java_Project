@@ -22,7 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 
+import __0__project_dao.certificateDAO;
 import __0__project_dao.certificateDAO_interface;
+import __0__project_dao.counselDAO;
 import __0__project_dao.counselDAO_interface;
 import __0__project_dao.memberDAO;
 import __0__project_dao.memberDAO_interface;
@@ -32,13 +34,14 @@ import __0__project_dto.memberDTO;
 
 public class ManageFrame_1 extends JFrame implements ActionListener, ItemListener {
 	private border type = new border();
-	private memberDAO_interface memberInterface = null;
-	private counselDAO_interface counselInterface = null;
-	private certificateDAO_interface certificateInterface = null;
+	
 	private ArrayList<memberDTO> arrayMember = null;
 	private ArrayList<counselDTO> arrayCounsel = null;
 	private ArrayList<certificateDTO> arrayCerti = null;
-	private memberDAO memberdao = new memberDAO();
+	private memberDAO memberdao = memberDAO.getInstance();
+	public counselDAO counseldao = counselDAO.getInstance();
+	public certificateDAO certificatedao = certificateDAO.getInstance();
+	public memberDTO memberdto = null;
 //
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
@@ -109,18 +112,10 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 	private JComboBox main_c_e_companyList = new JComboBox(ccList);
 
 
-	public ManageFrame_1(memberDAO_interface m_inter, counselDAO_interface cou_inter,
-			certificateDAO_interface cer_inter, SignInFrame signinframe, String id, String pwd,
-			ArrayList<memberDTO> arrayMember, memberDAO meberdao) {
+	public ManageFrame_1(memberDTO memberdto) {
 
 		// 객체 주소 주입
-		this.id = id;
-		this.pwd = pwd;
-		this.memberInterface = m_inter;
-		this.counselInterface = cou_inter;
-		this.certificateInterface = cer_inter;
-		this.arrayMember = arrayMember;
-//		this.memberdao = memberdao;
+		this.memberdto = memberdto;
 		// 창 크기 설정
 		this.setBounds(200, 300, 1000, 400);
 
@@ -233,32 +228,27 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		
 		
 
-//		this.pack();
+
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		memberInterface.allList();
-//		logInInfo();
+
 		allList();
 		counsellistin();
 		cerlistin();
 		repaint();
-//		mainF.revalidate();
-//		mainF.paint(main_c_main_s_w.getGraphics());
 
 	}
 
 	private void allList() {
-		arrayMember = memberInterface.allList();
-		arrayCounsel = counselInterface.allList();
-		for (memberDTO d : arrayMember) {
+		arrayMember = memberdao.allList();
+		arrayCounsel = counseldao.allList();
+		for (memberDTO mdto : arrayMember) {
 			// 로그인 회원의 정보 출력
-			for (counselDTO c : arrayCounsel) {
-				if (d.getName().equals(c.getName())) {
-					main_c_list.add(d.getName() + d.getId() + d.getId_num().substring(0, 8).concat("*")
-							+ d.getCer_name_1() + d.getCer_name_2() + c.getInterest() + c.getScore() + c.getAttitude());
+			for (counselDTO cdto : arrayCounsel) {
+				if (mdto.getName().equals(cdto.getName())) {
+					main_c_list.add(mdto.toString() + cdto.getInterest() + cdto.getScore() + cdto.getAttitude());
 				} else {
-					main_c_list.add(d.getName() + d.getId() + d.getId_num().substring(0, 8).concat("*")
-							+ d.getCer_name_1() + d.getCer_name_2());
+					main_c_list.add(mdto.toString());
 				}
 				break;
 
@@ -286,7 +276,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 	// 리스트 목록 보기
 	private void counsellistin() {
-		arrayCounsel = counselInterface.allList();
+		arrayCounsel = counseldao.allList();
 		for (counselDTO c : arrayCounsel) {
 			// 회원의 상담정보 출력
 			String csdate = c.getCs_date();
@@ -298,7 +288,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 	// 자격증 정보 리스트 (선택)
 	private void cerlistin() {
-		arrayCerti = certificateInterface.allList();
+		arrayCerti = certificatedao.allList();
 		for (certificateDTO cer : arrayCerti) {
 			main_c_5_list.add(cer.getCer_name());
 			main_c_6_list.add(cer.getCer_name());
@@ -312,7 +302,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 			this.setVisible(false);
 			// 화면 안보일경우 종료
 			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-			SignInFrame sign = new SignInFrame(memberInterface, memberdao, counselInterface, certificateInterface);
+			SignInFrame sign = new SignInFrame();
 		}
 
 		
@@ -320,10 +310,10 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		if(e.getSource() == main_c_p_btn) {
 			for(memberDTO memdto : arrayMember) {
 				if(memdto.getName().equals(main_c_5_select_1.getText())) {
-					memberInterface.del(memdto);
+					memberdao.del(memdto);
 					NotiFrame noti = new NotiFrame("영구 탈퇴");
-					
-					
+					// 바로 갱신
+					new ManageFrame_1(memberdto);
 					
 
 //					this.setVisible(false);

@@ -1,12 +1,8 @@
 package __0__service;
 
-import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import __0__project_dao.memberDAO_interface;
 
 public class NotiFrame extends JFrame {
 
