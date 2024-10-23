@@ -38,7 +38,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 	private ArrayList<counselDTO> arrayCounsel = null;
 	private ArrayList<certificateDTO> arrayCerti = null;
 	private memberDAO memberdao = new memberDAO();
-
+//
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
 //	private Font borderFont = new Font(Font.DIALOG, Font.ITALIC, 10);
