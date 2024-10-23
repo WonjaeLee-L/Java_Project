@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import __0__project_dao.memberDAO;
@@ -36,10 +37,10 @@ public class SignInFrame extends JFrame implements ActionListener {
 	private JLabel id = new JLabel("ID");
 	private JTextField id_t = new JTextField();
 	private JLabel password = new JLabel("PASSWORD");
-	private JTextField password_t = new JTextField();
+	private JPasswordField password_t = new JPasswordField();
 	private JButton signup = type.buttontype("SIGNUP");
 	private JButton signin = type.buttontype("SIGNIN");
-
+	 
 	public SignInFrame() {
 
 		this.setBounds(400, 300, 500, 150);

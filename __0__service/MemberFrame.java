@@ -34,6 +34,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	public counselDAO counseldao = counselDAO.getInstance();
 	public certificateDAO certificatedao = certificateDAO.getInstance();
 	private memberDTO memberdto = null;
+	private counselDTO counseldto = new counselDTO();
 
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
@@ -289,9 +290,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 				main_c_2_t.setText(memberdto.getId());
 				if (!main_c_4_t.getText().contains("*")) {
 					main_c_4_t.setText(memberdto.getId_num().substring(0, 7).concat("******"));
-
 				}
-
 				main_c_5_1.setText(memberdto.getCer_name_1());
 				main_c_5_2.setText(memberdto.getCer_name_2());
 				title.setText(main_c_1_t.getText() + "님 환영합니다.");
@@ -308,9 +307,9 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			if (c.getName().equals(memberdto.getName())) {
 				String csdate = c.getCs_date();
 				if (csdate == null) {
-					main_e_b_list.add("미상담 건:" + c.getAy_date().substring(2, 10) + "일자로 신청 중");
+					main_e_b_list.add(c.getName() + "[수락 대기] 신청 날짜 : " + c.getAy_date().substring(2, 10));
 				} else {
-					main_e_b_list.add("상담 완료 :" + c.getName() + c.getCs_date().substring(2, 10) + "일자로 상담 완료");
+					main_e_b_list.add(c.getName() + "[상담 완료] 완료 날짜 : " + c.getCs_date().substring(2, 10));
 				}
 			}
 		}
@@ -370,16 +369,21 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 		// 신청 정보 저장
 		if (e.getSource() == main_e_t_b_btn) {
-			arrayCounsel = counseldao.allList();
-			String text_inter = main_e_t_b_t2.getText();
-			String text_date = main_e_t_b_t1.getText();
-			for (counselDTO coudto : arrayCounsel) {
-				if (coudto.getName().equals(main_c_1_t.getText())) {
-					coudto.setInterest(text_inter);
-					coudto.setAy_date(text_date);
-					counseldao.add(coudto);
-				}
-			}
+//			arrayCounsel = counseldao.allList();
+//			String text_inter = main_e_t_b_t2.getText();
+//			String text_date = main_e_t_b_t1.getText();
+			counseldto.setName(main_c_1_t.getText());
+			counseldto.setInterest(main_e_t_b_t2.getText());
+			counseldto.setAy_date(main_e_t_b_t1.getText());
+			counseldao.add(counseldto);
+			NotiFrame n = new NotiFrame("상담 신청이 완료되었습니다.");
+//			for (counselDTO coudto : arrayCounsel) {
+//				if (coudto.getName().equals(main_c_1_t.getText())) {
+//					coudto.setInterest(text_inter);
+//					coudto.setAy_date(text_date);
+//					counseldao.add(coudto);
+//				}
+//			}
 
 		}
 
@@ -409,9 +413,15 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	public void itemStateChanged(ItemEvent e) {
 		// 로그인 한 사람의 상담 리스트 클릭 이벤트 >> 상세 정보(미상담건과 분리해서 표기)
 		if (e.getSource() == main_e_b_list) {
-			int selectNum = main_e_b_list.getSelectedIndex();
-			counselDTO cudto = arrayCounsel.get(selectNum);
-			CouncelInfoFrame clistinfo = new CouncelInfoFrame(cudto);
+//			int selectNum = main_e_b_list.getSelectedIndex();
+			String name1 = main_e_b_list.getSelectedItem().substring(0, 2);
+			for (counselDTO coundto : arrayCounsel) {
+				if (coundto.getName().equals(name1)) {
+					CouncelInfoFrame clistinfo = new CouncelInfoFrame(coundto);
+				}
+			}
+//			counselDTO cudto = arrayCounsel.get(selectNum);
+//			CouncelInfoFrame clistinfo = new CouncelInfoFrame(cudto);
 		}
 
 		// 자격증 리스트에서 누르면 첫번째 text에 출력

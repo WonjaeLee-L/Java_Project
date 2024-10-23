@@ -116,7 +116,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		arrayCounsel = counseldao.allList();
 		// 창 크기 설정
 		this.setBounds(200, 300, 1000, 400);
-
+		title.setText("관리자님 환영합니다.");
 		title.setFont(titleFont);
 		mainF.add(title);
 
@@ -232,21 +232,10 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 	private void allList() {
 		// 모든 회원의 정보 출력
-//		arrayMember = memberdao.allList();
-//		arrayCounsel = counseldao.allList();
-//		for(int i=0; i<arrayMember.size(); i++) {
-//			for(int j=0; j<arrayCounsel.size();j++) {
-//				if(arrayCounsel.get(j).getName().equals(arrayMember.get(i).getName())) {
-//					main_c_list.add(arrayMember.get(i).toString()+arrayCounsel.get(j).getInterest());
-//				} else {
-//					main_c_list.add(arrayMember.get(i).toString());
-//				}
-//			}
-//		}
 		for (memberDTO mdto : arrayMember) {
 			for (counselDTO cdto : arrayCounsel) {
 				if (mdto.getName().equals(cdto.getName())) {
-					main_c_list.add(mdto.toString() + cdto.getInterest() + cdto.getScore() + cdto.getAttitude());
+					main_c_list.add(mdto.toString() + cdto.toString());
 				} else {
 					main_c_list.add(mdto.toString());
 				}

@@ -47,12 +47,13 @@ insert into company values ('B회사','Spring',60);
 4. blocked
 create table blocked(
 b_name varchar2(10),
-id_num varchar2(13) not null unique,
+id_num varchar2(13) not null unique);
+,
 constraint m_b_name foreign key(b_name) REFERENCES member(name) on delete set null);
 
 5. certificate
 create table certificate(
-cer_name varchar2(10) primary key);
+cer_name varchar2(30) primary key);
 
 insert into certificate values ('정처기');
 insert into certificate values ('sqld');
