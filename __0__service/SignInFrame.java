@@ -24,7 +24,7 @@ public class SignInFrame extends JFrame implements ActionListener {
 	private certificateDAO_interface certificateInterface = null;
 	private memberDAO_interface memberInterface = null;
 	private memberDAO member_dao = null;
-	private  ArrayList<memberDTO> arrayMember = null;
+	private ArrayList<memberDTO> arrayMember = null;
 	private border type = new border();
 	private memberDTO mdto = new memberDTO();
 	private SignInFrame signinframe = null;
@@ -93,13 +93,20 @@ public class SignInFrame extends JFrame implements ActionListener {
 		if (e.getSource() == signin) {
 			String id = id_t.getText();
 			String pwd = password_t.getText();
-
-			// 아이디 미입력
-			if (id_t.getText().isEmpty()) {
+			
+			if(id.equals("super") && pwd.equals("super")) {
+				this.setVisible(false);
+				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+				ManageFrame_1 mgeframe = new ManageFrame_1(memberInterface, counselInterface, certificateInterface,
+						signinframe, id, pwd, arrayMember, member_dao);
+			}else if(id.equals("super")) {
+				NotiFrame noti = new NotiFrame("가입할 수 없는 아이디입니다.");
+				id_t.setBorder(type.warning(""));
+			}else if (id_t.getText().isEmpty()) {
 				NotiFrame noti = new NotiFrame("아이디를 입력하세요");
 				id_t.setBorder(type.warning("!"));
 				// 입력한 아이디가 없는 경우
-			} else if (findID(id) == -1) {
+			} else if (findID(id) == -1 && !id.equals("super")) {
 				mdto.setId(id);
 				SignUpFrame sign = new SignUpFrame(mdto, signinframe, memberInterface);
 				// , memberInterface
@@ -108,24 +115,26 @@ public class SignInFrame extends JFrame implements ActionListener {
 				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 				// 로그인 성공
 			} else if (findID(id) == findPwd(pwd)) {
-				this.setVisible(false);
-				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-				MemberFrame mframe = new MemberFrame(memberInterface, counselInterface, certificateInterface,
-						signinframe, id, pwd, arrayMember, member_dao);
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					MemberFrame memframe = new MemberFrame(memberInterface, counselInterface, certificateInterface,
+							signinframe, id, pwd, arrayMember, member_dao);
+				}
 				// 비밀번호 오류
-			} else if (findID(id) != findPwd(pwd)) {
+			 else if (findID(id) != findPwd(pwd)) {
 				NotiFrame noti = new NotiFrame("비밀번호가 틀렸습니다");
 				password_t.setBorder(type.warning("!"));
-			}
+			}}
 
-		}
-		// 가입 버튼
-		if (e.getSource() == signup) {
-			this.setVisible(false);
-			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-			SignUpFrame sign = new SignUpFrame(mdto, signinframe, memberInterface);
+	// 가입 버튼
+	if(e.getSource()==signup)
+
+	{
+		this.setVisible(false);
+		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		SignUpFrame sign = new SignUpFrame(mdto, signinframe, memberInterface);
 //			, memberInterface
-		}
+	}
 
 	}
 
