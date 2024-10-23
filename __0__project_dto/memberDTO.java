@@ -55,11 +55,11 @@ public class memberDTO {
 	public void setCer_name_2(String cer_name_2) {
 		this.cer_name_2 = cer_name_2;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "이름 :" + name + ", 아이디 :" + id + ", 주민등록번호 :" + id_num.substring(0, 8).concat("*")
-				+ ", 자격증 :" + cer_name_1 + ", 자격증 :" + cer_name_2 + "]";
+		return "이름 :" + name + ", 아이디 :" + id + ", 주민등록번호 :" + id_num.substring(0, 8).concat("*") + ", 자격증 :"
+				+ cer_name_1 + ", 자격증 :" + cer_name_2 + "]";
 	}
 
 }

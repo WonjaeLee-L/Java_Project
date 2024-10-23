@@ -1,6 +1,6 @@
 package __0__project_dao;
 
-public class companyDAO extends _connection{
+public class companyDAO extends _connection {
 	private static companyDAO companydao = null;
 
 	private companyDAO() {

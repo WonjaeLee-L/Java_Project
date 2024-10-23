@@ -64,9 +64,9 @@ public class memberDAO extends _connection implements memberDAO_interface {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, text);
 			ps.setString(2, name);
+			result();
 		} catch (Exception e) {
 		} finally {
-			result();
 			close();
 		}
 	}
@@ -79,9 +79,9 @@ public class memberDAO extends _connection implements memberDAO_interface {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, pwd);
 			ps.setString(2, name);
+			result();
 		} catch (Exception e) {
 		} finally {
-			result();
 			close();
 		}
 	}

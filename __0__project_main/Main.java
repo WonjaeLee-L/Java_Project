@@ -7,24 +7,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		_connection co = new _connection();
-//		memberDAO mdao = new memberDAO();
-//		counselDAO cudao = new counselDAO();
-//		certificateDAO cerdao = new certificateDAO();
-//		memberDTO memberdto = new memberDTO();
 
-//		MemberFrame mf = new MemberFrame(mdao, cudao, cerdao, null, null, null, null, mdao);
-		SignInFrame sf = new SignInFrame();	
-//		SignInFrame sf = new SignInFrame(mdao, mdao, cudao, cerdao);
-//		NotiFrame nf = new NotiFrame(mdao);
-//		SignUpFrame uf = new SignUpFrame(mdao);
-//		ManageFrame maf = new ManageFrame(mdao);
-//		ManageFrame_1 maf1 = new ManageFrame_1(mdao, cudao, cerdao, null, null, null, null, mdao);
-		
+		SignInFrame sf = new SignInFrame();
+
+
 //		 관리자 페이지
 //		>> 회원 탈퇴, 전체, 검색, 신청...
-		
-		 
-		
+
 	}
 
 }

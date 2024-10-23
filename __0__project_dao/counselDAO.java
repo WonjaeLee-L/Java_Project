@@ -20,7 +20,6 @@ public class counselDAO extends _connection implements counselDAO_interface {
 		return counseldao;
 	}
 
-
 	@Override
 	public void add(counselDTO coudto) {
 		// 연결
@@ -47,8 +46,19 @@ public class counselDAO extends _connection implements counselDAO_interface {
 	}
 
 	@Override
-	public void mod() {
-		System.out.println("mod");
+	public void mod(counselDTO counseldto) {
+		conn();
+		query = "update counsel set score = ?, attitude = ?, cs_date = sysdate where name = ?";
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, counseldto.getScore());
+			ps.setInt(2, counseldto.getAttitude());
+			ps.setString(3, counseldto.getName());
+			result();
+		} catch (Exception e) {
+		} finally {
+			close();
+		}
 
 	}
 

@@ -41,7 +41,7 @@ public class SignInFrame extends JFrame implements ActionListener {
 	private JButton signin = type.buttontype("SIGNIN");
 
 	public SignInFrame() {
-		
+
 		this.setBounds(400, 300, 500, 150);
 		this.add(mainPanel, "Center");
 
@@ -80,9 +80,10 @@ public class SignInFrame extends JFrame implements ActionListener {
 			memberdto.setPassword(password_t.getText());
 
 			if (id_t.getText().equals("super") && password_t.getText().equals("super")) {
+
 				this.setVisible(false);
 				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-				ManageFrame_1 manageframe = new ManageFrame_1(memberdto);
+				new ManageFrame_1(memberdto);
 			} else if (id_t.getText().equals("super")) {
 				NotiFrame noti = new NotiFrame("가입할 수 없는 아이디입니다.");
 				id_t.setBorder(type.warning(""));
@@ -101,8 +102,8 @@ public class SignInFrame extends JFrame implements ActionListener {
 			} else if (findID(id_t.getText()) == findPwd(password_t.getText())) {
 				this.setVisible(false);
 				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-				for(memberDTO d : arrayMember) {
-					if(memberdto.getId().equals(d.getId())) {
+				for (memberDTO d : arrayMember) {
+					if (memberdto.getId().equals(d.getId())) {
 						memberdto = d;
 					}
 				}

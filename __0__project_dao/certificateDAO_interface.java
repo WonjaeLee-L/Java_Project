@@ -6,6 +6,7 @@ import __0__project_dto.certificateDTO;
 
 public interface certificateDAO_interface {
 	void add();
+
 	ArrayList<certificateDTO> allList();
 
 }

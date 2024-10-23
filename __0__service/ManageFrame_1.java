@@ -15,33 +15,30 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 
+import __0__project_dao.blockedDAO;
 import __0__project_dao.certificateDAO;
-import __0__project_dao.certificateDAO_interface;
 import __0__project_dao.counselDAO;
-import __0__project_dao.counselDAO_interface;
 import __0__project_dao.memberDAO;
-import __0__project_dao.memberDAO_interface;
 import __0__project_dto.certificateDTO;
 import __0__project_dto.counselDTO;
 import __0__project_dto.memberDTO;
 
 public class ManageFrame_1 extends JFrame implements ActionListener, ItemListener {
 	private border type = new border();
-	
-	private ArrayList<memberDTO> arrayMember = null;
-	private ArrayList<counselDTO> arrayCounsel = null;
-	private ArrayList<certificateDTO> arrayCerti = null;
+
+	private ArrayList<memberDTO> arrayMember = new ArrayList<>();
+	private ArrayList<counselDTO> arrayCounsel = new ArrayList<>();
+	private ArrayList<certificateDTO> arrayCertificate = null;
 	private memberDAO memberdao = memberDAO.getInstance();
 	public counselDAO counseldao = counselDAO.getInstance();
+	public blockedDAO blockeddao = blockedDAO.getInstance();
 	public certificateDAO certificatedao = certificateDAO.getInstance();
 	public memberDTO memberdto = null;
+	public counselDTO counseldto = new counselDTO();
 //
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
@@ -102,20 +99,21 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 	private JLabel main_e_t_b_3 = new JLabel();
 	private JButton main_e_t_b_btn = type.buttontype("입력");
 	private List main_e_b_list = new List();
-	private String id;
-	private String pwd;
-	private int index;
-	private String id_num;
-	private String id_num_star;
+//	private String id;
+//	private String pwd;
+//	private int index;
 
-	private String ccList[][] = { {"test1,1"}, {"test2,2"}, {"test3,3"}, {"test4,4"} };
+//	private String id_num_star;
+
+	private String ccList[] = { "test1", "test2", "test3", "test4" };
 	private JComboBox main_c_e_companyList = new JComboBox(ccList);
-
 
 	public ManageFrame_1(memberDTO memberdto) {
 
 		// 객체 주소 주입
 		this.memberdto = memberdto;
+		arrayMember = memberdao.allList();
+		arrayCounsel = counseldao.allList();
 		// 창 크기 설정
 		this.setBounds(200, 300, 1000, 400);
 
@@ -167,7 +165,6 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 		main_c_main_s.add(main_c_main_s_c);
 
-
 		// 중앙 하단, 왼쪽 아래, 좌
 		main_c_main_s_w.setLayout(new GridLayout(3, 2));
 		main_c_main_s_w.add(main_c_5);// 이름
@@ -200,10 +197,10 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 		// main_e_t_b 내부 작업
 		main_e_t_b.setLayout(new GridLayout(3, 3, 10, 10));
-		main_e_t_b.add(main_e_t_b_1);// 시험
-		main_e_t_b.add(main_e_t_b_t1);// 태도
+		main_e_t_b.add(main_e_t_b_1);
+		main_e_t_b.add(main_e_t_b_t1);// 시험
 		main_e_t_b.add(main_e_t_b_2);
-		main_e_t_b.add(main_e_t_b_t2);
+		main_e_t_b.add(main_e_t_b_t2);// 태도
 		main_e_t_b.add(main_e_t_b_3);// 빈라벨
 		main_e_t_b.add(main_e_t_b_btn);// 입력 버틍
 
@@ -217,33 +214,36 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		// 이벤트 감지를 위한 이벤트 등록
 		main_c_list.addItemListener(this);
 		main_c_p_btn.addActionListener(this);
-		
+
 		main_c_5_select_btn.addActionListener(this);
 		main_c_7_btn.addActionListener(this);
 		main_e_b_list.addItemListener(this);
 		main_c_5_list.addItemListener(this);
 		main_c_6_list.addItemListener(this);
 		main_e_t_b_btn.addActionListener(this);
-		
-		
-		
-
-
-		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		allList();
 		counsellistin();
 		cerlistin();
-		repaint();
 
+		this.setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	private void allList() {
-		arrayMember = memberdao.allList();
-		arrayCounsel = counseldao.allList();
+		// 모든 회원의 정보 출력
+//		arrayMember = memberdao.allList();
+//		arrayCounsel = counseldao.allList();
+//		for(int i=0; i<arrayMember.size(); i++) {
+//			for(int j=0; j<arrayCounsel.size();j++) {
+//				if(arrayCounsel.get(j).getName().equals(arrayMember.get(i).getName())) {
+//					main_c_list.add(arrayMember.get(i).toString()+arrayCounsel.get(j).getInterest());
+//				} else {
+//					main_c_list.add(arrayMember.get(i).toString());
+//				}
+//			}
+//		}
 		for (memberDTO mdto : arrayMember) {
-			// 로그인 회원의 정보 출력
 			for (counselDTO cdto : arrayCounsel) {
 				if (mdto.getName().equals(cdto.getName())) {
 					main_c_list.add(mdto.toString() + cdto.getInterest() + cdto.getScore() + cdto.getAttitude());
@@ -288,8 +288,8 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 	// 자격증 정보 리스트 (선택)
 	private void cerlistin() {
-		arrayCerti = certificatedao.allList();
-		for (certificateDTO cer : arrayCerti) {
+		arrayCertificate = certificatedao.allList();
+		for (certificateDTO cer : arrayCertificate) {
 			main_c_5_list.add(cer.getCer_name());
 			main_c_6_list.add(cer.getCer_name());
 		}
@@ -305,29 +305,34 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 			SignInFrame sign = new SignInFrame();
 		}
 
-		
 		// 회원 탈퇴
-		if(e.getSource() == main_c_p_btn) {
-			for(memberDTO memdto : arrayMember) {
-				if(memdto.getName().equals(main_c_5_select_1.getText())) {
+		if (e.getSource() == main_c_p_btn) {
+			for (memberDTO memdto : arrayMember) {
+				if (memdto.getName().equals(main_c_5_select_1.getText())) {
 					memberdao.del(memdto);
+					blockeddao.add(memdto);
 					NotiFrame noti = new NotiFrame("영구 탈퇴");
 					// 바로 갱신
 					new ManageFrame_1(memberdto);
-					
 
-//					this.setVisible(false);
-					// 화면 안보일경우 종료
-//					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-//					SignInFrame sign = new SignInFrame(memberInterface, memberdao, counselInterface, certificateInterface);
 				}
 			}
 		}
-		
-		
-		
-		
-		
+		// 시험 점수, 태도 점수 입력
+		if (e.getSource() == main_e_t_b_btn) {
+			for (counselDTO c : arrayCounsel) {
+				if (c.getName().equals(main_c_5_select_1.getText())) {
+					c.setScore(Integer.parseInt(main_e_t_b_t1.getText()));
+					c.setAttitude(Integer.parseInt(main_e_t_b_t2.getText()));
+
+					counseldao.mod(c);
+					NotiFrame noti = new NotiFrame("점수 입력 완료");
+					new ManageFrame_1(memberdto);
+				}
+			}
+
+		}
+
 //		// 비밀번호 수정
 //		if (e.getSource() == main_c_3_btn) {
 //			String modpwd = main_c_3_text.getText();
@@ -393,7 +398,6 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 //		}
 //		
 
-
 	}
 
 	@Override
@@ -407,7 +411,15 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 		}
 
-		// 추천 분야 메서드 a,b,c
+		// 버튼 2 누르면
+		if (e.getSource() == main_c_p_btn2) {
+			for (counselDTO cudto : arrayCounsel)
+				if (cudto.getName().equals(main_c_5_select_1.getText())) {
+
+//					cudto.getRecommend().
+				}
+
+		}
 
 		if (e.getSource() == main_e_b_list) {
 			int selectNum = main_e_b_list.getSelectedIndex();
@@ -415,19 +427,11 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 			CouncelInfoFrame clistinfo = new CouncelInfoFrame(cudto);
 		}
 
-		// 자격증 리스트에서 누르면 첫번째 text에 출력
-		if (e.getSource() == main_c_5_list) {
-			memberDTO mdto = new memberDTO();
-			int cerNum_1 = main_c_5_list.getSelectedIndex();
-			certificateDTO cerdto = arrayCerti.get(cerNum_1);
-			main_c_5_select_1.setText(cerdto.getCer_name());
-
-		}
 		// 자격증 리스트에서 누르면 두번째 text에 출력
 		if (e.getSource() == main_c_6_list) {
 			memberDTO mdto = new memberDTO();
 			int cerNum_1 = main_c_6_list.getSelectedIndex();
-			certificateDTO cerdto = arrayCerti.get(cerNum_1);
+			certificateDTO cerdto = arrayCertificate.get(cerNum_1);
 			main_c_5_select_2.setText(cerdto.getCer_name());
 
 		}

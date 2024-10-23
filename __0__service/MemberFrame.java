@@ -66,7 +66,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JButton main_c_3_btn = type.buttontype("저장");
 	private JPanel main_c_4_p = new JPanel();
 
-	private JButton main_c_4_btn = type.buttontype("보이기");
+	private JButton main_c_4_btn = type.buttontype("확인");
 //	private JButton main_c_4_btn = new JButton();
 
 	private JLabel main_c_4_t = new JLabel();
@@ -84,7 +84,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private JPanel main_c_5_3 = new JPanel();
 	private JLabel main_c_5_4 = new JLabel();
 	private JButton main_c_5_select_btn = type.buttontype("저장");
-//	private String ccList[] = { "test1", "test2", "test3", "test4" };
+
 	private List main_c_5_list = new List();
 	private List main_c_6_list = new List();
 	private JPanel main_c_5_t = new JPanel();
@@ -181,12 +181,12 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		main_c_main_c.add(main_c_3_p);
 		main_c_main_c.add(main_c_4);
 		main_c_main_c.add(main_c_4_p);
-		
+
 		// 아이디 나오고, 탈퇴버튼
-		main_c_1_p.setLayout(new GridLayout(1,2));
+		main_c_1_p.setLayout(new GridLayout(1, 2));
 		main_c_1_p.add(main_c_1_t);
 		main_c_1_p.add(main_c_1_btn);
-		
+
 		main_c_4_p.setLayout(new GridLayout());
 		main_c_4_p.add(main_c_4_t);
 		main_c_4_p.add(main_c_4_btn);
@@ -265,14 +265,11 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 //		this.pack();
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		memberInterface.allList();
 		logInInfo();
 
 		counsellistin();
 		cerlistin();
 		repaint();
-//		mainF.revalidate();
-//		mainF.paint(main_c_main_s_w.getGraphics());
 
 	}
 
@@ -289,15 +286,12 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 				memberdto.setCer_name_1(arrayMember.get(i).getCer_name_1());
 				memberdto.setCer_name_2(arrayMember.get(i).getCer_name_2());
 				main_c_1_t.setText(memberdto.getName());
-//				main_c_1_t.setText(arrayMember.get(i).getName());
 				main_c_2_t.setText(memberdto.getId());
-//				main_c_2_t.setText(arrayMember.get(i).getId());
-				
-				
-//				main_c_4_t.setText(memberdto.getId_num());
-//				main_c_4_t.setText(arrayMember.get(i).getId_num());				
-//				id_num_star = arrayMember.get(i).getId_num().substring(0, 7).concat("******");
-				main_c_4_t.setText(memberdto.getId_num().substring(0, 7).concat("******"));
+				if (!main_c_4_t.getText().contains("*")) {
+					main_c_4_t.setText(memberdto.getId_num().substring(0, 7).concat("******"));
+
+				}
+
 				main_c_5_1.setText(memberdto.getCer_name_1());
 				main_c_5_2.setText(memberdto.getCer_name_2());
 				title.setText(main_c_1_t.getText() + "님 환영합니다.");
@@ -333,7 +327,6 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		// 비밀번호 수정
 		if (e.getSource() == main_c_3_btn) {
 			String modpwd = main_c_3_text.getText();
@@ -368,17 +361,10 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		}
 
 		if (e.getSource() == main_c_4_btn) {
-//			String star = "*";
 			if (main_c_4_t.getText().contains("*")) {
-				new MemberFrame(memberdto);
-				main_c_4_btn = type.buttontype("숨기기");
 				main_c_4_t.setText(memberdto.getId_num());
-
 			} else {
 				new MemberFrame(memberdto);
-				main_c_4_btn = type.buttontype("보이기");
-				main_c_4_t.setText(id_num_star);
-
 			}
 		}
 
@@ -396,15 +382,15 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			}
 
 		}
-		
+
 		// 회원 탈퇴
-		if(e.getSource() == main_c_1_btn) {
+		if (e.getSource() == main_c_1_btn) {
 			// 로그인되어있는 사람만 탈퇴하므로
 			memberdao.del(memberdto);
 			this.setVisible(false);
 			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 			SignInFrame sign = new SignInFrame();
-			
+
 //			arrayMember = memberdao.allList();
 //			for(memberDTO memdto : arrayMember) {
 //				if(memdto.getId().equals(main_c_2_t.getText())) {
@@ -416,10 +402,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 //				}
 //			}
 		}
-		
-		
-		
-		
+
 	}
 
 	@Override

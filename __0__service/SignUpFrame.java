@@ -15,15 +15,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import __0__project_dao.blockedDAO;
 import __0__project_dao.memberDAO;
+import __0__project_dto.blockedDTO;
 import __0__project_dto.memberDTO;
 
 public class SignUpFrame extends JFrame implements ActionListener {
 	border type = new border();
 	ArrayList<memberDTO> arrayMember = new ArrayList<memberDTO>();
+	ArrayList<blockedDTO> arrayBlock = new ArrayList<>();
 	memberDTO memberdto = null;
 	memberDAO memberdao = memberDAO.getInstance();
-
+	blockedDAO blockeddao = blockedDAO.getInstance();
 
 	// 폰트 설정
 	private Font titleFont = new Font(Font.DIALOG, Font.BOLD, 20);
@@ -55,7 +58,7 @@ public class SignUpFrame extends JFrame implements ActionListener {
 
 		// 테두리 폰트, 색상 변경
 		this.memberdto = memberdto;
-		
+
 		this.setBounds(200, 300, 700, 300);
 		title.setFont(titleFont);
 		mainF.add(title);
@@ -102,7 +105,7 @@ public class SignUpFrame extends JFrame implements ActionListener {
 		// SignIngFrame에서 입력한 id 그대로 가져옴
 		String want_id = memberdto.getId();
 		main_c_2_t.setText(want_id);
-		if (want_id!=null) {
+		if (want_id != null) {
 			main_c_2_t.setEnabled(false);
 		} else {
 		}
@@ -122,35 +125,45 @@ public class SignUpFrame extends JFrame implements ActionListener {
 				}
 			}
 
-			// 비밀번호 중복 확인
-			if (main_c_3_t1.getText().isEmpty() || main_c_3_t2.getText().isEmpty()) {
-				NotiFrame noti = new NotiFrame("비밀번호를 입력하세요");
-				main_c_3_t1.setBorder(type.warning("!"));
-				
-			} else if (!main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
-				NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
-				main_c_3_t1.setBorder(type.warning("!"));
-				main_c_3_t2.setBorder(type.warning("!"));
-			} else if (main_c_4_t.getText().length() != 13) {
-				NotiFrame noti = new NotiFrame("주민번호를 입력하세요.");
-				main_c_4_t.setBorder(type.warning("!"));
-				main_c_3_t1.setBorder(new LineBorder(Color.white, 2));
-				main_c_3_t2.setBorder(new LineBorder(Color.white, 2));
-			} else if (main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
-						memberdto.setName(main_c_1_t.getText());
-						memberdto.setId(main_c_2_t.getText());
-						memberdto.setPassword(main_c_3_t1.getText());
-						memberdto.setId_num(main_c_4_t.getText());
-						memberdao.add(memberdto);
-						NotiFrame noti = new NotiFrame("회원가입 완료!");
-						this.setVisible(false);
-						this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-						SignInFrame signin = new SignInFrame();
-			}
+			arrayBlock = blockeddao.allList();
+			for (blockedDTO b : arrayBlock) {
+				if (b.getId_num().equals(main_c_4_t.getText())) {
+					NotiFrame noti = new NotiFrame("차단된 사용자입니다.");
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					SignInFrame signin = new SignInFrame();
+				}
 
+				// 비밀번호 중복 확인
+				if (main_c_3_t1.getText().isEmpty() || main_c_3_t2.getText().isEmpty()) {
+					NotiFrame noti = new NotiFrame("비밀번호를 입력하세요");
+					main_c_3_t1.setBorder(type.warning("!"));
+
+				} else if (!main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
+					NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
+					main_c_3_t1.setBorder(type.warning("!"));
+					main_c_3_t2.setBorder(type.warning("!"));
+				} else if (main_c_4_t.getText().length() != 13) {
+					NotiFrame noti = new NotiFrame("주민번호를 입력하세요.");
+					main_c_4_t.setBorder(type.warning("!"));
+					main_c_3_t1.setBorder(new LineBorder(Color.white, 2));
+					main_c_3_t2.setBorder(new LineBorder(Color.white, 2));
+				} else if (main_c_3_t1.getText().equals(main_c_3_t2.getText())
+						&& !b.getId_num().equals(main_c_4_t.getText())) {
+
+					memberdto.setName(main_c_1_t.getText());
+					memberdto.setId(main_c_2_t.getText());
+					memberdto.setPassword(main_c_3_t1.getText());
+					memberdto.setId_num(main_c_4_t.getText());
+					memberdao.add(memberdto);
+					NotiFrame noti = new NotiFrame("회원가입 완료!");
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					SignInFrame signin = new SignInFrame();
+				}
+			}
 		}
-		
-		
+
 	}
 
 }

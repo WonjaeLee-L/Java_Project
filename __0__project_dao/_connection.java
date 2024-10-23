@@ -18,14 +18,14 @@ public class _connection {
 	protected _connection _dao = null;
 
 	public _connection() {
-		init();
+//		init();
 	}
 
 	// 드라이버 로드
 	public void init() {
 		try {
 			Class.forName(driverName);
-//			System.out.println("오라클 드라이버 로드 성공");
+//			System.out.println("드라이버 로드 성공");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -35,8 +35,8 @@ public class _connection {
 	public void conn() {
 		try {
 			conn = DriverManager.getConnection(url, username, password);
-//			System.out.println("커넥션 자원 획득 성공");
-			
+//			System.out.println("커넥션 성공");
+
 		} catch (Exception e) {
 		}
 	}
@@ -56,25 +56,22 @@ public class _connection {
 		} catch (Exception e) {
 		}
 	}
-	
+
 	// 확인
 	public void result() {
 		try {
 			int result = ps.executeUpdate();
-			if(result > 0) {
+			if (result > 0) {
 				conn.commit();
 //				System.out.println("입력 성공");
-			}else {
+			} else {
 				conn.rollback();
 //				System.out.println("입력 실패");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
 
-	
+	}
 
 }
