@@ -4,17 +4,14 @@ name varchar2(10) primary key,
 id varchar2(10) not null unique,
 password varchar2(16) not null,
 id_num varchar2(13) not null unique,
-cer_name_1 varchar2(10) default '미등록',
-cer_name_2 varchar2(10) default '미등록',
-constraint m_cer_name foreign key(cer_name_1) REFERENCES certificate(cer_name) on delete set null,
+cer_name_1 varchar2(30) default '미등록',
+cer_name_2 varchar2(30) default '미등록',
 constraint m_cer_name2 foreign key(cer_name_2) REFERENCES certificate(cer_name) on delete set null);
 // 인정되지 않는 자격증은 삭제되어 회원 정보에서도 삭제
 
-insert into member values ('이원재','dldnjswo','s','9101251010100',null,null);
-insert into member values ('문상혁','dong','s','8901251010100',null,null);
-insert into member values ('유노을','youno','s','9501251010100',null,null);
-
-// check로 해서, 자격증 정보를 입력해놓고 미등록 포함시긴다.
+insert into member values ('이원재','dldnjswo','dnjswo','9101251000000',null,null);
+insert into member values ('문상혁','dong','tkdgur','8905051010100',null,null);
+insert into member values ('유노을','youno','shdmf','9509181010100',null,null);
 
 
 2. counsel
@@ -30,19 +27,27 @@ attitude number(3) default 100,
 constraint m_cs_name foreign key(name) REFERENCES member(name) on delete cascade);
 // 회원 삭제 >> 상담 정보 삭제
 
-insert into counsel values ('이원재','Java',default,null,null,null,0,default);
-insert into counsel values ('이원재','Oracle',default,null,null,null,0,default);
-insert into counsel values ('유노을','Java',default,null,null,null,0,default);
+insert into counsel values ('이원재','화학',default,null,null,null,0,default);
+insert into counsel values ('문상혁','디자인',default,null,null,null,0,default);
+insert into counsel values ('유노을','정보통신',default,null,null,null,0,default);
 
 
 3. company
 create table company(
-c_name varchar2(10) not null,
+com_name varchar2(10) not null,
+name varchar2(10) unique,
+id_num varchar2(13) unique,
 department varchar2(10) not null,
-min_score number(3) not null);
+min_score number(3));
 
-insert into company values ('A회사','Java',70);
+insert into company values ('A회사','?','?',?,?);
 insert into company values ('B회사','Spring',60);
+
+insert into company values ('A회사',null,null,'건축',0);
+insert into company values ('B회사',null,null,'디자인',0);
+insert into company values ('C회사',null,null,'화학',0);
+insert into company values ('D회사',null,null,'정보통신',0);
+
 
 4. blocked
 create table blocked(
@@ -53,20 +58,26 @@ constraint m_b_name foreign key(b_name) REFERENCES member(name) on delete set nu
 
 5. certificate
 create table certificate(
-cer_name varchar2(30) primary key);
+cer_name varchar2(30) primary key,
+cer_type varchar2(10),
+cer_num number(30) not null unique);
+CREATE SEQUENCE cer_seq START WITH 1 INCREMENT BY 1;
 
-insert into certificate values ('정처기');
-insert into certificate values ('sqld');
-insert into certificate values ('TOEIC');
-insert into certificate values ('OPIC');
-insert into certificate values ('OPIC');
+insert into certificate values ('건축시공기술사','건축',cer_seq.nextval);
+insert into certificate values ('도배기능사','건축',cer_seq.nextval);
+insert into certificate values ('철근기능사','건축',cer_seq.nextval);
+insert into certificate values ('정보관리기술사','정보통신',cer_seq.nextval);
+insert into certificate values ('정보처리산업기사','정보통신',cer_seq.nextval);
+insert into certificate values ('정보처리기사','정보통신',cer_seq.nextval);
+insert into certificate values ('임상심리사1급','보건',cer_seq.nextval);
+insert into certificate values ('임상심리사2급','보건',cer_seq.nextval);
+insert into certificate values ('직업상담사1급','사회복지',cer_seq.nextval);
+insert into certificate values ('직업상담사2급','사회복지',cer_seq.nextval);
+insert into certificate values ('컬러리스트산업기사','디자인',cer_seq.nextval);
+insert into certificate values ('웹디자인기능사','디자인',cer_seq.nextval);
+insert into certificate values ('화약류제조기사','화학',cer_seq.nextval);
+insert into certificate values ('화공기사','화학',cer_seq.nextval);
+insert into certificate values ('화공기술사','화학',cer_seq.nextval);
 
-##. apply
-create table apply(
-name varchar2(10) foreign key,
-a_date timestamp default sysdate,
-accept varchar2(1) not null check (accept in('Y','N')),
-ac_date timestamp default sysdate,
-constraint m_a_name foreign key(name) member(name) on delete cascade);
 
 ## border >> 변수 여러개 >> 변수 하나로 >> 클래스로 분류
