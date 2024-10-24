@@ -213,14 +213,21 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 	private void allList() {
 		// 모든 회원의 정보 출력(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)
+		arrayMember = memberdao.allList();
+		arrayCounsel = counseldao.allList();
 		for (memberDTO mdto : arrayMember) {
-			for (counselDTO cdto : arrayCounsel) {
-				if (mdto.getName().equals(cdto.getName())) {
-					main_c_list.add(mdto.toString() + cdto.toString());
-				} else {
-					main_c_list.add(mdto.toString());
+			if(!arrayCounsel.isEmpty()) {
+				for (counselDTO cdto : arrayCounsel) {
+					if (mdto.getName().equals(cdto.getName())) {
+						main_c_list.add(mdto.toString() + cdto.toString());
+					} else {
+						main_c_list.add(mdto.toString());
+					}
+					break;
 				}
-				break;
+				
+			}else {
+				main_c_list.add(mdto.toString());
 			}
 		}
 	}
