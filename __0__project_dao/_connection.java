@@ -18,7 +18,7 @@ public class _connection {
 	protected _connection _dao = null;
 
 	public _connection() {
-//		init();
+		init();
 	}
 
 	// 드라이버 로드

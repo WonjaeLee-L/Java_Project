@@ -30,6 +30,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private ArrayList<memberDTO> arrayMember = null;
 	private ArrayList<counselDTO> arrayCounsel = null;
 	private ArrayList<certificateDTO> arrayCerti = null;
+	private ArrayList<certificateDTO> tempcerlist = new ArrayList<>();
 	public memberDAO memberdao = memberDAO.getInstance();
 	public counselDAO counseldao = counselDAO.getInstance();
 	public certificateDAO certificatedao = certificateDAO.getInstance();
@@ -112,9 +113,9 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 	private List main_e_b_list = new List();
 //	private String id;
 //	private String pwd;
-	private int index;
-	private String id_num;
-	private String id_num_star;
+//	private int index;
+//	private String id_num;
+//	private String id_num_star;
 	// main_east의 내부, 우측 아래
 
 //	private TitledBorder eastBorder2 = new TitledBorder("상담 이력");
@@ -267,18 +268,16 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		logInInfo();
-
 		counsellistin();
 		cerlistin();
 		repaint();
 
 	}
 
-	// 로그인 정보 불러오기
+	// 로그인 정보 불러오기(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 	private void logInInfo() {
 		main_c_1_t.setText(memberdto.getName());
 		arrayMember = memberdao.allList();
-//		main_c_2_t.setText(main_c_1_t.getText());
 		for (int i = 0; i < arrayMember.size(); i++) {
 			if (arrayMember.get(i).getName().equals(main_c_1_t.getText())) {
 				memberdto.setId(arrayMember.get(i).getId());
@@ -294,12 +293,12 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 				main_c_5_1.setText(memberdto.getCer_name_1());
 				main_c_5_2.setText(memberdto.getCer_name_2());
 				title.setText(main_c_1_t.getText() + "님 환영합니다.");
-				index = i;
+//				index = i;
 			}
 		}
 	}
 
-	// 리스트 목록 보기
+	// 리스트 목록 보기(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 	private void counsellistin() {
 		arrayCounsel = counseldao.allList();
 		for (counselDTO c : arrayCounsel) {
@@ -315,18 +314,19 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		}
 	}
 
-	// 자격증 정보 리스트 (선택)
+	// 자격증 정보 리스트(자격증 분류)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 	private void cerlistin() {
-		arrayCerti = certificatedao.allList();
+		arrayCerti = certificatedao.typeList();
+//		arrayCerti = certificatedao.typeList();
 		for (certificateDTO cer : arrayCerti) {
-			main_c_5_list.add(cer.getCer_name());
-			main_c_6_list.add(cer.getCer_name());
+			main_c_5_list.add(cer.getCer_type());
+//			main_c_6_list.add(cer.getCer_name());
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// 비밀번호 수정
+		// 비밀번호 수정(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_3_btn) {
 			String modpwd = main_c_3_text.getText();
 			String name = main_c_1_t.getText();
@@ -337,18 +337,19 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			} else {
 				memberdao.modPwd(name, modpwd);
 				new NotiFrame("비밀번호 변경 완료");
+				main_c_3_text.setText("");
 			}
 		}
 
-		// 종료 후 ,로그인 창 열기
+		// 종료 후 ,로그인 창 열기(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_7_btn) {
 			this.setVisible(false);
-			// 화면 안보일경우 종료
+			// 화면 안보일경우 종료(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 			SignInFrame sign = new SignInFrame();
 		}
 
-		// 자격증 정보 저장
+		// 자격증 정보 저장(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_5_select_btn) {
 			String select_1 = main_c_5_select_1.getText();
 			String select_2 = main_c_5_select_2.getText();
@@ -356,9 +357,12 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 			memberdao.updateCerti(name_1, select_1, 1);
 			memberdao.updateCerti(name_1, select_2, 2);
+//			this.revalidate();
+//			this.repaint();
 			new MemberFrame(memberdto);
 		}
 
+		// 주민등록번호 뒷자리(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_4_btn) {
 			if (main_c_4_t.getText().contains("*")) {
 				main_c_4_t.setText(memberdto.getId_num());
@@ -367,7 +371,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			}
 		}
 
-		// 신청 정보 저장
+		// 신청 정보 저장(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_e_t_b_btn) {
 //			arrayCounsel = counseldao.allList();
 //			String text_inter = main_e_t_b_t2.getText();
@@ -377,6 +381,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			counseldto.setAy_date(main_e_t_b_t1.getText());
 			counseldao.add(counseldto);
 			NotiFrame n = new NotiFrame("상담 신청이 완료되었습니다.");
+			new MemberFrame(memberdto);
 //			for (counselDTO coudto : arrayCounsel) {
 //				if (coudto.getName().equals(main_c_1_t.getText())) {
 //					coudto.setInterest(text_inter);
@@ -387,7 +392,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 		}
 
-		// 회원 탈퇴
+		// 회원 탈퇴(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_1_btn) {
 			// 로그인되어있는 사람만 탈퇴하므로
 			memberdao.del(memberdto);
@@ -411,12 +416,13 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		// 로그인 한 사람의 상담 리스트 클릭 이벤트 >> 상세 정보(미상담건과 분리해서 표기)
+		// 로그인 한 사람의 상담 리스트 클릭 이벤트 >> 상세 정보(미상담건과 분리해서 표기)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_e_b_list) {
 //			int selectNum = main_e_b_list.getSelectedIndex();
 			String name1 = main_e_b_list.getSelectedItem().substring(0, 2);
+			arrayCounsel = counseldao.allList();
 			for (counselDTO coundto : arrayCounsel) {
-				if (coundto.getName().equals(name1)) {
+				if (coundto.getName().substring(0, 2).equals(name1)) {
 					CouncelInfoFrame clistinfo = new CouncelInfoFrame(coundto);
 				}
 			}
@@ -424,18 +430,25 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 //			CouncelInfoFrame clistinfo = new CouncelInfoFrame(cudto);
 		}
 
-		// 자격증 리스트에서 누르면 첫번째 text에 출력
+		// 자격증 리스트에서 누르면 main_c_5_list 누르면 main_c_6_list에 하위 리스트 표시(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_5_list) {
-			int cerNum_1 = main_c_5_list.getSelectedIndex();
-			certificateDTO cerdto = arrayCerti.get(cerNum_1);
-			main_c_5_select_1.setText(cerdto.getCer_name());
-
+			main_c_6_list.clear();
+			String type = main_c_5_list.getSelectedItem();
+			main_c_5_select_1.setText(type);
+			arrayCerti = certificatedao.allList();
+			for (certificateDTO cerdto2 : arrayCerti) {
+				if (cerdto2.getCer_type().equals(type)) {
+					main_c_6_list.add(cerdto2.getCer_name());
+				}
+			}
 		}
-		// 자격증 리스트에서 누르면 두번째 text에 출력
+
+		// 자격증 리스트에서 누르면 두번째 text에 출력(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_6_list) {
-			int cerNum_1 = main_c_6_list.getSelectedIndex();
-			certificateDTO cerdto = arrayCerti.get(cerNum_1);
-			main_c_5_select_2.setText(cerdto.getCer_name());
+			String name = main_c_6_list.getSelectedItem();
+			main_c_5_select_2.setText(name);
+//			certificateDTO cerdto = tempcerlist.get(cerNum_1);
+//			main_c_5_select_2.setText(cerdto.getCer_name());
 
 		}
 

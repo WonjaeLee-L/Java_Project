@@ -145,9 +145,6 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		main_c_main.add(main_c_main_c, "Center");
 		main_c_main.add(main_c_main_s, "South");
 
-		// *****************************************************************************
-		// main_c_main에 리스트 크게 만들자
-
 		main_c_main_c.setBorder(type.mainborder("회원 정보"));
 		main_c_main_c.setLayout(new BorderLayout());
 		main_c_main_c.add(main_c_list, "Center");
@@ -210,7 +207,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		main_e_b.add(main_e_b_list, "Center");
 		main_e_b.add(main_e_b_list_btn, "South");
 
-		// ******************************************
+
 		// 이벤트 감지를 위한 이벤트 등록
 		main_c_list.addItemListener(this);
 		main_c_p_btn.addActionListener(this);

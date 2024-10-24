@@ -133,7 +133,6 @@ public class memberDAO extends _connection implements memberDAO_interface {
 			}
 		} catch (Exception e) {
 		} finally {
-			// 이거 추가해서 널포인터익셉션 생겼다
 //			result();
 
 			close();

@@ -8,5 +8,6 @@ public interface certificateDAO_interface {
 	void add();
 
 	ArrayList<certificateDTO> allList();
-
+	ArrayList<certificateDTO> list(String type);
+	ArrayList<certificateDTO> typeList();
 }
