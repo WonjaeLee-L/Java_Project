@@ -382,13 +382,7 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			counseldao.add(counseldto);
 			NotiFrame n = new NotiFrame("상담 신청이 완료되었습니다.");
 			new MemberFrame(memberdto);
-//			for (counselDTO coudto : arrayCounsel) {
-//				if (coudto.getName().equals(main_c_1_t.getText())) {
-//					coudto.setInterest(text_inter);
-//					coudto.setAy_date(text_date);
-//					counseldao.add(coudto);
-//				}
-//			}
+
 
 		}
 

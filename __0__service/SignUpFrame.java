@@ -133,35 +133,32 @@ public class SignUpFrame extends JFrame implements ActionListener {
 					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 					SignInFrame signin = new SignInFrame();
 				}
-
-				// 비밀번호 중복 확인
-				if (main_c_3_t1.getText().isEmpty() || main_c_3_t2.getText().isEmpty()) {
-					NotiFrame noti = new NotiFrame("비밀번호를 입력하세요");
-					main_c_3_t1.setBorder(type.warning("!"));
-
-				} else if (!main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
-					NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
-					main_c_3_t1.setBorder(type.warning("!"));
-					main_c_3_t2.setBorder(type.warning("!"));
-				} else if (main_c_4_t.getText().length() != 13) {
-					NotiFrame noti = new NotiFrame("주민번호를 입력하세요.");
-					main_c_4_t.setBorder(type.warning("!"));
-					main_c_3_t1.setBorder(new LineBorder(Color.white, 2));
-					main_c_3_t2.setBorder(new LineBorder(Color.white, 2));
-				} else if (main_c_3_t1.getText().equals(main_c_3_t2.getText())
-						&& !b.getId_num().equals(main_c_4_t.getText())) {
-
-					memberdto.setName(main_c_1_t.getText());
-					memberdto.setId(main_c_2_t.getText());
-					memberdto.setPassword(main_c_3_t1.getText());
-					memberdto.setId_num(main_c_4_t.getText());
-					memberdao.add(memberdto);
-					NotiFrame noti = new NotiFrame("회원가입 완료!");
-					this.setVisible(false);
-					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-					SignInFrame signin = new SignInFrame();
-				}
 			}
+			// 비밀번호 중복 확인
+			if (main_c_3_t1.getText().isEmpty() || main_c_3_t2.getText().isEmpty()) {
+				NotiFrame noti = new NotiFrame("비밀번호를 입력하세요");
+				main_c_3_t1.setBorder(type.warning("!"));
+			} else if (!main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
+				NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
+				main_c_3_t1.setBorder(type.warning("!"));
+				main_c_3_t2.setBorder(type.warning("!"));
+			} else if (main_c_4_t.getText().length() != 13) {
+				NotiFrame noti = new NotiFrame("주민번호를 입력하세요.");
+				main_c_4_t.setBorder(type.warning("!"));
+				main_c_3_t1.setBorder(new LineBorder(Color.white, 2));
+				main_c_3_t2.setBorder(new LineBorder(Color.white, 2));
+			} else if (main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
+				memberdto.setName(main_c_1_t.getText());
+				memberdto.setId(main_c_2_t.getText());
+				memberdto.setPassword(main_c_3_t1.getText());
+				memberdto.setId_num(main_c_4_t.getText());
+				memberdao.add(memberdto);
+				NotiFrame noti = new NotiFrame("회원가입 완료!");
+				this.setVisible(false);
+				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+				SignInFrame signin = new SignInFrame();
+			}
+
 		}
 
 	}

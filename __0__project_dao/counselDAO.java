@@ -48,12 +48,13 @@ public class counselDAO extends _connection implements counselDAO_interface {
 	@Override
 	public void mod(counselDTO counseldto) {
 		conn();
-		query = "update counsel set score = ?, attitude = ?, cs_date = default where name = ?";
+		query = "update counsel set recommend = ?, cs_date = default, score = ?, attitude = ?   where name = ?";
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, counseldto.getScore());
-			ps.setInt(2, counseldto.getAttitude());
-			ps.setString(3, counseldto.getName());
+			ps.setInt(2, counseldto.getScore());
+			ps.setInt(3, counseldto.getAttitude());
+			ps.setString(4, counseldto.getName());
+			ps.setString(1, counseldto.getRecommend());
 			result();
 		} catch (Exception e) {
 		} finally {

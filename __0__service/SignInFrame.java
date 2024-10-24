@@ -81,7 +81,6 @@ public class SignInFrame extends JFrame implements ActionListener {
 			memberdto.setPassword(password_t.getText());
 
 			if (id_t.getText().equals("super") && password_t.getText().equals("super")) {
-
 				this.setVisible(false);
 				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 				new ManageFrame_1(memberdto);
