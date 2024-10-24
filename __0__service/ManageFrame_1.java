@@ -302,6 +302,8 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 					blockeddao.add(memdto);
 					NotiFrame noti = new NotiFrame("영구 탈퇴");
 					// 바로 갱신
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 					new ManageFrame_1(memberdto);
 
 				}
@@ -316,8 +318,11 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 					c.setAttitude(Integer.parseInt(main_e_t_b_t2.getText()));
 					c.setRecommend(recommend);
 					counseldao.mod(c);
-					NotiFrame noti = new NotiFrame("점수 입력 완료");
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 					new ManageFrame_1(memberdto);
+					NotiFrame noti = new NotiFrame("점수 입력 완료");
+					
 				}
 			}
 

@@ -107,6 +107,7 @@ public class SignInFrame extends JFrame implements ActionListener {
 						memberdto = d;
 					}
 				}
+				
 				MemberFrame memframe = new MemberFrame(memberdto);
 			}
 			// 비밀번호 오류

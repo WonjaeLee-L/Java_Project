@@ -357,8 +357,9 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 			memberdao.updateCerti(name_1, select_1, 1);
 			memberdao.updateCerti(name_1, select_2, 2);
-//			this.revalidate();
-//			this.repaint();
+
+			this.setVisible(false);
+			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 			new MemberFrame(memberdto);
 		}
 
@@ -367,6 +368,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			if (main_c_4_t.getText().contains("*")) {
 				main_c_4_t.setText(memberdto.getId_num());
 			} else {
+				this.setVisible(false);
+				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 				new MemberFrame(memberdto);
 			}
 		}
@@ -381,6 +384,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			counseldto.setAy_date(main_e_t_b_t1.getText());
 			counseldao.add(counseldto);
 			NotiFrame n = new NotiFrame("상담 신청이 완료되었습니다.");
+			this.setVisible(false);
+			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 			new MemberFrame(memberdto);
 
 
