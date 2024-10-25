@@ -10,10 +10,6 @@ public class Main {
 
 		SignInFrame sf = new SignInFrame();
 
-
-//		 관리자 페이지
-//		>> 회원 탈퇴, 전체, 검색, 신청...
-
 	}
 
 }

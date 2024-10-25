@@ -7,8 +7,8 @@ import __0__project_dto.counselDTO;
 import __0__project_dto.memberDTO;
 
 public class companyDAO extends _connection implements companyDAO_interface {
-	
-	private static companyDAO companydao = null;
+
+	public static companyDAO companydao = null;
 
 	private companyDAO() {
 		init();

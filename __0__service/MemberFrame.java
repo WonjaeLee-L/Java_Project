@@ -26,6 +26,7 @@ import __0__project_dto.counselDTO;
 import __0__project_dto.memberDTO;
 
 public class MemberFrame extends JFrame implements ActionListener, ItemListener {
+
 	private border type = new border();
 	private ArrayList<memberDTO> arrayMember = null;
 	private ArrayList<counselDTO> arrayCounsel = null;
@@ -375,7 +376,6 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 			new MemberFrame(memberdto);
 
-
 		}
 
 		// 회원 탈퇴(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
@@ -402,7 +402,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		// 로그인 한 사람의 상담 리스트 클릭 이벤트 >> 상세 정보(미상담건과 분리해서 표기)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
+		// 로그인 한 사람의 상담 리스트 클릭 이벤트 >> 상세 정보(미상담건과 분리해서
+		// 표기)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_e_b_list) {
 //			int selectNum = main_e_b_list.getSelectedIndex();
 			String name1 = main_e_b_list.getSelectedItem().substring(0, 2);
@@ -416,7 +417,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 //			CouncelInfoFrame clistinfo = new CouncelInfoFrame(cudto);
 		}
 
-		// 자격증 리스트에서 누르면 main_c_5_list 누르면 main_c_6_list에 하위 리스트 표시(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
+		// 자격증 리스트에서 누르면 main_c_5_list 누르면 main_c_6_list에 하위 리스트
+		// 표시(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_5_list) {
 			main_c_6_list.clear();
 			String type = main_c_5_list.getSelectedItem();
@@ -429,7 +431,8 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			}
 		}
 
-		// 자격증 리스트에서 누르면 두번째 text에 출력(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
+		// 자격증 리스트에서 누르면 두번째 text에
+		// 출력(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_6_list) {
 			String name = main_c_6_list.getSelectedItem();
 			main_c_5_select_2.setText(name);

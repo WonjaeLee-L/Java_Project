@@ -7,8 +7,8 @@ import __0__project_dto.certificateDTO;
 
 public class certificateDAO extends _connection implements certificateDAO_interface {
 
-//	certificateDTO cerdto = new certificateDTO();
-	private static certificateDAO certificatedao = null;
+
+	public static certificateDAO certificatedao = null;
 
 	private certificateDAO() {
 		init();

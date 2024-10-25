@@ -40,7 +40,7 @@ public class SignInFrame extends JFrame implements ActionListener {
 	private JPasswordField password_t = new JPasswordField();
 	private JButton signup = type.buttontype("SIGNUP");
 	private JButton signin = type.buttontype("SIGNIN");
-	 
+
 	public SignInFrame() {
 
 		this.setBounds(400, 300, 500, 150);
@@ -107,7 +107,7 @@ public class SignInFrame extends JFrame implements ActionListener {
 						memberdto = d;
 					}
 				}
-				
+
 				MemberFrame memframe = new MemberFrame(memberdto);
 			}
 			// 비밀번호 오류

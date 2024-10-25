@@ -7,8 +7,10 @@ import __0__project_dto.memberDTO;
 
 public class memberDAO extends _connection implements memberDAO_interface {
 
-	private static memberDAO memberdao = null;
-
+	public static memberDAO memberdao = null;
+	// public static or private로 해야 의미 o
+	// 어차피 getInstance로 호출하여 memberdao를 반환받으므로 호출 되는 것.
+	
 	private memberDAO() {
 		init();
 	}

@@ -10,7 +10,6 @@ import javax.swing.border.Border;
 import __0__project_dto.counselDTO;
 
 public class CouncelInfoFrame extends JFrame {
-	//
 
 	border type = new border();
 	private JPanel mainPanel = new JPanel();

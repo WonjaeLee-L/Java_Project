@@ -31,6 +31,7 @@ import __0__project_dto.counselDTO;
 import __0__project_dto.memberDTO;
 
 public class ManageFrame_1 extends JFrame implements ActionListener, ItemListener {
+
 	private border type = new border();
 
 	private ArrayList<memberDTO> arrayMember = new ArrayList<>();
@@ -93,8 +94,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 	private JTextField main_e_t_b_t2 = new JTextField();
 	private JButton main_e_t_b_btn = type.buttontype("입력");
 	private List main_e_b_list = new List();
-	
-	
+
 	private JComboBox main_e_t_b_3 = new JComboBox();;
 	String csdate = null;
 	String push_company = null;
@@ -111,7 +111,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		title.setText("관리자님 환영합니다.");
 		title.setFont(titleFont);
 		mainF.add(title);
-		
+
 		// 테두리 설정
 		main_center.setBorder(new LineBorder(Color.white, 2));
 		main_east.setBorder(new LineBorder(Color.white, 2));
@@ -216,9 +216,9 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		// 모든 회원의 정보 출력(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)
 		arrayMember = memberdao.allList();
 		arrayCounsel = counseldao.allList();
-		
+
 		for (memberDTO mdto : arrayMember) {
-			if(!arrayCounsel.isEmpty()) {
+			if (!arrayCounsel.isEmpty()) {
 				for (counselDTO cdto : arrayCounsel) {
 					if (mdto.getName().equals(cdto.getName())) {
 						main_c_list.add(mdto.toString() + cdto.toString());
@@ -227,8 +227,8 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 					}
 					break;
 				}
-				
-			}else {
+
+			} else {
 				main_c_list.add(mdto.toString());
 			}
 		}
@@ -324,7 +324,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 					new ManageFrame_1(memberdto);
 					NotiFrame noti = new NotiFrame("점수 입력 완료");
-					
+
 				}
 			}
 

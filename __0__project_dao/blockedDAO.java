@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import __0__project_dto.blockedDTO;
 import __0__project_dto.memberDTO;
 
-public class blockedDAO extends _connection implements blockedDAO_interface{
-	private static blockedDAO blockeddao = null;
+public class blockedDAO extends _connection implements blockedDAO_interface {
+
+	public static blockedDAO blockeddao = null;
 
 	private blockedDAO() {
 		init();
@@ -21,21 +22,21 @@ public class blockedDAO extends _connection implements blockedDAO_interface{
 
 	@Override
 	public void add(memberDTO memberdto) {
-				conn();
-				// 입력 쿼리
-				query = "insert into blocked values (?,?)";
-				try {
-					ps = conn.prepareStatement(query);
-					ps.setString(1, memberdto.getName());
-					ps.setString(2, memberdto.getId_num());
-					result();
-				} catch (Exception e) {
-				} finally {
-					close();
-				}
-		
+		conn();
+		// 입력 쿼리
+		query = "insert into blocked values (?,?)";
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, memberdto.getName());
+			ps.setString(2, memberdto.getId_num());
+			result();
+		} catch (Exception e) {
+		} finally {
+			close();
+		}
+
 	}
-	
+
 	public ArrayList<blockedDTO> allList() {
 		conn();
 		query = "select * from blocked";

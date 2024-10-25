@@ -73,11 +73,10 @@ public class counselDTO {
 	public void setAttitude(int attitude) {
 		this.attitude = attitude;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "[관심 분야 :" + interest + "], [시험 점수 :" + score + "], [태도 점수" + attitude+ "]";
+		return "[관심 분야 :" + interest + "], [시험 점수 :" + score + "], [태도 점수" + attitude + "]";
 	}
 
 }
