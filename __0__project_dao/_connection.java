@@ -20,7 +20,6 @@ public class _connection {
 	public _connection() {
 		init();
 	}
-
 	// 드라이버 로드
 	public void init() {
 		try {
@@ -30,7 +29,6 @@ public class _connection {
 			e.printStackTrace();
 		}
 	}
-
 	// 연결
 	public void conn() {
 		try {
@@ -40,7 +38,6 @@ public class _connection {
 		} catch (Exception e) {
 		}
 	}
-
 	// 자원 반납
 	public void close() {
 		try {
@@ -56,7 +53,6 @@ public class _connection {
 		} catch (Exception e) {
 		}
 	}
-
 	// 확인
 	public void result() {
 		try {

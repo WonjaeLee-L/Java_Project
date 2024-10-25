@@ -6,7 +6,6 @@ import __0__project_dto.counselDTO;
 
 public class counselDAO extends _connection implements counselDAO_interface {
 
-//	counselDTO counseldto = new counselDTO();
 	private static counselDAO counseldao = null;
 
 	private counselDAO() {

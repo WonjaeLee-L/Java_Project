@@ -122,19 +122,6 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 
 	public MemberFrame(memberDTO memberdto) {
 		// 테두리 폰트, 색상 변경
-//		main_c_5_list = new JList(ccList);
-//		main_c_5_list.setVisibleRowCount(3);
-//		main_c_5_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		main_c_5_list.setFixedCellWidth(100);
-
-//		main_c_6_list = new JList(ccList);
-//		main_c_6_list.setVisibleRowCount(3);
-//		main_c_6_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		main_c_6_list.setFixedCellWidth(100);
-
-//		main_c_5_t.add(new JScrollPane(main_c_5_list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
-//		main_c_6_t.add(new JScrollPane(main_c_6_list, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-//				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
 
 		// centerBorder = new TitledBorder("개인 정보");
 //		centerBorder.setTitleFont(borderFont);

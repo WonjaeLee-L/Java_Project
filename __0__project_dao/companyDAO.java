@@ -6,7 +6,8 @@ import __0__project_dto.companyDTO;
 import __0__project_dto.counselDTO;
 import __0__project_dto.memberDTO;
 
-public class companyDAO extends _connection implements companyDAO_interface{
+public class companyDAO extends _connection implements companyDAO_interface {
+	
 	private static companyDAO companydao = null;
 
 	private companyDAO() {
@@ -36,8 +37,9 @@ public class companyDAO extends _connection implements companyDAO_interface{
 		} finally {
 			close();
 		}
-		
+
 	}
+
 	@Override
 	public ArrayList<companyDTO> allList() {
 		conn();
@@ -58,10 +60,9 @@ public class companyDAO extends _connection implements companyDAO_interface{
 		} catch (Exception e) {
 		} finally {
 
-
 			close();
 		}
 		return clist;
 	}
-	
+
 }
