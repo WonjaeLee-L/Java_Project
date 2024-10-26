@@ -33,12 +33,12 @@ public class CouncelInfoFrame extends JFrame {
 		ay_date.setText(counseldto.getAy_date());
 		ay_date.setBorder(type.counsellistinfo("신청 일자"));
 
-		if (counseldto.getCs_date() == null) {
-			memo.setBorder(type.warning("상담사 입력"));
-		} else if (counseldto.getCs_date() != null) {
-			memo.setText(counseldto.getMemo());
-			memo.setBorder(type.counsellistinfo("상담 내용"));
-		}
+//		if (counseldto.getCs_date() == null) {
+//			memo.setBorder(type.warning("상담사 입력"));
+//		} else if (counseldto.getCs_date() != null) {
+//			memo.setText(counseldto.getMemo());
+//			memo.setBorder(type.counsellistinfo("상담 내용"));
+//		}
 
 		if (counseldto.getCs_date() == null) {
 			recommend.setBorder(type.warning("상담사 입력"));
@@ -68,11 +68,11 @@ public class CouncelInfoFrame extends JFrame {
 			attitude.setBorder(type.counsellistinfo("태도 점수"));
 		}
 
-		mainPanel.setLayout(new GridLayout(8, 1));
+		mainPanel.setLayout(new GridLayout(7, 1));
 		mainPanel.add(name);
 		mainPanel.add(interest);
 		mainPanel.add(ay_date);
-		mainPanel.add(memo);
+//		mainPanel.add(memo);
 		mainPanel.add(recommend);
 		mainPanel.add(cs_date);
 		mainPanel.add(score);

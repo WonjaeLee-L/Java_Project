@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
@@ -48,8 +49,10 @@ public class SignUpFrame extends JFrame implements ActionListener {
 	private JTextField main_c_1_t = new JTextField();
 	private JTextField main_c_2_t = new JTextField();
 	private JPanel main_c_3_t = new JPanel();
-	private JTextField main_c_3_t1 = new JTextField();
-	private JTextField main_c_3_t2 = new JTextField();
+	private JPasswordField main_c_3_t1 = new JPasswordField();
+	private JPasswordField main_c_3_t2 = new JPasswordField();
+//	private JTextField main_c_3_t1 = new JTextField();
+//	private JTextField main_c_3_t2 = new JTextField();
 	private JTextField main_c_4_t = new JTextField();
 	private JPanel main_c_7 = new JPanel();
 	private JButton main_c_7_btn = type.buttontype("가입");
@@ -116,6 +119,8 @@ public class SignUpFrame extends JFrame implements ActionListener {
 		// 인터페이스를 구현할 메서드
 		if (e.getSource() == main_c_7_btn) {
 			arrayMember = memberdao.allList();
+			int a1 = 0;
+			int b1 = 0;
 			for (memberDTO d : arrayMember) {
 				if (d.getName().equals(main_c_1_t.getText())) {
 					NotiFrame noti = new NotiFrame("이름 중복! 자동으로 이름을 설정합니다.");
@@ -128,39 +133,61 @@ public class SignUpFrame extends JFrame implements ActionListener {
 			arrayBlock = blockeddao.allList();
 			for (blockedDTO b : arrayBlock) {
 				if (b.getId_num().equals(main_c_4_t.getText())) {
-					NotiFrame noti = new NotiFrame("차단된 사용자입니다.");
 					this.setVisible(false);
 					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 					SignInFrame signin = new SignInFrame();
+					NotiFrame noti = new NotiFrame("차단된 사용자입니다.");
+					a1=1;
 				}
 			}
-			// 비밀번호 중복 확인
-			if (main_c_3_t1.getText().isEmpty() || main_c_3_t2.getText().isEmpty()) {
-				NotiFrame noti = new NotiFrame("비밀번호를 입력하세요");
-				main_c_3_t1.setBorder(type.warning("!"));
-			} else if (!main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
-				NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
-				main_c_3_t1.setBorder(type.warning("!"));
-				main_c_3_t2.setBorder(type.warning("!"));
-			} else if (main_c_4_t.getText().length() != 13) {
-				NotiFrame noti = new NotiFrame("주민번호를 입력하세요.");
-				main_c_4_t.setBorder(type.warning("!"));
-				main_c_3_t1.setBorder(new LineBorder(Color.white, 2));
-				main_c_3_t2.setBorder(new LineBorder(Color.white, 2));
-			} else if (main_c_3_t1.getText().equals(main_c_3_t2.getText())) {
-				memberdto.setName(main_c_1_t.getText());
-				memberdto.setId(main_c_2_t.getText());
-				memberdto.setPassword(main_c_3_t1.getText());
-				memberdto.setId_num(main_c_4_t.getText());
-				memberdao.add(memberdto);
-				NotiFrame noti = new NotiFrame("회원가입 완료!");
-				this.setVisible(false);
-				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-				SignInFrame signin = new SignInFrame();
-			}
 
+			for (memberDTO d : arrayMember) {
+				if (d.getId_num().equals(main_c_4_t.getText())) {
+					NotiFrame noti = new NotiFrame("주민등록번호 중복");
+					main_c_4_t.setBorder(type.warning("!"));
+					b1=1;
+				}
+			}
+			char[] pwdchar1 = main_c_3_t1.getPassword();
+			char[] pwdchar2 = main_c_3_t2.getPassword();
+			String temppwd1 = new String(pwdchar1);
+			String temppwd2 = new String(pwdchar2);
+			
+			if(a1!=1 && b1!=1) {
+				if (main_c_3_t1.getPassword().equals(null) || main_c_3_t2.getPassword().equals(null)) {
+					NotiFrame noti = new NotiFrame("비밀번호를 입력하세요");
+					main_c_3_t1.setBorder(type.warning("!"));
+				} else if (!temppwd1.equals(temppwd2)) {
+					NotiFrame noti = new NotiFrame("비밀번호를 동일하게 입력하세요.");
+					main_c_3_t1.setBorder(type.warning("!"));
+					main_c_3_t2.setBorder(type.warning("!"));
+					System.out.println(main_c_3_t1.getPassword());
+					System.out.println(main_c_3_t2.getPassword());
+					System.out.println(temppwd1);
+					System.out.println(temppwd2);
+				} else if (main_c_4_t.getText().length() != 13) {
+					NotiFrame noti = new NotiFrame("주민번호를 입력하세요.");
+					main_c_4_t.setBorder(type.warning("!"));
+					main_c_3_t1.setBorder(new LineBorder(Color.white, 2));
+					main_c_3_t2.setBorder(new LineBorder(Color.white, 2));
+				} else if (temppwd1.equals(temppwd2)) {
+//					char[] pwdchar = main_c_3_t2.getPassword();
+//					String temppwd = new String(pwdchar);
+					memberdto.setName(main_c_1_t.getText());
+					memberdto.setId(main_c_2_t.getText());
+					memberdto.setPassword(temppwd1);
+					memberdto.setId_num(main_c_4_t.getText());
+					memberdao.add(memberdto);
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					SignInFrame signin = new SignInFrame();
+					NotiFrame noti = new NotiFrame("회원가입 완료!");
+				}
+				
+			}
+			
 		}
+		
 
 	}
-
 }

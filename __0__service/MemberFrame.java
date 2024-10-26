@@ -371,10 +371,10 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 			counseldto.setInterest(main_e_t_b_t2.getText());
 			counseldto.setAy_date(main_e_t_b_t1.getText());
 			counseldao.add(counseldto);
-			NotiFrame n = new NotiFrame("상담 신청이 완료되었습니다.");
 			this.setVisible(false);
 			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 			new MemberFrame(memberdto);
+			NotiFrame n = new NotiFrame("상담 신청이 완료되었습니다.");
 
 		}
 

@@ -24,7 +24,7 @@ public class _connection {
 	public void init() {
 		try {
 			Class.forName(driverName);
-//			System.out.println("드라이버 로드 성공");
+			System.out.println("드라이버 로드 성공");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

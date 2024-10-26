@@ -77,44 +77,50 @@ public class SignInFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// 로그인 버튼sss
 		if (e.getSource() == signin) {
-			memberdto.setId(id_t.getText());
-			memberdto.setPassword(password_t.getText());
+			String tempid = id_t.getText();
+			char[] pwdchar = password_t.getPassword();
+			String temppwd = new String(pwdchar);
 
-			if (id_t.getText().equals("super") && password_t.getText().equals("super")) {
+			if (id_t.getText().equals("super") && temppwd.equals("super")) {
+				memberdto.setId(id_t.getText());
+				memberdto.setPassword(temppwd);
 				this.setVisible(false);
 				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 				new ManageFrame_1(memberdto);
-			} else if (id_t.getText().equals("super")) {
+			} else if (tempid.equals("super")) {
 				NotiFrame noti = new NotiFrame("가입할 수 없는 아이디입니다.");
 				id_t.setBorder(type.warning(""));
-			} else if (id_t.getText().isEmpty()) {
+			} else if (tempid.isEmpty()) {
 				NotiFrame noti = new NotiFrame("아이디를 입력하세요");
 				id_t.setBorder(type.warning("!"));
 				// 입력한 아이디가 없는 경우
-			} else if (findID(id_t.getText()) == -1 && !id_t.getText().equals("super")) {
+			} else if (findID(tempid) == -1 && !tempid.equals("super")) {
 				memberdto.setId(id_t.getText());
+
 				SignUpFrame sign = new SignUpFrame(memberdto);
-				// , memberInterface
+
 				NotiFrame noti = new NotiFrame("등록되지 않은 아이디입니다. 입력한 아이디로 회원가입을 진행합니다.");
 				this.setVisible(false);
 				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 				// 로그인 성공
-			} else if (findID(id_t.getText()) == findPwd(password_t.getText())) {
-				this.setVisible(false);
-				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+			} else if (checkPassword(tempid, temppwd)) {
+				// 로그인 성공
+				memberdto.setId(tempid);
 				for (memberDTO d : arrayMember) {
 					if (memberdto.getId().equals(d.getId())) {
 						memberdto = d;
+
 					}
 				}
-
+				this.setVisible(false);
+				this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 				MemberFrame memframe = new MemberFrame(memberdto);
-			}
-			// 비밀번호 오류
-			else if (findID(id.getText()) != findPwd(password_t.getText())) {
+
+			} else {
 				NotiFrame noti = new NotiFrame("비밀번호가 틀렸습니다");
 				password_t.setBorder(type.warning("!"));
 			}
+
 		}
 
 		// 가입 버튼
@@ -132,15 +138,6 @@ public class SignInFrame extends JFrame implements ActionListener {
 		arrayMember = memberdao.allList();
 	}
 
-	private int findPwd(String a) {
-		for (int i = 0; i < arrayMember.size(); i++) {
-			if (arrayMember.get(i).getPassword().equals(a)) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
 	public int findID(String a) {
 		for (int i = 0; i < arrayMember.size(); i++) {
 			if (arrayMember.get(i).getId().equals(a)) {
@@ -148,6 +145,15 @@ public class SignInFrame extends JFrame implements ActionListener {
 			}
 		}
 		return -1;
+	}
+
+	private boolean checkPassword(String id, String password) {
+		for (memberDTO member : arrayMember) {
+			if (member.getId().equals(id) && member.getPassword().equals(password)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public int findName(String a) {

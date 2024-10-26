@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import __0__project_dto.memberDTO;
 
 public interface memberDAO_interface {
-
+	memberDTO memdto = new memberDTO();
 	void add(memberDTO mdto);
 
 	void del(memberDTO mdto);

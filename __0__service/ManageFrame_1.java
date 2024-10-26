@@ -269,20 +269,28 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		// 신청 버튼을 누르면 회사(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)
 		if (e.getSource() == main_c_5_select_btn) {
 			String finalname = main_c_5_select_1.getText();
+			int checkNum = 0;
 			arrayMember = memberdao.allList();
 			arrayCounsel = counseldao.allList();
-			for (memberDTO d : arrayMember) {
-				if (d.getName().equals(finalname)) {
-					for (counselDTO c : arrayCounsel) {
-						if (c.getName().equals(finalname)) {
-							c.setRecommend(push_company);
-							companydao.mod(c, d);
-							NotiFrame noti = new NotiFrame(push_company + "분야 회사에 추천하였습니다.");
-							main_c_5_1.setText(d.getName());
-							main_c_5_2.setText(push_company + "분야");
-
+			try {
+				for (memberDTO d : arrayMember) {
+					if (d.getName().equals(finalname)) {
+						for (counselDTO c : arrayCounsel) {
+							if (c.getName().equals(finalname)) {
+								c.setRecommend(push_company);
+								companydao.mod(c, d);
+								NotiFrame noti = new NotiFrame(push_company + "분야 회사에 추천하였습니다.");
+								main_c_5_1.setText(d.getName());
+								main_c_5_2.setText(push_company + "분야");
+							}
 						}
 					}
+				}
+
+			} catch (Exception e2) {
+			} finally {
+				if (push_company == null) {
+					NotiFrame noti = new NotiFrame("추천할 회사가 없습니다.");
 				}
 			}
 
@@ -302,11 +310,11 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 				if (memdto.getName().equals(main_c_5_select_1.getText())) {
 					memberdao.del(memdto);
 					blockeddao.add(memdto);
-					NotiFrame noti = new NotiFrame("영구 탈퇴");
 					// 바로 갱신
 					this.setVisible(false);
 					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
 					new ManageFrame_1(memberdto);
+					NotiFrame noti = new NotiFrame("탈퇴 처리, 블랙리스트에 추가");
 
 				}
 			}
@@ -382,11 +390,16 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		if (e.getSource() == main_c_5_list) {
 			main_c_6_list.clear();
 			String comname = main_c_5_list.getSelectedItem();
-			for (companyDTO comdto : arrayCompany) {
-				if (comdto.getCom_name().equals(comname)) {
-					main_c_6_list.add(
-							comdto.getName() + "/" + comdto.getId_num().substring(0, 8) + "/" + comdto.getMin_score());
+			try {
+				for (companyDTO comdto : arrayCompany) {
+					if (comdto.getCom_name().equals(comname)) {
+						main_c_6_list.add(comdto.getName() + "/" + comdto.getId_num().substring(0, 8) + "/"
+								+ comdto.getMin_score());
+					}
 				}
+
+			} catch (Exception e2) {
+				// TODO: handle exception
 			}
 		}
 	}
