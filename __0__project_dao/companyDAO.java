@@ -32,9 +32,10 @@ public class companyDAO extends _connection implements companyDAO_interface {
 			ps.setString(2, mdto.getId_num());
 			ps.setInt(3, cdto.getScore());
 			ps.setString(4, cdto.getRecommend());
-			result();
+			rs = ps.executeQuery();
 		} catch (Exception e) {
 		} finally {
+			result();
 			close();
 		}
 

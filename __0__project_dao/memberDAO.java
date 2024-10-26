@@ -49,6 +49,7 @@ public class memberDAO extends _connection implements memberDAO_interface {
 		query = "delete from member where id = ?";
 		try {
 			ps = conn.prepareStatement(query);
+//			rs = ps.executeQuery();
 			ps.setString(1, mdto.getId());
 			result();
 		} catch (Exception e) {
@@ -131,10 +132,10 @@ public class memberDAO extends _connection implements memberDAO_interface {
 				mtemp.setCer_name_1(rs.getString("cer_name_1"));
 				mtemp.setCer_name_2(rs.getString("cer_name_2"));
 				mlist.add(mtemp);
-//				result();
 			}
 		} catch (Exception e) {
 		} finally {
+			result();
 			close();
 		}
 		return mlist;

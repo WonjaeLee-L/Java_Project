@@ -10,10 +10,14 @@ constraint m_cer_name2 foreign key(cer_name_2) REFERENCES certificate(cer_name) 
 // 인정되지 않는 자격증은 삭제되어 회원 정보에서도 삭제
 
 insert into member values ('이원재','dldnjswo','dnjswo','9101251000000',null,null);
-insert into member values ('문상혁','dong','tkdgur','8905051010100',null,null);
+insert into member values ('문상혁','dong','tkdgur','8905051010101',null,null);
 insert into member values ('유노을','youno','shdmf','9509181010100',null,null);
-
-
+insert into member values ('허아름','hu_arm','dkfma','9411172010100',null,null);
+insert into member values ('홍나래','nrae99','skfo','9909182010100',null,null);
+insert into member values ('송재범','tigersong','woqja','9509181010100',null,null);
+insert into member values ('전유리','youri','dbfl','9591820101010',null,null);
+insert into member values ('유나영','nayoung','skdud','8904042010100',null,null);
+insert into member values ('이원재','dongdong','1','0000000000000',null,null);
 2. counsel
 create table counsel(
 name varchar2(10),
@@ -27,9 +31,9 @@ attitude number(3) default 100,
 constraint m_cs_name foreign key(name) REFERENCES member(name) on delete cascade);
 // 회원 삭제 >> 상담 정보 삭제
 
-insert into counsel values ('이원재','화학',default,null,null,null,0,default);
-insert into counsel values ('문상혁','디자인',default,null,null,null,0,default);
-insert into counsel values ('유노을','정보통신',default,null,null,null,0,default);
+//insert into counsel values ('이원재','화학',default,null,null,null,0,default);
+//insert into counsel values ('문상혁','디자인',default,null,null,null,0,default);
+//insert into counsel values ('유노을','정보통신',default,null,null,null,0,default);
 
 
 3. company
@@ -40,14 +44,13 @@ id_num varchar2(13) unique,
 department varchar2(10) not null,
 min_score number(3));
 
-insert into company values ('A회사','?','?',?,?);
-insert into company values ('B회사','Spring',60);
 
-insert into company values ('A회사',null,null,'건축',0);
-insert into company values ('B회사',null,null,'디자인',0);
-insert into company values ('C회사',null,null,'화학',0);
-insert into company values ('D회사',null,null,'정보통신',0);
 
+insert into company values ('건축회사',null,null,'건축',0);
+insert into company values ('디자인회사',null,null,'디자인',0);
+insert into company values ('화학회사',null,null,'화학',0);
+insert into company values ('통신회사',null,null,'정보통신',0);
+insert into company values ('보건회사',null,null,'보건',0);
 
 4. blocked
 create table blocked(

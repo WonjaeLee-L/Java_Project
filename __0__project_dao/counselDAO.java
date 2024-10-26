@@ -6,7 +6,7 @@ import __0__project_dto.counselDTO;
 
 public class counselDAO extends _connection implements counselDAO_interface {
 
-	private static counselDAO counseldao = null;
+	public static counselDAO counseldao = null;
 
 	private counselDAO() {
 		init();
@@ -30,9 +30,9 @@ public class counselDAO extends _connection implements counselDAO_interface {
 			ps.setString(1, coudto.getName());
 			ps.setString(2, coudto.getInterest());
 
-			result();
 		} catch (Exception e) {
 		} finally {
+			result();
 			close();
 		}
 
@@ -54,9 +54,9 @@ public class counselDAO extends _connection implements counselDAO_interface {
 			ps.setInt(3, counseldto.getAttitude());
 			ps.setString(4, counseldto.getName());
 			ps.setString(1, counseldto.getRecommend());
-			result();
 		} catch (Exception e) {
 		} finally {
+			result();
 			close();
 		}
 
@@ -91,6 +91,7 @@ public class counselDAO extends _connection implements counselDAO_interface {
 			}
 		} catch (Exception e) {
 		} finally {
+			result();
 			close();
 		}
 		return culist;

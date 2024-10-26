@@ -212,27 +212,86 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
+//	private void allList() {
+//		// 모든 회원의 정보 출력(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)
+//		arrayMember = memberdao.allList();
+//		arrayCounsel = counseldao.allList();
+
+//		for (memberDTO mdto : arrayMember) {
+//			if(xx(mdto)!= null) {
+//				main_c_list.add(xx(mdto).toString()+mdto.getName());
+//			}
+//			main_c_list.add(xx(mdto).toString());
+//			xx(mdto).toString()
+//			if (!arrayCounsel.isEmpty()) {
+//				for (counselDTO cdto : arrayCounsel) {
+//					String recom = cdto.getRecommend();
+//					if(recom!=null) {
+//						if(mdto.getName().equals(cdto.getName())) {
+//							main_c_list.add(mdto.toString()+mdto.toString2()+cdto.toString()+cdto.toString2()+"1");
+//						}else {
+//							main_c_list.add(mdto.toString()+"2");
+//						}
+//						
+//					}else if(mdto.getName().equals(cdto.getName())) {
+//						main_c_list.add(mdto.toString() + cdto.toString()+"3");
+//					}else {
+//						main_c_list.add(mdto.toString()+"4");
+//					}
+////					if ((mdto.getName().equals(cdto.getName())) && (cdto.getRecommend()==null)) {
+////						main_c_list.add(mdto.toString() + cdto.toString());
+////					} else if (mdto.getName().equals(cdto.getName())){
+////						main_c_list.add(mdto.toString()+mdto.toString2()+cdto.toString()+cdto.toString2());
+////					} else {
+////						main_c_list.add(mdto.toString());
+////					}
+//					break;
+//				}
+//
+//			} else {
+//				main_c_list.add(mdto.toString());
+//			}
+//		for(counselDTO cdto : arrayCounsel) {
+//			
+//		}
+//		}
+//	}
+
 	private void allList() {
-		// 모든 회원의 정보 출력(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)
+
 		arrayMember = memberdao.allList();
 		arrayCounsel = counseldao.allList();
+		main_c_list.clear();
 
 		for (memberDTO mdto : arrayMember) {
-			if (!arrayCounsel.isEmpty()) {
-				for (counselDTO cdto : arrayCounsel) {
-					if (mdto.getName().equals(cdto.getName())) {
-						main_c_list.add(mdto.toString() + cdto.toString());
-					} else {
-						main_c_list.add(mdto.toString());
-					}
-					break;
-				}
 
+			counselDTO cdto = findCounselByName(mdto.getName());
+
+			if (cdto != null) {
+				main_c_list.add(mdto.toString() + mdto.toString2() + cdto.toString() + cdto.toString2());
 			} else {
 				main_c_list.add(mdto.toString());
 			}
 		}
 	}
+
+	public counselDTO findCounselByName(String memberName) {
+		for (counselDTO cdto : arrayCounsel) {
+			if (memberName.equals(cdto.getName())) {
+				return cdto;
+			}
+		}
+		return null;
+	}
+
+//	public counselDTO xx(memberDTO memdto) {
+//		for(counselDTO cdto : arrayCounsel) {
+//			if(memdto.getName().equals(cdto.getName())) {
+//				return cdto;
+//			}
+//		}
+//		return null;
+//	}
 
 	// 관심 분야 리스트(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)
 	private void interestin() {
@@ -272,27 +331,65 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 			int checkNum = 0;
 			arrayMember = memberdao.allList();
 			arrayCounsel = counseldao.allList();
+			memberDTO mdto1 = new memberDTO();
+			counselDTO cdto1 = new counselDTO();
+
+			for (memberDTO mdto : arrayMember) {
+				if (mdto.getName().equals(finalname)) {
+					mdto1 = mdto;
+				}
+			}
+
+			for (counselDTO c : arrayCounsel) {
+				if (c.getName().equals(finalname)) {
+					cdto1 = c;
+				}
+			}
 			try {
-				for (memberDTO d : arrayMember) {
-					if (d.getName().equals(finalname)) {
-						for (counselDTO c : arrayCounsel) {
-							if (c.getName().equals(finalname)) {
-								c.setRecommend(push_company);
-								companydao.mod(c, d);
-								NotiFrame noti = new NotiFrame(push_company + "분야 회사에 추천하였습니다.");
-								main_c_5_1.setText(d.getName());
-								main_c_5_2.setText(push_company + "분야");
-							}
-						}
-					}
+				if (push_company != null) {
+//					cdto1.setRecommend(push_company);
+					companydao.mod(cdto1, mdto1);
+					main_c_5_1.setText(mdto1.getName());
+					main_c_5_2.setText(push_company);
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					new ManageFrame_1(memberdto);
+					NotiFrame noti = new NotiFrame(push_company + "분야 회사에 추천하였습니다.");
+				} else {
+					NotiFrame noti = new NotiFrame("추천할 회사가 없습니다.");
 				}
 
 			} catch (Exception e2) {
-			} finally {
-				if (push_company == null) {
-					NotiFrame noti = new NotiFrame("추천할 회사가 없습니다.");
-				}
+				// TODO: handle exception
 			}
+
+//			try {
+//				for (memberDTO d : arrayMember) {
+//					if (d.getName().equals(finalname)) {
+//						for (counselDTO c : arrayCounsel) {
+//							if(push_company != null) {
+//								if (c.getName().equals(finalname)) {
+//									c.setRecommend(push_company);
+//									companydao.mod(c, d);
+//									main_c_5_1.setText(d.getName());
+//									main_c_5_2.setText(push_company);
+////								this.setVisible(false);
+////								this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+//									new ManageFrame_1(memberdto);
+//									NotiFrame noti = new NotiFrame(push_company + "분야 회사에 추천하였습니다.");
+//								
+//							}
+//							}else  {
+//								NotiFrame noti = new NotiFrame("추천할 회사가 없습니다.");
+//							}
+//						}
+//					}
+//				}
+//
+//			} catch (Exception e2) {
+//			} finally {
+//				
+//			}
 
 		}
 
@@ -306,6 +403,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 
 		// 회원 탈퇴(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)
 		if (e.getSource() == main_c_p_btn) {
+			arrayMember = memberdao.allList();
 			for (memberDTO memdto : arrayMember) {
 				if (memdto.getName().equals(main_c_5_select_1.getText())) {
 					memberdao.del(memdto);
@@ -348,13 +446,13 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 			int selectNum = main_c_list.getSelectedIndex();
 			arrayMember = memberdao.allList();
 			memberDTO mdto = arrayMember.get(selectNum);
-
+			push_company = null;
 			String name = mdto.getName();
 			String cer_type = mdto.getCer_name_1();
 			String interest = null;
 			String recommend = null;
 			main_c_5_select_1.setText(name);
-
+			main_c_5_select_2.setText("");
 			arrayCounsel = counseldao.allList();
 			for (counselDTO c : arrayCounsel) {
 				if (c.getName().equals(name)) {
@@ -388,6 +486,7 @@ public class ManageFrame_1 extends JFrame implements ActionListener, ItemListene
 		// 회사 이름 누르면 추천 한 사람 정보 표시
 		// (0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)(0)
 		if (e.getSource() == main_c_5_list) {
+			arrayCompany = companydao.allList();
 			main_c_6_list.clear();
 			String comname = main_c_5_list.getSelectedItem();
 			try {

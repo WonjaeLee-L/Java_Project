@@ -76,7 +76,11 @@ public class counselDTO {
 
 	@Override
 	public String toString() {
-		return "[관심 분야 :" + interest + "], [시험 점수 :" + score + "], [태도 점수" + attitude + "]";
+		return "[관심 분야 :" + interest + "]";
+	}
+	
+	public String toString2() {
+		return "[시험 점수 :" + score + "], [태도 점수" + attitude + "]";
 	}
 
 }

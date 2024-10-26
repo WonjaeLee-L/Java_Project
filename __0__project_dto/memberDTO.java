@@ -58,8 +58,11 @@ public class memberDTO {
 
 	@Override
 	public String toString() {
-		return "[이름 :" + name + "], [아이디 :" + id + "], [주민등록번호 :" + id_num.substring(0, 8).concat("*") + "], [자격증 :"
-				+ cer_name_1 + ",] [자격증 :" + cer_name_2 + "]";
+		return "[이름 :" + name + "], [아이디 :" + id + "], [주민등록번호 :" + id_num.substring(0, 8).concat("*") + "]";
+	}
+
+	public String toString2() {
+		return "[자격증 :"+ cer_name_1 + ",] [자격증 :" + cer_name_2 + "]";
 	}
 
 }

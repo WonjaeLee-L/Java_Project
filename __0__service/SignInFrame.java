@@ -92,7 +92,7 @@ public class SignInFrame extends JFrame implements ActionListener {
 				id_t.setBorder(type.warning(""));
 			} else if (tempid.isEmpty()) {
 				NotiFrame noti = new NotiFrame("아이디를 입력하세요");
-				id_t.setBorder(type.warning("!"));
+				id_t.setBorder(type.warning(""));
 				// 입력한 아이디가 없는 경우
 			} else if (findID(tempid) == -1 && !tempid.equals("super")) {
 				memberdto.setId(id_t.getText());
@@ -118,7 +118,7 @@ public class SignInFrame extends JFrame implements ActionListener {
 
 			} else {
 				NotiFrame noti = new NotiFrame("비밀번호가 틀렸습니다");
-				password_t.setBorder(type.warning("!"));
+				password_t.setBorder(type.warning(""));
 			}
 
 		}

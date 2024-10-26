@@ -118,6 +118,9 @@ public class SignUpFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// 인터페이스를 구현할 메서드
 		if (e.getSource() == main_c_7_btn) {
+			main_c_3_t1.setBorder(type.mainborder(""));
+			main_c_3_t2.setBorder(type.mainborder(""));
+			main_c_4_t.setBorder(type.mainborder(""));
 			arrayMember = memberdao.allList();
 			int a1 = 0;
 			int b1 = 0;
@@ -144,7 +147,7 @@ public class SignUpFrame extends JFrame implements ActionListener {
 			for (memberDTO d : arrayMember) {
 				if (d.getId_num().equals(main_c_4_t.getText())) {
 					NotiFrame noti = new NotiFrame("주민등록번호 중복");
-					main_c_4_t.setBorder(type.warning("!"));
+					main_c_4_t.setBorder(type.warning(""));
 					b1=1;
 				}
 			}

@@ -381,10 +381,16 @@ public class MemberFrame extends JFrame implements ActionListener, ItemListener 
 		// 회원 탈퇴(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)(O)
 		if (e.getSource() == main_c_1_btn) {
 			// 로그인되어있는 사람만 탈퇴하므로
-			memberdao.del(memberdto);
-			this.setVisible(false);
-			this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-			SignInFrame sign = new SignInFrame();
+			arrayMember = memberdao.allList();
+			for (memberDTO memdto : arrayMember) {
+				if (memdto.getId().equals(main_c_2_t.getText())) {
+					memberdao.del(memdto);
+					this.setVisible(false);
+					this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+					SignInFrame sign = new SignInFrame();
+					NotiFrame n = new NotiFrame("탈퇴 완료");
+				}
+			}
 
 //			arrayMember = memberdao.allList();
 //			for(memberDTO memdto : arrayMember) {

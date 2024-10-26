@@ -59,10 +59,10 @@ public class _connection {
 			int result = ps.executeUpdate();
 			if (result > 0) {
 				conn.commit();
-//				System.out.println("입력 성공");
+				System.out.println("입력 성공");
 			} else {
 				conn.rollback();
-//				System.out.println("입력 실패");
+				System.out.println("입력 실패");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
